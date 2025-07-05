@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书图片1</title>
+</head>
+<body>
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书图片</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 基础样式库 - 自动包含 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* 模拟小红书背景 */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: #FFF7F2; /* 温暖底色 */
+            font-family: 'Noto Sans SC', sans-serif;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .content-module {
+            box-sizing: border-box;
+            height: 100%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 1. 封面页面 (page_1) */
+        .cover-module {
+            align-items: center;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .main-title {
+            font-size: 44px;
+            font-weight: 900;
+            color: #ff6b6b; /* 主色调 */
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            font-weight: 700;
+            color: #feca57;
+            margin-top: 15px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 20px;
+            border-radius: 20px;
+        }
+
+        .highlight-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        
+        /* 封面页痛点列表的特殊样式 - 严格来说是对 highlight-box 内 p 元素的样式，符合规范 */
+        .cover-module .highlight-box p {
+            background-color: #FFFFFF;
+            border: 2px solid #FFA07A;
+            color: #E55B3C;
+            padding: 12px 5px;
+            margin: 0;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(255, 160, 122, 0.2);
+        }
+        
+        /* 使用伪元素绘制痛点列表的对勾图标 */
+        .cover-module .highlight-box p::after {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 14px;
+            border-style: solid;
+            border-color: #1dd1a1;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg) translateY(-2px);
+            margin-left: 8px;
+        }
+        
+        /* 4. 通用组件: warm-tip repurposed for illustration */
+        .warm-tip {
+            /* Bowl */
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 75px;
+            background-color: #FFDAB9; /* 辅食碗颜色 */
+            border: 4px solid #FFA07A; /* 碗边 */
+            border-radius: 0 0 80px 80px;
+            box-sizing: border-box;
+        }
+
+        /* Spoon Handle using ::before */
+        .warm-tip::before {
+            content: '';
+            position: absolute;
+            width: 90px;
+            height: 18px;
+            background-color: #FFA07A;
+            border-radius: 10px;
+            top: -55px;
+            right: -60px;
+            transform: rotate(-35deg);
+            border: 3px solid #FFF7F2;
+            box-shadow: 0 0 0 2px #FFA07A;
+        }
+
+        /* Spoon Head using ::after */
+        .warm-tip::after {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 45px;
+            background-color: #FFA07A;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: -85px;
+            right: -80px;
+            transform: rotate(-35deg);
+             border: 3px solid #FFF7F2;
+            box-shadow: 0 0 0 2px #FFA07A;
+        }
+        
+        /* 占位符样式，实际设计中不需要 */
+        .content-module.green-theme, .summary-module, .method-card, .step-list, .cta-box, .icon-circle { display: none; }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="cover-module content-module">
+            
+            <h1 class="main-title">保姆级！<br>宝宝辅食添加全攻略</h1>
+            
+            <p class="subtitle">4步通关，告别焦虑</p>
+
+            <div class="highlight-box">
+                <p>啥时加？</p>
+                <p>吃什么？</p>
+                <p>怎么做？</p>
+                <p>出问题咋办？</p>
+            </div>
+            
+            <!-- 使用 warm-tip 类来创建辅食碗和勺子的插画 -->
+            <div class="warm-tip"></div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>
+```
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>宝爸Conn - 宝宝发烧SOP</title>
+    <style>
+        /* CSS变量系统 - 宝爸Conn设计系统 */
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFF7F7;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+        }
+
+        /* 基础与重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9e9e9;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        /* 页面和模块结构 */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-warn-bg); /* 使用警告背景色，符合橙色系主题 */
+            border-left: 8px solid var(--color-primary); /* 严格遵守左侧粉色边框规范 */
+            padding: 25px;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        /* 封面特定样式 */
+        .cover-title {
+            font-size: 44px; /* 遵循页面具体要求的44px巨大标题 */
+            font-weight: 900;
+            color: var(--color-warn); /* 使用警告橙色，匹配页面主题 */
+            line-height: 1.25;
+            text-align: center;
+            margin-bottom: 18px;
+            z-index: 10;
+        }
+
+        .cover-subtitle {
+            font-size: 14px;
+            color: var(--color-text-light);
+            text-align: center;
+            line-height: var(--line-height-base);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .cover-highlight-box {
+            background-color: var(--color-text-white);
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255, 169, 88, 0.15);
+            border: 1px solid #fff;
+        }
+
+        .cover-highlight-box .principle-title {
+            font-size: var(--font-size-h3);
+            font-weight: 700;
+            color: var(--color-text-dark);
+            text-align: center;
+        }
+        
+        .key-value-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+        
+        .key-value-list li {
+            display: flex;
+            align-items: flex-start; /* 对齐图标和文字 */
+            font-size: var(--font-size-base);
+            color: var(--color-text-light);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .key-value-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .key-value-list .icon {
+            font-size: 20px;
+            margin-right: 10px;
+            margin-top: -1px; /* 微调对齐 */
+            width: 24px;
+            text-align: center;
+        }
+        
+        .key-value-list .key {
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .final-pep-talk {
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--color-warn);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* 高亮文本样式 */
+        .highlight-red {
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .highlight-blue {
+            background-color: var(--color-tertiary);
+            color: var(--color-text-white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .highlight-orange {
+            background-color: var(--color-warn);
+            color: var(--color-text-white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <div class="module">
+            <h1 class="cover-title">宝宝体温39.5℃！<br>这张SOP救我一命</h1>
+            
+            <div class="cover-subtitle">发烧是免疫系统在战斗，别急着降温！</div>
+
+            <div class="cover-highlight-box">
+                <div class="principle-title">核心原则：<span class="highlight-orange">看状态 > 看温度</span></div>
+                <ul class="key-value-list">
+                    <li>
+                        <span class="icon">😋</span>
+                        <div><span class="key">【吃】</span>和平时比，胃口如何？还能不能吃下一点？</div>
+                    </li>
+                    <li>
+                        <span class="icon">🧸</span>
+                        <div><span class="key">【玩】</span>还有没有力气和精神头玩耍互动？</div>
+                    </li>
+                    <li>
+                        <span class="icon">😴</span>
+                        <div><span class="key">【睡】</span>睡得安不安稳？会不会频繁惊醒？</div>
+                    </li>
+                    <li>
+                        <span class="icon">😭</span>
+                        <div><span class="key">【哭】</span>哭声是不是特别虚弱、尖锐或无法安抚？</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="final-pep-talk">
+                只要精神状态还行，咱们就稳得住！
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+
+</body>
+</html>

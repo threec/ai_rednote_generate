@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝爸Conn - 新生儿回家第一周SOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFF7F7;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        /* --- 基础与重置 --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e0e0e0;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--color-text-dark);
+        }
+        
+        /* --- 页面结构 --- */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            padding-left: 8px;
+            background-color: var(--color-primary); /* 使用主题粉色作为边框颜色 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 30px 25px 30px;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            z-index: 1;
+        }
+        
+        /* --- 封面专用样式 --- */
+        .cover-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中内容 */
+            z-index: 2;
+        }
+        
+        .cover-title {
+            font-size: var(--font-size-h1);
+            color: var(--color-primary);
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+        
+        .cover-subtitle {
+            font-size: var(--font-size-base);
+            color: var(--color-text-light);
+            line-height: var(--line-height-base);
+            max-width: 90%; /* 避免文字太宽 */
+        }
+
+        .cover-highlight-box {
+            display: inline-block;
+            background-color: var(--color-warn-bg);
+            border: 1px solid var(--color-warn);
+            border-radius: 8px;
+            padding: 8px 15px;
+            margin-top: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-warn);
+            letter-spacing: 0.5px;
+        }
+        
+        .cover-icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        /* --- CSS绘制的清单图标 --- */
+        .css-icon-checklist {
+            width: 80px;
+            height: 90px;
+            background-color: var(--color-bg-tertiary);
+            border: 2px solid var(--color-tertiary);
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+        }
+        .css-icon-checklist::before,
+        .css-icon-checklist::after {
+            content: '';
+            position: absolute;
+            left: 12px;
+            width: 70%;
+            height: 2px;
+            background-color: var(--color-tertiary);
+            opacity: 0.7;
+        }
+        .css-icon-checklist::before {
+            top: 25px;
+            box-shadow: 0 20px 0 0 var(--color-tertiary), 0 40px 0 0 var(--color-tertiary);
+        }
+        /* -- 模拟一个打勾的✓ -- */
+        .css-icon-checklist .checkmark {
+            position: absolute;
+            left: 14px;
+            top: 18px;
+            width: 10px;
+            height: 20px;
+            border-style: solid;
+            border-color: var(--color-primary);
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
+        
+        /* --- 其他工具类 --- */
+        .highlight-red { color: var(--color-primary); font-weight: 700; }
+        .highlight-blue { color: var(--color-tertiary); font-weight: 700; }
+        .highlight-orange { color: var(--color-warn); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="cover-content">
+                <h1 class="cover-title">抄作业！<br>新生儿回家第一周SOP</h1>
+                
+                <div class="cover-subtitle">
+                    告别焦虑，从医院到家的无缝衔接！<br>
+                    把复杂变简单，将医院的专业护理模式搬回家。
+                </div>
+                
+                <div class="cover-highlight-box">
+                    <span class="highlight-orange">前工程师奶爸出品</span>
+                </div>
+                
+                <div class="cover-icon-wrapper">
+                    <div class="css-icon-checklist">
+                        <div class="checkmark"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

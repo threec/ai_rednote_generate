@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>宝爸Conn - Part 6: 辅食喂养常见误区</title>
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFF7F7;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+            /* Page specific contrast colors */
+            --color-contrast-red: #FF6B6B;
+            --color-contrast-green: #1DD1A1;
+            --color-bg-contrast-red: #FFF0F0;
+            --color-bg-contrast-green: #E8FBF6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0; /* Neutral background for viewing */
+        }
+        
+        /* 主容器: 确保在浏览器中居中预览 */
+        .page-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-bg-light);
+        }
+
+        /* 页面模块: 核心画布 */
+        .module {
+            width: 420px;
+            height: 560px;
+            background-color: var(--color-text-white);
+            border-left: 8px solid var(--color-primary); /* 品牌识别边框 */
+            padding: 25px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 品牌水印 */
+        .brand-watermark {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* 章节标题 */
+        .section-title {
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            padding: 8px 18px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            flex-shrink: 0; /* 防止标题被压缩 */
+        }
+        
+        .title-warn {
+            background-color: var(--color-warn);
+            color: var(--color-text-white);
+        }
+        
+        /* 对比布局容器 */
+        .comparison-container {
+            display: flex;
+            gap: 15px;
+            flex-grow: 1; /* 占据剩余空间 */
+            height: 100%;
+        }
+
+        .comparison-column {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 错误做法栏 */
+        .column-wrong {
+            background-color: var(--color-bg-contrast-red);
+            border: 1.5px solid var(--color-contrast-red);
+        }
+        
+        /* 正确做法栏 */
+        .column-correct {
+            background-color: var(--color-bg-contrast-green);
+            border: 1.5px solid var(--color-contrast-green);
+        }
+        
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+        
+        .column-header .icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .header-wrong { color: var(--color-contrast-red); }
+        .header-correct { color: var(--color-contrast-green); }
+        
+        /* 内容列表 */
+        .content-list {
+            list-style-type: none;
+            padding: 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .content-list li {
+            margin-bottom: 18px;
+        }
+        
+        .content-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .content-list strong {
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="section-title title-warn">Part 6: 辅食喂养常见误区</div>
+
+            <div class="comparison-container">
+                <!-- ❌ 错误做法 -->
+                <div class="comparison-column column-wrong">
+                    <div class="column-header header-wrong"><span class="icon">❌</span>错误做法</div>
+                    <ul class="content-list">
+                        <li><strong>加盐加糖：</strong>1岁内辅食加盐/糖，增加宝宝肾脏负担，还可能导致挑食。</li>
+                        <li><strong>奶瓶喂糊：</strong>用奶瓶喂米糊，跳过了吞咽和咀嚼锻炼，不利于口腔发育。</li>
+                        <li><strong>怕脏制止：</strong>怕弄脏就不让宝宝自己抓着吃，会严重打击宝宝的进食兴趣和探索欲。</li>
+                        <li><strong>强迫追喂：</strong>强迫或追着喂食，会让宝宝对吃饭产生恐惧，破坏自主进食节奏。</li>
+                    </ul>
+                </div>
+
+                <!-- ✅ 正确做法 -->
+                <div class="comparison-column column-correct">
+                    <div class="column-header header-correct"><span class="icon">✅</span>正确做法</div>
+                    <ul class="content-list">
+                        <li><strong>保持原味：</strong>让宝宝品尝食物天然的味道，是保护味觉发育的第一步。</li>
+                        <li><strong>勺子喂养：</strong>坚持用勺子，能充分锻炼口腔肌肉群，为以后学说话打好基础。</li>
+                        <li><strong>鼓励探索：</strong>准备安全的手指食物，让娃尽情“玩”食物，锻炼手眼协调能力。</li>
+                        <li><strong>尊重信号：</strong>宝宝扭头、推开饭勺就是饱了。尊重信号，建立健康的饮食习惯。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

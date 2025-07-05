@@ -20,43 +20,45 @@ Xiaohongshu Content Automation Pipeline - Strategy and Planning Module
 import os
 import re
 import json
+import requests
 from typing import Dict, Any, Optional
 from pathlib import Path
-import openai
 
 # ===================================
 # 配置和工具导入
 # ===================================
 
+# 导入Google官方SDK
+from google import genai
+
 # 导入配置信息
 try:
     from config import (
-        API_KEY, API_BASE_URL, MODEL_FOR_STRATEGY, 
+        GEMINI_API_KEY, MODEL_FOR_STRATEGY, FALLBACK_MODEL,
         STRATEGY_SYSTEM_PROMPT, BLUEPRINT_FILENAME, 
         CACHE_DIR, FORCE_STRATEGY, DEFAULT_TEMPERATURE,
-        DEFAULT_MAX_TOKENS, MAX_RETRIES, REQUEST_TIMEOUT
+        DEFAULT_MAX_TOKENS, MAX_RETRIES
     )
 except ImportError:
     # 如果直接导入失败，尝试从父目录导入
     import sys
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
     from config import (
-        API_KEY, API_BASE_URL, MODEL_FOR_STRATEGY, 
+        GEMINI_API_KEY, MODEL_FOR_STRATEGY, FALLBACK_MODEL,
         STRATEGY_SYSTEM_PROMPT, BLUEPRINT_FILENAME, 
         CACHE_DIR, FORCE_STRATEGY, DEFAULT_TEMPERATURE,
-        DEFAULT_MAX_TOKENS, MAX_RETRIES, REQUEST_TIMEOUT
+        DEFAULT_MAX_TOKENS, MAX_RETRIES
     )
 
 # 导入工具函数
 from .utils import load_json, save_json, get_logger, clean_filename
 
+# 导入数据模型
+from .models import StrategyBlueprint
+
 # ===================================
 # 模块配置
 # ===================================
-
-# 配置OpenAI客户端
-openai.api_key = API_KEY
-openai.base_url = API_BASE_URL
 
 # 获取模块专用的日志记录器
 logger = get_logger(__name__)
@@ -201,9 +203,9 @@ def _build_strategy_prompt(topic: str) -> str:
 请现在开始你的策略规划工作。
 """
 
-def _call_openai_api(prompt: str, retries: int = 0) -> Dict[str, Any]:
+def _call_gemini_api(prompt: str, retries: int = 0) -> Dict[str, Any]:
     """
-    调用OpenAI API获取策略分析结果，带有JSON自我修正功能
+    使用Google官方SDK调用Gemini API获取策略分析结果，使用结构化输出
     
     Args:
         prompt (str): 发送给AI的提示词
@@ -215,104 +217,72 @@ def _call_openai_api(prompt: str, retries: int = 0) -> Dict[str, Any]:
     Raises:
         Exception: 当API调用失败或响应格式不正确时抛出异常
     """
-    original_prompt = prompt  # 保存原始提示词用于错误修正
-    
     for attempt in range(MAX_RETRIES + 1):
         try:
-            logger.info(f"正在调用OpenAI API (尝试 {attempt + 1}/{MAX_RETRIES + 1})...")
+            logger.info(f"正在调用Gemini API (尝试 {attempt + 1}/{MAX_RETRIES + 1})...")
             
-            # 构建API请求
-            client = openai.OpenAI(
-                api_key=API_KEY,
-                base_url=API_BASE_URL,
-                timeout=REQUEST_TIMEOUT
-            )
+            # 创建Gemini客户端
+            client = genai.Client()
             
-            response = client.chat.completions.create(
-                model=MODEL_FOR_STRATEGY,
-                messages=[
-                    {"role": "system", "content": STRATEGY_SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=DEFAULT_TEMPERATURE,
-                max_tokens=6000,  # 增加token限制避免截断
-                response_format={"type": "json_object"}  # 强制JSON格式输出
-            )
+            # 合并system prompt和user prompt
+            combined_prompt = f"{STRATEGY_SYSTEM_PROMPT}\n\n{prompt}"
             
-            # 提取响应内容
-            content = response.choices[0].message.content
-            
-            if not content:
-                raise ValueError("AI响应为空")
-            
-            # 解析JSON响应
+            # 尝试使用主要模型
+            model = MODEL_FOR_STRATEGY
             try:
-                result = json.loads(content)
+                # 使用官方SDK调用API，启用结构化输出
+                response = client.models.generate_content(
+                    model=model,
+                    contents=combined_prompt,
+                    config={
+                        "response_mime_type": "application/json",
+                        "response_schema": StrategyBlueprint,
+                    },
+                )
                 
-                # 验证响应结构
-                if not isinstance(result, dict):
-                    raise ValueError("AI响应不是字典格式")
+                # 使用解析好的对象
+                parsed_result = response.parsed
                 
-                required_keys = ["research_report", "creative_blueprint"]
-                missing_keys = [key for key in required_keys if key not in result]
+                # 检查解析结果类型
+                if not isinstance(parsed_result, StrategyBlueprint):
+                    raise ValueError(f"API响应类型不正确: {type(parsed_result)}")
                 
-                if missing_keys:
-                    raise ValueError(f"AI响应缺少必需的字段: {missing_keys}")
+                # 转换为字典格式以保持兼容性
+                result_dict = parsed_result.model_dump()
                 
-                logger.info("✓ OpenAI API调用成功，策略分析完成")
-                return result
+                logger.info(f"✓ Gemini API调用成功，使用模型: {model}")
+                return result_dict
                 
-            except json.JSONDecodeError as json_error:
-                logger.error(f"AI响应JSON解析失败: {json_error}")
-                logger.error(f"原始响应: {content}")
-                
-                # 如果不是最后一次尝试，构造错误修正提示
-                if attempt < MAX_RETRIES:
-                    logger.info("准备使用错误修正机制重试")
+            except Exception as model_error:
+                # 如果主要模型失败，尝试备用模型
+                if model != FALLBACK_MODEL:
+                    logger.warning(f"主要模型 {model} 失败，尝试备用模型 {FALLBACK_MODEL}: {model_error}")
+                    model = FALLBACK_MODEL
                     
-                    # 构造错误反馈提示，让AI自我修正
-                    error_feedback = f"""
-前一次的回复无法解析为有效的JSON格式。
-
-错误信息：{json_error}
-
-原始请求：
-{original_prompt}
-
-请注意以下JSON格式要求：
-1. 所有字符串都必须用双引号包围
-2. 字符串内部的双引号必须用反斜杠转义: \\"
-3. 不要在JSON中使用单引号
-4. 确保所有括号和大括号正确配对
-5. 不要在字符串中包含换行符，使用\\n代替
-6. 避免字符串过长被截断
-
-请重新生成符合严格JSON格式的完整回复。确保回复包含完整的research_report和creative_blueprint两个主要部分。
-"""
+                    response = client.models.generate_content(
+                        model=model,
+                        contents=combined_prompt,
+                        config={
+                            "response_mime_type": "application/json",
+                            "response_schema": StrategyBlueprint,
+                        },
+                    )
                     
-                    prompt = error_feedback
-                    continue
+                    parsed_result = response.parsed
+                    
+                    # 检查解析结果类型
+                    if not isinstance(parsed_result, StrategyBlueprint):
+                        raise ValueError(f"API响应类型不正确: {type(parsed_result)}")
+                    
+                    result_dict = parsed_result.model_dump()
+                    
+                    logger.info(f"✓ Gemini API调用成功，使用模型: {model}")
+                    return result_dict
                 else:
-                    raise ValueError(f"AI响应不是有效的JSON格式: {json_error}")
+                    raise model_error
                     
-        except openai.APITimeoutError as e:
-            logger.error(f"OpenAI API调用超时: {e}")
-            if attempt < MAX_RETRIES:
-                logger.info(f"正在重试... ({attempt + 1}/{MAX_RETRIES})")
-                continue
-            else:
-                raise Exception(f"OpenAI API调用超时，已达到最大重试次数: {e}")
-        
-        except openai.APIError as e:
-            logger.error(f"OpenAI API调用失败: {e}")
-            if attempt < MAX_RETRIES:
-                logger.info(f"正在重试... ({attempt + 1}/{MAX_RETRIES})")
-                continue
-            else:
-                raise Exception(f"OpenAI API调用失败，已达到最大重试次数: {e}")
-        
         except Exception as e:
-            logger.error(f"API调用过程中发生未知错误: {e}")
+            logger.error(f"API调用过程中发生错误: {e}")
             if attempt < MAX_RETRIES:
                 logger.info(f"正在重试... ({attempt + 1}/{MAX_RETRIES})")
                 continue
@@ -321,6 +291,13 @@ def _call_openai_api(prompt: str, retries: int = 0) -> Dict[str, Any]:
     
     # 这里不应该被执行到，但作为安全措施
     raise Exception("未知错误：超出了预期的重试逻辑")
+
+# 为保持向后兼容性，保留原有函数名
+def _call_openai_api(prompt: str, retries: int = 0) -> Dict[str, Any]:
+    """
+    兼容性函数，实际调用Gemini API
+    """
+    return _call_gemini_api(prompt, retries)
 
 # ===================================
 # 核心功能函数

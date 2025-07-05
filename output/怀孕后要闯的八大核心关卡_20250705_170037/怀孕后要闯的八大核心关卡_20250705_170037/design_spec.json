@@ -1,0 +1,118 @@
+{
+  "content_structure": {
+    "title": "【宝爸亲测】怀孕后要闯的八大核心关卡保姆级攻略！@准爸爸 抄作业",
+    "opening": "老婆怀孕后，咱们就正式成为队友了！这8大关卡，一关关闯过去，才能迎来最终的胜利。",
+    "main_points": [
+      "第1-2关：确认怀孕和初次产检，最激动也最懵圈的阶段",
+      "第3-4关：建档立案和NT检查，技术活+体力活",
+      "第5-6关：唐筛/无创/四维，中期核心排畸",
+      "第7-8关：糖耐和胎心监护，终极冲刺挑战"
+    ],
+    "detailed_checkpoints": [
+      {
+        "checkpoint_number": 1,
+        "name": "第1关：确认怀孕关",
+        "timing": "孕4-6周",
+        "content": "验孕棒确认 → 医院验血 → 确认宫内怀孕",
+        "notes": "保持冷静，做好心理准备",
+        "dad_tips": "主动挂号缴费，给老婆最大的支持",
+        "cost_reference": "约200-400元"
+      },
+      {
+        "checkpoint_number": 2,
+        "name": "第2关：初次产检关",
+        "timing": "孕6-8周",
+        "content": "第一次B超，确认胎心胎芽",
+        "notes": "看到胎心是重要里程碑",
+        "dad_tips": "陪同检查，准备温水",
+        "cost_reference": "约300-500元"
+      },
+      {
+        "checkpoint_number": 3,
+        "name": "第3关：建档立案关",
+        "timing": "孕8-12周",
+        "content": "办小卡，选医院建大卡",
+        "notes": "热门医院需提前预约",
+        "dad_tips": "研究医院特点，当好跑腿员",
+        "cost_reference": "约1500-2500元"
+      },
+      {
+        "checkpoint_number": 4,
+        "name": "第4关：NT检查关",
+        "timing": "孕11-13周+6天",
+        "content": "颈后透明带厚度检查",
+        "notes": "时间窗口很窄，需要预约",
+        "dad_tips": "准备小零食，安抚情绪",
+        "cost_reference": "约200-400元"
+      },
+      {
+        "checkpoint_number": 5,
+        "name": "第5关：唐氏筛查关",
+        "timing": "孕15-20周",
+        "content": "唐筛或无创DNA检查",
+        "notes": "高风险不等于有问题",
+        "dad_tips": "共同决策检查方案",
+        "cost_reference": "唐筛200-300元，无创1500-3000元"
+      },
+      {
+        "checkpoint_number": 6,
+        "name": "第6关：四维彩超关",
+        "timing": "孕20-24周",
+        "content": "大排畸，全面检查器官发育",
+        "notes": "需要提前很久预约",
+        "dad_tips": "必须陪同，见证宝宝第一张照片",
+        "cost_reference": "约500-800元"
+      },
+      {
+        "checkpoint_number": 7,
+        "name": "第7关：糖耐测试关",
+        "timing": "孕24-28周",
+        "content": "妊娠期糖尿病筛查",
+        "notes": "俗称魔鬼测试，糖水难喝",
+        "dad_tips": "陪检打发等待时间，准备健康早餐",
+        "cost_reference": "约100-200元"
+      },
+      {
+        "checkpoint_number": 8,
+        "name": "第8关：胎心监护关",
+        "timing": "孕36周后",
+        "content": "监测胎心率和胎动情况",
+        "notes": "孕晚期重要检查，每周一次",
+        "dad_tips": "负责接送，陪听宝宝心跳",
+        "cost_reference": "约30-60元/次"
+      }
+    ],
+    "conclusion": "8大关卡闯过，就能迎来宝宝降生。每一关都是爱与责任的体现！"
+  },
+  "visual_design": {
+    "layout_type": "小红书图文卡片式布局",
+    "color_scheme": "温暖的粉色和蓝色系",
+    "typography": "清晰易读的字体设计",
+    "spacing": "舒适的段落间距"
+  },
+  "images_plan": [
+    {
+      "sequence": 1,
+      "purpose": "封面图展示8大关卡概览",
+      "description": "主标题+8大关卡示意图",
+      "style": "简约清新的插画风格"
+    }
+  ],
+  "interactive_elements": {
+    "call_to_action": "准爸妈们，你们现在闯到第几关啦？",
+    "engagement_hooks": [
+      "分享你们的闯关经历",
+      "准爸爸们有什么经验分享吗"
+    ],
+    "sharing_triggers": "8大关卡系统整理，实用价值高"
+  },
+  "persona_integration": {
+    "tone": "温暖、专业的宝爸Conn语调",
+    "voice_examples": [
+      "咱们家当时也是这样",
+      "老公们记住",
+      "说实话"
+    ],
+    "emotional_connection": "过来人的经验分享建立信任"
+  }
+}

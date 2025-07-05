@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝爸Conn - 神队友协作指南</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFBFB;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--color-text-dark);
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            border-left: 8px solid var(--color-primary); /* 核心品牌识别：8px粉色边框 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-light);
+            padding: 24px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-main-title {
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            text-align: center;
+            color: var(--color-text-dark);
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .columns-wrapper {
+            display: flex;
+            gap: 18px;
+            flex-grow: 1;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+        
+        .section-title {
+            font-size: var(--font-size-h3);
+            font-weight: 700;
+            color: var(--color-text-white);
+            padding: 6px 15px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            display: inline-block;
+        }
+
+        .title-mom {
+            background-color: var(--color-primary);
+        }
+
+        .title-baby { /* 使用青色代表爸爸，形成CP感 */
+            background-color: var(--color-tertiary);
+        }
+
+        .task-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .task-list li {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .task-list .icon {
+            margin-right: 8px;
+            font-weight: 700;
+            position: relative;
+            top: 1px;
+        }
+
+        .icon-dad {
+            color: var(--color-tertiary);
+        }
+
+        .icon-mom {
+            color: var(--color-primary);
+        }
+
+        .highlight-box {
+            margin-top: auto; /* 将提醒框推到底部 */
+            padding: 12px 15px;
+            background-color: var(--color-secondary);
+            border-left: 4px solid var(--color-primary);
+            border-radius: 0 6px 6px 0;
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--color-text-dark);
+            font-weight: 500;
+        }
+
+        .highlight-red {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .highlight-blue {
+            color: var(--color-tertiary);
+            font-weight: 700;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="page-main-title">
+                神队友协作指南 🤝<br>
+                & 妈妈产后恢复计划
+            </div>
+
+            <div class="columns-wrapper">
+                <div class="column dad-column">
+                    <div class="section-title title-baby">👨🏻 爸爸任务清单</div>
+                    <ul class="task-list">
+                        <li><span class="icon icon-dad">√</span>主动换尿布，别等娃哭了再动手。</li>
+                        <li><span class="icon icon-dad">√</span>承包<span class="highlight-blue">夜间一次喂奶</span>（瓶喂），让妈妈睡个整觉。</li>
+                        <li><span class="icon icon-dad">√</span>成为<span class="highlight-blue">拍嗝主力</span>，解放妈妈的肩膀。</li>
+                        <li><span class="icon icon-dad">√</span>给妈妈做饭、端水，让她专心休息和喂奶。</li>
+                        <li><span class="icon icon-dad">√</span>主动分担家务，创造一个干净舒适的环境。</li>
+                    </ul>
+                </div>
+                
+                <div class="column mom-column">
+                    <div class="section-title title-mom">👩🏻 妈妈恢复要点</div>
+                     <ul class="task-list">
+                        <li><span class="icon icon-mom">√</span><span class="highlight-red">保证绝对休息</span>，别硬撑，累了就躺下。</li>
+                        <li><span class="icon icon-mom">√</span>关注伤口恢复和<span class="highlight-red">情绪波动</span>，及时沟通。</li>
+                        <li><span class="icon icon-mom">√</span>营养均衡，多喝汤水，为身体补充能量。</li>
+                        <li><span class="icon icon-mom">√</span>产后42天复查，是必须项，不是选择项。</li>
+                    </ul>
+                    <div class="highlight-box">
+                        记住，<span class="highlight-red">妈妈心情好，全家都好！</span>你的快乐比什么都重要。❤️
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

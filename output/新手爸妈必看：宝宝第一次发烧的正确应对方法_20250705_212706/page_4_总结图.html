@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝爸Conn - 紧急就医指南</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFDFB; /* 使用一个更温暖的米色背景，贴合“安心米色” */
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+        }
+
+        /* 基础和重置 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #e0e0e0; /* 仅为预览时提供画布背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 页面核心容器 */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            overflow: hidden; /* 严格控制尺寸 */
+        }
+
+        /* 模块化内容区域 */
+        .module {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-light);
+            border-left: 8px solid var(--color-primary); /* 使用主题粉色作为品牌识别边框 */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 25px 25px 25px; /* 上下左右内边距 */
+        }
+
+        /* 品牌水印 */
+        .brand-watermark {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* 居中包装器 */
+        .center-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* 章节标题 */
+        .section-title {
+            display: inline-block;
+            padding: 8px 25px;
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            border-radius: 50px;
+            color: var(--color-text-white);
+            letter-spacing: 1px;
+        }
+
+        .title-warn {
+            background-color: var(--color-primary); /* 使用更醒目的主题粉色作为警示色 */
+        }
+
+        /* 信息列表 */
+        .key-value-list {
+            list-style: none;
+            padding-left: 5px;
+            flex-grow: 1; /* 占据剩余空间，将底部寄语推到底部 */
+        }
+
+        .key-value-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 17px;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        /* CSS绘制的警示图标 */
+        .key-value-list .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+            font-size: 16px;
+            font-weight: 700;
+            margin-right: 12px;
+            transform: translateY(2px); /* 微调对齐 */
+        }
+        
+        /* 列表内容文本 */
+        .key-value-list .value {
+            font-weight: 500;
+        }
+
+        /* 文本高亮 */
+        .highlight-red {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+        
+        .highlight-orange {
+            color: var(--color-warn);
+            font-weight: 700;
+        }
+
+        /* 底部重要提醒/寄语框 */
+        .highlight-box {
+            background-color: var(--color-warn-bg);
+            border: 1px dashed var(--color-warn);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.7;
+            color: var(--color-text-dark);
+            margin-top: 20px; /* 与列表保持间距 */
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="center-wrapper">
+                <div class="section-title title-warn">紧急！出现这些情况，立刻去医院</div>
+            </div>
+
+            <ul class="key-value-list">
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">🌡️ <span class="highlight-red">&lt;3个月婴儿发烧</span>，别犹豫，这不是小事，必须马上就医。</span>
+                </li>
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">🕒 <span class="highlight-red">持续高烧超3天</span>，或体温反复＞39℃，需要医生查明原因。</span>
+                </li>
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">😴 <span class="highlight-red">精神萎靡、异常嗜睡</span>，就是怎么都叫不醒，这是危险警报。</span>
+                </li>
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">⚡ <span class="highlight-red">出现惊厥、抽搐</span>，哪怕只有一次，也要立刻送医评估。</span>
+                </li>
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">😮‍💨 <span class="highlight-red">呼吸困难或急促</span>，伴有呻吟或脸色发青，刻不容缓。</span>
+                </li>
+                <li>
+                    <span class="icon">!</span>
+                    <span class="value">💧 <span class="highlight-red">拒绝喝水，有脱水迹象</span>（如8小时无尿、哭时无泪、嘴唇干裂）。</span>
+                </li>
+            </ul>
+
+            <div class="highlight-box">
+                发烧是场升级战，<br>父母的<span class="highlight-orange">冷静判断</span>是孩子最好的铠甲。
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

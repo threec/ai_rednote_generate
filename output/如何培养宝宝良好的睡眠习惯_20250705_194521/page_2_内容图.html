@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=420">
+    <title>图片编号2: 读懂信号，哄睡事半功倍</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+        /* Basic Reset and Page Setup */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Neutral background for viewing the page itself */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Page Container adhering to strict dimensions */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: #E8F5E9;
+            font-family: 'Noto Sans SC', sans-serif;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Title and Text Styling */
+        .main-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1DD1A1;
+            text-align: center;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+
+        .intro-text {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+            text-align: left;
+        }
+
+        .intro-text strong {
+            font-weight: 700;
+            color: #F4A261; /* Using a highlight color for emphasis */
+        }
+
+        /* Card Layout for Content Points */
+        .card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        /* CSS-Drawn Icons */
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        /* Icon 1: Rubbing Eyes */
+        .icon-rub-eye { background-color: #F4A261; }
+        .icon-rub-eye::before { /* Hand */
+            content: ''; position: absolute; width: 20px; height: 20px;
+            background-color: #FFDDC4; border-radius: 4px; top: 18px; left: 5px;
+            transform: rotate(-15deg);
+        }
+        .icon-rub-eye::after { /* Closed Eye */
+            content: ''; position: absolute; width: 8px; height: 2px;
+            background: white; border-radius: 1px; top: 20px; right: 12px;
+            transform: rotate(10deg);
+        }
+
+        /* Icon 2: Yawning */
+        .icon-yawn { background-color: #FECB57; }
+        .icon-yawn::before { /* Sleepy eyes */
+            content: '︵ ︵'; position: absolute; font-size: 10px; color: white;
+            font-weight: bold; top: 12px; left: 13px; transform: scaleY(-1);
+        }
+        .icon-yawn::after { /* Mouth */
+            content: ''; position: absolute; width: 20px; height: 12px;
+            background-color: #903410; border-radius: 50% / 80%; bottom: 8px;
+            left: 14px;
+        }
+        
+        /* Icon 3: Dazed */
+        .icon-dazed { background-color: #48DBFB; }
+        .icon-dazed::before, .icon-dazed::after { /* Eyes */
+            content: ''; position: absolute; width: 12px; height: 2px;
+            background: white; top: 20px;
+        }
+        .icon-dazed::before { left: 8px; }
+        .icon-dazed::after { right: 8px; }
+
+        .card-content {
+            margin-left: 15px;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 18px; /* Chapter Title, adjusted for card context */
+            font-weight: 700;
+            color: #333333;
+            margin: 0 0 5px 0;
+        }
+
+        .card-description {
+            font-size: 14px; /* Body Text */
+            color: #555555;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Bottom Tip Box */
+        .tip-box {
+            margin-top: auto; /* Pushes the element to the bottom of the flex container */
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            border-left: 5px solid #1DD1A1;
+        }
+
+        .tip-box-icon {
+            font-size: 20px;
+            margin-right: 10px;
+            line-height: 1;
+        }
+        
+        .tip-text {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .tip-text strong {
+            font-weight: 700;
+        }
+
+        .tip-text .highlight {
+            color: #F4A261;
+            font-weight: bold;
+        }
+
+        /* Brand Watermark */
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 12px; /* Remark */
+            color: rgba(0, 0, 0, 0.3);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        
+        <h1 class="main-title">读懂信号，哄睡事半功倍</h1>
+        
+        <p class="intro-text"><strong>【真实经历】</strong>我家小宝4个月大的时候，我总掐着点哄睡，结果越哄越精神。后来才发现，娃困了会给你发信号的！</p>
+        
+        <ul class="card-list">
+            <li class="card">
+                <div class="icon-container icon-rub-eye"></div>
+                <div class="card-content">
+                    <h3 class="card-title">1️⃣ 揉眼睛、抓耳朵</h3>
+                    <p class="card-description">这是最直接的信号，说明眼睛干涩，开始累了。</p>
+                </div>
+            </li>
+            <li class="card">
+                <div class="icon-container icon-yawn"></div>
+                <div class="card-content">
+                    <h3 class="card-title">2️⃣ 打哈欠连天</h3>
+                    <p class="card-description">不是偶尔一个，而是一个接一个，说明大脑缺氧，需要休息。</p>
+                </div>
+            </li>
+            <li class="card">
+                <div class="icon-container icon-dazed"></div>
+                <div class="card-content">
+                    <h3 class="card-title">3️⃣ 眼神发直、迷离</h3>
+                    <p class="card-description">对平时喜欢的玩具和人都没兴趣了，目光呆滞，就是“电量不足”了。</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="tip-box-icon">💡</div>
+            <p class="tip-text"><strong>【宝爸提醒】</strong>抓住信号后的<span class="highlight">15分钟</span>是黄金窗口期！</p>
+        </div>
+        
+        <div class="watermark">@宝爸Conn</div>
+
+    </div>
+</body>
+</html>

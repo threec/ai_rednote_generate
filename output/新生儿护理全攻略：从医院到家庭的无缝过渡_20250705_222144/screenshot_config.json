@@ -1,0 +1,37 @@
+{
+  "config": {
+    "width": 420,
+    "height": 560,
+    "device_scale_factor": 2,
+    "format": "png",
+    "quality": 90,
+    "full_page": false,
+    "clip": {
+      "x": 0,
+      "y": 0,
+      "width": 420,
+      "height": 560
+    }
+  },
+  "html_files": [
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_1_封面图.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_2_核心方法论1：喂养.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_3_核心方法论2：睡眠.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_4_实操指南1：健康检查.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_5_实操指南2：专项护理.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_6_进阶技巧：家庭协作.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_7_避坑指南.html",
+    "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144\\page_8_总结升华.html"
+  ],
+  "output_directory": "output\\新生儿护理全攻略：从医院到家庭的无缝过渡_20250705_222144",
+  "image_names": [
+    "image_1.png",
+    "image_2.png",
+    "image_3.png",
+    "image_4.png",
+    "image_5.png",
+    "image_6.png",
+    "image_7.png",
+    "image_8.png"
+  ]
+}

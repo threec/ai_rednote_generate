@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>宝爸Conn - 睡眠SOP</title>
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFDFD;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f2f5; /* A neutral bg to showcase the page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--color-text-dark);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .module {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-light);
+            border-left: 8px solid var(--color-primary); /* Using primary pink for strong brand ID */
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .page-main-title {
+            font-size: var(--font-size-h2);
+            color: var(--color-text-dark);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: var(--font-size-h3);
+            font-weight: 700;
+            color: var(--color-text-white);
+            padding: 4px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .title-baby { background-color: var(--color-tertiary); }
+        .title-warn { background-color: var(--color-warn); }
+
+        .columns-wrapper {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .column {
+            flex: 1;
+        }
+        
+        .key-value-list, .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            color: var(--color-text-light);
+        }
+
+        .checklist .check-icon {
+            color: var(--color-tertiary);
+            font-weight: 700;
+            margin-right: 8px;
+            line-height: 1.5;
+        }
+
+        .icon-illustration {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .icon-prohibited {
+            width: 70px;
+            height: 70px;
+            border: 4px solid var(--color-warn);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-prohibited::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 30px;
+            width: 4px;
+            height: 75px;
+            background-color: var(--color-warn);
+            transform: rotate(45deg);
+            transform-origin: center;
+        }
+
+        .icon-prohibited .item {
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .icon-prohibited .pillow {
+            width: 25px;
+            height: 16px;
+            background: var(--color-secondary);
+            border-radius: 4px;
+            left: 15px;
+            bottom: 15px;
+        }
+
+        .icon-prohibited .toy {
+            width: 20px;
+            height: 20px;
+            background: var(--color-secondary);
+            border-radius: 50%;
+            right: 12px;
+            top: 12px;
+        }
+        .icon-prohibited .toy::before, .icon-prohibited .toy::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--color-secondary);
+            border-radius: 50%;
+        }
+        .icon-prohibited .toy::before { top: -4px; left: -2px; }
+        .icon-prohibited .toy::after { top: -4px; right: -2px; }
+
+        .icon-label {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 10px;
+            color: var(--color-text-light);
+        }
+        
+        .sleep-signals-text {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--color-text-light);
+            padding: 0 10px;
+        }
+        
+        .highlight-box {
+            background-color: var(--color-warn-bg);
+            border: 1px dashed var(--color-warn);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            padding: 2px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--color-warn);
+        }
+
+        .highlight-red { color: var(--color-primary); font-weight: 700; }
+        .highlight-blue { color: var(--color-tertiary); font-weight: 700; }
+        .highlight-orange { color: var(--color-warn); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <h1 class="page-main-title">睡眠SOP｜打造安全睡眠环境</h1>
+            
+            <div class="columns-wrapper">
+                <div class="column">
+                    <div class="section-title title-baby">【安全睡眠环境清单】</div>
+                    <ul class="checklist">
+                        <li><span class="check-icon">✓</span>独立婴儿床，床垫紧实平整</li>
+                        <li><span class="check-icon">✓</span>永远保持<span class="highlight-blue">仰卧睡姿</span> (Back to Sleep)</li>
+                        <li><span class="check-icon">✓</span>床内<span class="highlight-red">无任何杂物</span>（枕头/玩偶/床围）</li>
+                        <li><span class="check-icon">✓</span>合适室温22-24℃，湿度50-60%</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <div class="icon-illustration">
+                        <div class="icon-prohibited">
+                            <div class="item pillow"></div>
+                            <div class="item toy"></div>
+                        </div>
+                        <p class="icon-label">床内保持<span class="highlight-orange">空无一物</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title title-baby">【睡眠信号识别】</div>
+            <p class="sleep-signals-text">
+                😴 当宝宝出现 <span class="highlight-blue">打哈欠</span>、<span class="highlight-blue">揉眼睛</span>、<span class="highlight-blue">眼神呆滞</span>、或开始 <span class="highlight-blue">烦躁哭闹</span>，别犹豫，这就是他在说：“我困了，快哄我睡！”
+            </p>
+
+            <div class="highlight-box">
+                <p><strong>🚨 AAP核心准则 🚨</strong></p>
+                <p>美国儿科学会强调：<span class="highlight-orange">Back to Sleep</span>，<br>即<span class="highlight-orange">仰睡</span>是唯一被证实的<span class="highlight-orange">最安全</span>姿势！</p>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

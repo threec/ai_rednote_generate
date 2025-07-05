@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>宝爸Conn - 新生儿回家终极Checklist</title>
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFBFB; /* Use a slightly warmer white */
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-dark);
+            background-color: #f0f0f0; /* BG for viewing the page container */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: var(--color-bg-light);
+            border-left: 8px solid var(--color-secondary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            padding: 24px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        /* Using a custom class based on cover-title for this specific summary page */
+        .summary-title {
+            font-size: 34px; /* Adjusted from 38px for better fit */
+            color: var(--color-primary);
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .summary-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--color-text-light);
+            font-weight: 500;
+            margin-top: 8px;
+            padding: 0 10px;
+        }
+
+        .checklist-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 18px;
+            gap: 12px;
+        }
+
+        .checklist-item {
+            width: calc(50% - 6px);
+            padding: 10px 12px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .checklist-item.card-pink { background-color: #FEF1F1; border: 1px solid #FFE2E2; }
+        .checklist-item.card-blue { background-color: var(--color-bg-tertiary); border: 1px solid #D6EBEB; }
+        .checklist-item.card-orange { background-color: var(--color-warn-bg); border: 1px solid #FFE9D3; }
+        
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .card-pink .card-title { color: var(--color-primary); }
+        .card-blue .card-title { color: var(--color-tertiary); }
+        .card-orange .card-title { color: var(--color-warn); }
+
+        .card-list {
+            list-style: none;
+            font-size: 12.5px;
+            color: var(--color-text-light);
+            line-height: 1.5;
+        }
+        
+        .final-block {
+            margin-top: auto; /* Pushes this block to the bottom */
+            padding-top: 10px;
+            z-index: 1;
+            background: var(--color-bg-light); /* To cover watermark if it overlaps */
+        }
+        
+        .save-prompt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-light);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .css-hand-icon {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-text-light);
+            border-radius: 4px;
+            position: relative;
+            transform: rotate(-10deg);
+        }
+        .css-hand-icon::before {
+            content: '👇';
+            font-size: 14px;
+            position: absolute;
+            top: -3px;
+            left: 1px;
+        }
+
+        .final-greeting-box {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--color-border);
+            border-top: 5px solid var(--color-primary);
+            box-shadow: 0 4px 15px rgba(255, 126, 121, 0.1);
+        }
+
+        .final-greeting-box p {
+            font-size: 13px;
+            line-height: 1.7;
+            font-weight: 500;
+            color: var(--color-text-light);
+            text-align: center;
+        }
+        .final-greeting-box p strong {
+             font-weight: 700;
+             color: var(--color-text-dark);
+        }
+        
+        /* Highlight Utility Classes */
+        .highlight-red { color: var(--color-primary); font-weight: 700; }
+        .highlight-blue { color: var(--color-tertiary); font-weight: 700; }
+        .highlight-orange { color: var(--color-warn); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            
+            <h1 class="summary-title">新生儿回家终极Checklist</h1>
+            <p class="summary-subtitle">一张图汇总！喂养、睡眠、护理、协作、避坑要点全覆盖。</p>
+
+            <div class="checklist-grid">
+                <div class="checklist-item card-pink">
+                    <div class="card-title">🍼 科学喂养</div>
+                    <ul class="card-list">
+                        <li>按需喂养非按时</li>
+                        <li>有效拍嗝防吐奶</li>
+                        <li>记录喂养找规律</li>
+                    </ul>
+                </div>
+                <div class="checklist-item card-blue">
+                    <div class="card-title">🌙 安心睡眠</div>
+                    <ul class="card-list">
+                        <li>仰睡最安全(SIDS)</li>
+                        <li>襁褓模拟子宫感</li>
+                        <li>营造昏暗安静环境</li>
+                    </ul>
+                </div>
+                <div class="checklist-item card-orange">
+                    <div class="card-title">🧼 精心护理</div>
+                    <ul class="card-list">
+                        <li>脐带干燥是关键</li>
+                        <li>警惕生理性黄疸</li>
+                        <li>每日抚触增进感情</li>
+                    </ul>
+                </div>
+                <div class="checklist-item card-blue">
+                    <div class="card-title">🤝 神仙协作</div>
+                    <ul class="card-list">
+                        <li>明确分工不抱怨</li>
+                        <li>爸爸主动承担夜奶</li>
+                        <li>接受长辈善意帮助</li>
+                    </ul>
+                </div>
+                <div class="checklist-item card-orange">
+                    <div class="card-title">⚠️ 新手避坑</div>
+                    <ul class="card-list">
+                        <li>警惕过度喂养</li>
+                        <li>包裹过紧影响发育</li>
+                        <li>拒绝盲目育儿焦虑</li>
+                    </ul>
+                </div>
+                <div class="checklist-item card-pink">
+                    <div class="card-title">💖 情绪关怀</div>
+                    <ul class="card-list">
+                        <li>关注妈妈产后情绪</li>
+                        <li>爸爸角色无可替代</li>
+                        <li>接受“不完美”的自己</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="final-block">
+                <div class="save-prompt">
+                    <div class="css-hand-icon"></div>
+                    长按图片，保存这份超全清单
+                </div>
+                <div class="final-greeting-box">
+                    <p><strong>【宝爸Conn寄语】</strong><br>
+                    育儿不是考试，没有标准答案。
+                    <span class="highlight-blue">用对方法</span>，<span class="highlight-red">享受过程</span>，
+                    你们就是最棒的父母！欢迎来到这个充满<span class="highlight-orange">爱与挑战</span>的新世界！
+                    </p>
+                </div>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

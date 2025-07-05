@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书图片-第3张</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 基础样式库 - 自动包含 */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f2f5; /* 方便预览的背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 页面模块通用样式 */
+        .content-module, .summary-module, .cover-module {
+            box-sizing: border-box;
+            height: 100%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 封面页面 (page_1) - 未在本页使用 */
+        .main-title { font-size: 44px; font-weight: 900; }
+        .subtitle { font-size: 16px; font-weight: 500; }
+        .highlight-box { background-color: rgba(255, 234, 167, 0.8); padding: 5px 10px; border-radius: 8px; }
+
+        /* 内容页面 (page_2, page_3) */
+        .content-module {
+            background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 30%);
+        }
+        .content-module.green-theme {
+            background: linear-gradient(180deg, #E8F5E9 0%, #FFFFFF 30%);
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #2c3e50;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        .method-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 22px; /* 留出空间给箭头 */
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+        /* 使用伪元素绘制箭头，实现流程图效果 */
+        .method-card:not(:last-of-type)::after {
+            content: '↓';
+            position: absolute;
+            bottom: -21px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #87CEEB; /* 温馨蓝色 */
+        }
+        .method-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4682B4; /* 品牌蓝 */
+            display: flex;
+            align-items: center;
+            margin: 0 0 8px 0;
+        }
+        .method-desc {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 步骤列表 (未在本页使用) */
+        .step-list { width: 100%; }
+        .step-item { display: flex; margin-bottom: 10px; }
+        .step-number { font-weight: 700; margin-right: 8px; }
+
+        /* 总结页面 (page_4) - 未在本页使用 */
+        .summary-title { font-size: 24px; font-weight: 900; }
+        .key-points { width: 100%; }
+        .point-item { background-color: #f7f7f7; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .cta-box { border-top: 1px dashed #ccc; padding-top: 15px; margin-top: auto; text-align: center; }
+        .cta-text { font-weight: 700; font-size: 18px; }
+        .cta-action { font-size: 14px; color: #777; }
+        
+        /* 通用组件 */
+        .highlight-text {
+            color: #ff6b6b; /* 醒目红色 */
+            font-weight: 700;
+        }
+        .warm-tip {
+            background-color: #e9f7ff;
+            border-left: 3px solid #4682B4;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #333;
+            border-radius: 0 4px 4px 0;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+        .icon-circle {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        .icon-orange { background-color: #feca57; }
+        .icon-blue { background-color: #48dbfb; }
+        .icon-green { background-color: #1dd1a1; }
+        .icon-purple { background-color: #9b59b6; }
+        .brand-watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="content-module">
+            <h1 class="section-title">第2&3步：制作方法 & 喂养原则</h1>
+
+            <div class="method-card">
+                <h3 class="method-title"><div class="icon-circle icon-blue">1</div>准备阶段</h3>
+                <p class="method-desc">工具清单：辅食机、硅胶勺、辅食碗、冰格</p>
+            </div>
+
+            <div class="method-card">
+                <h3 class="method-title"><div class="icon-circle icon-blue">2</div>制作阶段</h3>
+                <p class="method-desc">辅食性状要 <span class="highlight-text">从稀到稠</span>，给宝宝肠胃一个适应过程。</p>
+                <!-- 辅食性状变化的对比图示 -->
+                <div style="display: flex; justify-content: space-around; text-align: center; margin-top: 10px; font-size: 11px; color: #555;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #F8D7A6; opacity: 0.4; border: 1px solid #F3C37D;"></div>
+                        <span style="margin-top: 4px; font-weight: bold;">1:10 稀糊状</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #F8D7A6; opacity: 0.7; border: 1px solid #F3C37D;"></div>
+                        <span style="margin-top: 4px; font-weight: bold;">1:7 稍稠糊</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #F8D7A6; border: 1px solid #F3C37D;"></div>
+                        <span style="margin-top: 4px; font-weight: bold;">1:4 浓稠糊</span>
+                    </div>
+                </div>
+                <div class="warm-tip">我用辅食机打南瓜泥，高速搅打<span class="highlight-text">30秒</span>就非常细腻了，没有颗粒感。</div>
+            </div>
+
+            <div class="method-card">
+                <h3 class="method-title"><div class="icon-circle icon-blue">3</div>喂养阶段</h3>
+                <p class="method-desc">遵循<span class="highlight-text">“3天观察法”</span>，每次只加一种新食材，观察3天确认无过敏反应再加下一种。</p>
+            </div>
+
+            <div class="method-card">
+                <h3 class="method-title"><div class="icon-circle icon-blue">4</div>记录阶段</h3>
+                <p class="method-desc">重点记录：<span class="highlight-text">过敏反应</span>（如红疹、腹泻）和 <span class="highlight-text">便便状况</span>，方便追溯问题食材。</p>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

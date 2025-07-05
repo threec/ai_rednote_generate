@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Part 2: 喂养原则与食物性状</title>
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFF7F7;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        /* --- 基本重置和页面设置 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0; /* 仅用于预览背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- 核心容器和模块 --- */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: var(--color-bg-light);
+            border-left: 8px solid var(--color-secondary);
+            overflow: hidden;
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            padding: 20px 22px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* --- 标题和高亮 --- */
+        .section-title {
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            display: inline-block;
+        }
+
+        .title-baby {
+            background-color: var(--color-tertiary);
+            color: var(--color-text-white);
+        }
+        
+        .highlight-blue {
+            color: var(--color-tertiary);
+            font-weight: 700;
+        }
+        
+        .highlight-orange {
+            color: var(--color-warn);
+            font-weight: 700;
+        }
+
+        /* --- 页面特定布局 --- */
+        .content-grid {
+            display: flex;
+            gap: 18px;
+            flex-grow: 1;
+        }
+
+        .left-column, .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-title {
+            font-size: var(--font-size-h3);
+            font-weight: 700;
+            color: var(--color-text-dark);
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--color-secondary);
+            padding-bottom: 8px;
+        }
+
+        /* --- 流程图样式 (左侧) --- */
+        .flowchart {
+            list-style: none;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .flowchart li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .flowchart li:not(:last-child)::after {
+            content: '⬇️';
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        .step-box {
+            background-color: var(--color-bg-tertiary);
+            border: 1px solid var(--color-tertiary);
+            padding: 8px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        /* --- 食物性状对比 (右侧) --- */
+        .texture-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+
+        .texture-card {
+            flex: 1;
+            background-color: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            color: var(--color-text-light);
+        }
+
+        .texture-card .card-title {
+            font-weight: 700;
+            color: var(--color-text-dark);
+            margin-bottom: 4px;
+        }
+
+        /* --- 提醒框 --- */
+        .highlight-box {
+            background-color: var(--color-warn-bg);
+            border: 1px solid var(--color-warn);
+            border-left: 5px solid var(--color-warn);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="center-wrapper" style="text-align: center;">
+                <div class="section-title title-baby">Part 2: 喂养原则与食物性状</div>
+            </div>
+
+            <div class="content-grid">
+                <!-- 左侧：3日观察法 -->
+                <div class="left-column">
+                    <h3 class="column-title">🔬 “3日观察法”</h3>
+                    <ul class="flowchart">
+                        <li><div class="step-box">1. 添加<span class="highlight-blue">一种</span>新食物</div></li>
+                        <li><div class="step-box">2. <span class="highlight-blue">连续喂3天</span>，密切观察</div></li>
+                        <li><div class="step-box">3. 观察有无过敏反应</div></li>
+                        <li><div class="step-box">4. ✅ 安全，加入常规菜单</div></li>
+                    </ul>
+                </div>
+
+                <!-- 右侧：食物性状 -->
+                <div class="right-column">
+                    <h3 class="column-title">🥣 辅食性状演变</h3>
+                    <div class="texture-gallery">
+                        <div class="texture-card">
+                            <div class="card-title">6个月+ | 稀泥糊状</div>
+                            <div>勺子舀起能顺畅流下，像浓酸奶一样。</div>
+                        </div>
+                        <div class="texture-card">
+                            <div class="card-title">7个月+ | 稠泥糊状</div>
+                            <div>勺子倾斜会<span class="highlight-blue">缓慢落下</span>，有一定粘稠度。</div>
+                        </div>
+                        <div class="texture-card">
+                            <div class="card-title">8个月+ | 软烂小颗粒</div>
+                            <div>含<span class="highlight-blue">细小、柔软</span>的颗粒，用舌头能碾碎。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部重要提醒 -->
+            <div class="highlight-box">
+                <span class="highlight-orange">关键名词解释：</span>过敏症状包括但不限于<span class="highlight-orange">红疹、腹泻、呕吐</span>。一旦出现，立即停喂该食物并咨询医生。安全永远第一位！
+            </div>
+            
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>
