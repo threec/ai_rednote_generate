@@ -358,14 +358,14 @@ HTML_BASE_STYLE = """
     --color-border: #FFEAE8;
     --color-title-bg: #FFF0EF;
 
-    /* 高密度排版系统 */
-    --font-size-base: 13.5px;
-    --line-height-base: 1.65;
-    --font-size-small: 12px;
-    --font-size-h1: 38px;
-    --font-size-h2: 22px;
-    --font-size-h3: 16px;
-    --font-size-cta: 28px;
+    /* 高密度排版系统（优化高度控制） */
+    --font-size-base: 12px;
+    --line-height-base: 1.5;
+    --font-size-small: 11px;
+    --font-size-h1: 32px;
+    --font-size-h2: 18px;
+    --font-size-h3: 14px;
+    --font-size-cta: 24px;
 }
 
 * {
@@ -462,9 +462,9 @@ body {
     font-weight: 700;
     color: var(--color-text-dark);
     text-align: center;
-    padding: 8px 15px;
+    padding: 6px 12px;
     border-radius: 30px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 15px auto;
     display: inline-block;
 }
 
@@ -494,7 +494,7 @@ body {
 .key-value-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0 0 15px 0;
 }
 
 .key-value-list li {
@@ -503,7 +503,7 @@ body {
     font-size: var(--font-size-base);
     line-height: var(--line-height-base);
     color: var(--color-text-light);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .key-value-list .icon {
@@ -546,8 +546,8 @@ body {
     background-color: var(--color-warn-bg);
     border: 1px solid var(--color-warn);
     border-radius: 12px;
-    padding: 15px;
-    margin: 20px 0;
+    padding: 12px;
+    margin: 15px 0;
 }
 
 .highlight-box-title {
