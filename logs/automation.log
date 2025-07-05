@@ -1,0 +1,316 @@
+2025-07-05 16:03:02 - root - INFO - 日志系统初始化完成
+2025-07-05 16:03:02 - root - INFO - 目录结构检查完成
+2025-07-05 16:03:02 - root - INFO - 程序启动参数: topic=如何培养孩子的阅读兴趣, force=False, skip_imaging=False
+2025-07-05 16:03:02 - root - INFO - 会话目录已创建: D:\projects\ai_rednote_generate\output\如何培养孩子的阅读兴趣_20250705_160302
+2025-07-05 16:03:02 - root - INFO - 开始执行战略规划阶段
+2025-07-05 16:03:02 - modules.strategy - INFO - ============================================================
+2025-07-05 16:03:02 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-05 16:03:02 - modules.strategy - INFO - 📝 输入主题: 如何培养孩子的阅读兴趣
+2025-07-05 16:03:02 - modules.strategy - INFO - ============================================================
+2025-07-05 16:03:02 - modules.strategy - INFO - ✓ 输入验证通过: 如何培养孩子的阅读兴趣
+2025-07-05 16:03:02 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-05 16:03:02 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-05 16:03:02 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-05 16:03:02 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-05 16:03:02 - modules.strategy - INFO - 正在调用OpenAI API (尝试 1/4)...
+2025-07-05 16:03:04 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-07-05 16:03:04 - modules.strategy - ERROR - OpenAI API调用失败: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:04 - modules.strategy - INFO - 正在重试... (1/3)
+2025-07-05 16:03:04 - modules.strategy - INFO - 正在调用OpenAI API (尝试 2/4)...
+2025-07-05 16:03:05 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-07-05 16:03:05 - modules.strategy - ERROR - OpenAI API调用失败: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:05 - modules.strategy - INFO - 正在重试... (2/3)
+2025-07-05 16:03:05 - modules.strategy - INFO - 正在调用OpenAI API (尝试 3/4)...
+2025-07-05 16:03:06 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-07-05 16:03:06 - modules.strategy - ERROR - OpenAI API调用失败: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:06 - modules.strategy - INFO - 正在重试... (3/3)
+2025-07-05 16:03:06 - modules.strategy - INFO - 正在调用OpenAI API (尝试 4/4)...
+2025-07-05 16:03:07 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-07-05 16:03:07 - modules.strategy - ERROR - OpenAI API调用失败: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:07 - modules.strategy - ERROR - AI策略分析失败: OpenAI API调用失败，已达到最大重试次数: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:07 - root - ERROR - 战略规划阶段失败: AI策略分析失败: OpenAI API调用失败，已达到最大重试次数: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:03:07 - root - ERROR - 流水线执行过程中发生错误: AI策略分析失败: OpenAI API调用失败，已达到最大重试次数: Error code: 401 - {'error': {'message': "You didn't provide an API key. You need to provide your API key in an Authorization header using Bearer auth (i.e. Authorization: Bearer YOUR_KEY), or as the password field (with blank username) if you're accessing the API from your browser and are prompted for a username and password. You can obtain an API key from https://platform.openai.com/account/api-keys.", 'type': 'invalid_request_error', 'param': None, 'code': None}}
+2025-07-05 16:04:46 - root - INFO - 日志系统初始化完成
+2025-07-05 16:04:46 - root - INFO - 目录结构检查完成
+2025-07-05 16:04:46 - root - INFO - 程序启动参数: topic=如何培养孩子的阅读兴趣, force=False, skip_imaging=False
+2025-07-05 16:04:46 - root - INFO - 会话目录已创建: D:\projects\ai_rednote_generate\output\如何培养孩子的阅读兴趣_20250705_160446
+2025-07-05 16:04:46 - root - INFO - 开始执行战略规划阶段
+2025-07-05 16:04:46 - modules.strategy - INFO - ============================================================
+2025-07-05 16:04:46 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-05 16:04:46 - modules.strategy - INFO - 📝 输入主题: 如何培养孩子的阅读兴趣
+2025-07-05 16:04:46 - modules.strategy - INFO - ============================================================
+2025-07-05 16:04:46 - modules.strategy - INFO - ✓ 输入验证通过: 如何培养孩子的阅读兴趣
+2025-07-05 16:04:46 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-05 16:04:46 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-05 16:04:46 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-05 16:04:46 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-05 16:04:46 - modules.strategy - INFO - 正在调用OpenAI API (尝试 1/4)...
+2025-07-05 16:05:32 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:05:32 - modules.strategy - ERROR - AI响应JSON解析失败: Expecting property name enclosed in double quotes: line 49 column 9 (char 2198)
+2025-07-05 16:05:32 - modules.strategy - ERROR - 原始响应: {
+    "research_report": {
+        "target_audience": {
+            "primary_audience": "家有3-8岁儿童，对孩子阅读启蒙感到焦虑和困惑的新手爸妈。",
+            "demographics": "主要为25-40岁女性，生活在一二线城市，受过良好教育，重视子女教育，是小红书等社交平台的活跃用户。",
+            "pain_points": [
+                "孩子沉迷电子产品，对书本毫无兴趣，一让看书就抵触。",
+                "花大价钱买了很多绘本，但孩子翻两页就扔，感觉钱白花了，还堆得家里乱。",
+                "不知道如何陪读，自己念得口干舌燥，孩子却神游天外，亲子阅读变成了无效的单向任务。"
+            ],
+            "emotional_triggers": [
+                "同龄焦虑：看到别人家的孩子是'小书虫'，担心自己的孩子输在起跑线上。",
+                "未来担忧：认为阅读能力直接关系到未来的学习能力和竞争力，现在不爱看书，以后怎么办？"
+            ],
+            "content_preferences": "偏好实用性强的'干货'内容，如可操作的方法论、书籍推荐清单。喜欢看真实、有温度的个人经历分享，而不是空洞的理论。对高颜值、有氛围感的图片没有抵抗力。"
+        },
+        "market_analysis": {
+            "competition_landscape": "该赛道竞争激烈，内容同质化严重。主要由教育专家、童书推广人和母婴博主构成。内容多为理论灌输或直接的书单推荐，缺少从父亲视角出发的、强调'玩'和'陪伴'的轻松内容。",
+            "content_gaps": "缺乏以'父亲'为第一人称的育儿经验分享。缺少处理孩子'阅读抵抗'情绪的实操方法。缺少将阅读与日常生活、游戏结合的创意点子。",
+            "opportunity_assessment": "'宝爸'身份本身就是差异化优势。以'轻松、好玩、不焦虑'为切入点，分享经过实践检验的'懒人方法'，能精准击中当前父母的痛点，建立信任感。",
+            "trending_elements": [
+                "氛围感育儿：打造有仪式感的亲子阅读环境。",
+                "游戏化学习：将阅读任务转化为有趣的游戏挑战。"
+            ]
+        },
+        "insights": {
+            "key_findings": [
+                "家长们普遍将'培养阅读习惯'视为一项必须完成的'教育任务'，这种功利心和焦虑感会不自觉地传递给孩子，引发抵抗。",
+                "相比复杂的理论，简单、有趣、立即可执行的小技巧，更容易被家长们接受和实践。"
+            ],
+            "strategic_recommendations": [
+                "内容定位不应是'教导'，而是'分享'和'共情'。核心是为家长'减负'，告诉他们可以更轻松、更愉快地实现目标。",
+                "采用'痛点场景+我的故事+解决方案'的内容模式，增强代入感和说服力。"
+            ],
+            "content_angles": [
+                "反焦虑角度：'放下焦虑，阅读是亲子关系的催化剂，不是KPI'",
+                "游戏化角度：'我用3个游戏，让娃从讨厌看书到主动求我讲故事'",
+                "环境塑造角度：'不用吼！家里这个角落布置好，孩子自己会爱上阅读'"
+            ]
+        }
+    },
+    "creative_blueprint": {
+        "content_strategy": {
+            "core_message": "培养阅读兴趣，关键在于'趣'，而不是'读'。放下功利心，和孩子一起玩，让阅读成为一场快乐的亲子冒险。",
+            "value_proposition": "一个资深宝爸的实战心得：分享3个亲测有效的'阅读游戏'，不打不骂，轻松把沉迷电子产品的娃，变成主动捧起书本的小书虫。",
+            "unique_angle": "爸爸的视角——不讲大道理，只分享好玩的游戏。强调通过'玩'来解决问题，方法简单，连'懒人爸妈'也能轻松上手。",
+            "call_to_action": "今晚就选一个游戏，和你家娃试试看！欢迎在评论区分享你们的趣事，咱们一起交流心得。"
+        },
+        
+2025-07-05 16:05:32 - modules.strategy - ERROR - API调用过程中发生未知错误: AI响应不是有效的JSON格式: Expecting property name enclosed in double quotes: line 49 column 9 (char 2198)
+2025-07-05 16:05:32 - modules.strategy - INFO - 正在重试... (1/3)
+2025-07-05 16:05:32 - modules.strategy - INFO - 正在调用OpenAI API (尝试 2/4)...
+2025-07-05 16:06:15 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:06:15 - modules.strategy - ERROR - AI响应JSON解析失败: Unterminated string starting at: line 82 column 36 (char 3594)
+2025-07-05 16:06:15 - modules.strategy - ERROR - 原始响应: {
+    "research_report": {
+        "target_audience": {
+            "primary_audience": "3-8岁孩子的父母，对培养孩子阅读习惯感到焦虑，尝试过多种方法但效果不佳。",
+            "demographics": "主要为28-40岁的一二线城市女性，高知群体，重视教育，是家庭教育决策的主要制定者和执行者。",
+            "pain_points": [
+                "买了成堆的绘本，孩子却不感兴趣，宁愿看电视玩iPad。",
+                "不知道如何给孩子读绘本，只是照着念很枯燥，孩子坐不住。",
+                "担心孩子不爱阅读，将来语文成绩和学习能力会落后。",
+                "看到别人家的“小书虫”，内心充满羡慕和焦虑。"
+            ],
+            "emotional_triggers": [
+                "育儿焦虑：害怕孩子在起跑线上落后。",
+                "自我怀疑：感觉自己不是一个“合格”的父母，没有用对方法。",
+                "寻求共鸣：渴望找到有同样困扰的父母，并获得简单有效的解决方案。"
+            ],
+            "content_preferences": "偏爱真实案例分享、可操作性强的步骤指南、温暖治愈的视觉风格。反感说教式、理论化的内容。"
+        },
+        "market_analysis": {
+            "competition_landscape": "市场上充满了各类书单推荐、专家理论。内容同质化严重，多集中在“读什么”和“应该读”，缺少“如何快乐地读”。",
+            "content_gaps": "鲜少有内容从“父母心态”和“亲子关系”角度切入，将阅读定义为一种“亲密的陪伴”而非“教育任务”。缺少将阅读游戏化的具体、创新玩法。",
+            "opportunity_assessment": "机会在于打破“阅读=学习”的刻板印象。以“宝爸”的亲历者视角，分享如何将阅读变成一种有趣的亲子游戏，能有效缓解父母焦虑，建立差异化优势。",
+            "trending_elements": [
+                "情绪价值",
+                "高质量陪伴",
+                "反焦虑育儿",
+                "游戏化学习"
+            ]
+        },
+        "insights": {
+            "key_findings": [
+                "父母的焦虑是培养阅读兴趣的最大阻力，这种压力会不自觉地传递给孩子。",
+                "阅读的仪式感和环境氛围，比书本内容本身对初期的孩子更重要。",
+                "核心目标不应是“让孩子爱上读书”，而是“让孩子爱上和我们一起读书的时光”。"
+            ],
+            "strategic_recommendations": [
+                "内容定位为给父母“减压”，而非“增负”。",
+                "强调阅读作为一种“连接”而非“教导”的工具。",
+                "用“我家孩子也曾这样”的真实故事，拉近与用户的距离，建立信任。"
+            ],
+            "content_angles": [
+                "反向切入：“别再‘教’孩子阅读了，试试和他们‘玩’故事”",
+                "问题解决型：“我家那个沉迷iPad的娃，是怎么爱上书本的？”",
+                "方法论总结：“改变我家阅读氛围的3个睡前小仪式”"
+            ]
+        }
+    },
+    "creative_blueprint": {
+        "content_strategy": {
+            "core_message": "培养阅读兴趣的关键，不是方法，而是关系。把阅读变成我们和孩子之间最期待的亲密游戏。",
+            "value_proposition": "分享我家亲测有效的3个“游戏化”阅读法，不打卡、不强迫，让阅读时光成为治愈一天疲惫的亲子享受。",
+            "unique_angle": "我不是教育专家，只是一位和你一样摸索前行的爸爸。咱们不谈大道理，只聊那些让孩子咯咯笑、让亲子关系升温的实在办法。",
+            "call_to_action": "今晚就选一个方法试试看？在评论区告诉我，你准备先玩哪个游戏？"
+        },
+        "content_structure": {
+            "opening_hook": "“花大价钱买的绘本山，孩子却一眼不看？当妈的挫败感，我懂。别急，咱们先不想着‘培养’，先想着怎么跟孩子‘玩’起来。”",
+            "main_body": {
+                "section_1": "第一招：【故事寻宝】。别直接把书递给孩子。把它藏在沙发垫下，画个简单的藏宝图，让找书本身就成为一个悬念游戏。这一下，书就从“任务”变成了“奖品”。",
+                "section_2": "第二招：【角色扮演家】。放下“标准朗读”的包袱。用你能想到的最夸张的声音去演。我是这么做的：小兔子就捏着嗓子，大灰狼就压低声音，甚至学猪叫。孩子笑得前仰后合时，故事就进到他心里了。",
+                "section_3": "第三招：【睡前卧谈会】。读完书合上，好戏才刚开始。别问“你学到了什么？”，而是聊“你最喜欢谁呀？”“如果小猪没盖草房子，会发生什么？”。把阅读变成一场关于感受和想象力的聊天。"
+            },
+            "closing": "你看，阅读的本质不是识字，是分享一段时光，是心灵的拥抱。放下焦虑，享受它。对了，你家有什么独特的阅读小妙招吗？评论区分享一下，咱们互相“抄作业”！"
+        },
+        "visual_plan": {
+            "image_count": 4,
+            "images": [
+                {
+                    "position": 1,
+                    "purpose": "封面图：制造共鸣，吸引点击",
+                    "description": "一张温暖、有生活气息的照片：爸爸和孩子（背影或侧脸）在地毯上，周围散落着几本绘本，阳光正好。封面大标题：“别再逼孩子读书了！”副标题：“换个玩法，他会爱上阅读”。",
+                    "style": "自然光，暖色调，温馨的居家感。"
+                },
+                {
+                    "position": 2,
+                    "purpose": "图解第一招：故事寻宝",
+                    "description": "一张干净的俯拍图。画面元素：一本打开的绘本，旁边放着一张手绘的简易“藏宝图”（比如画着沙发和台灯），还有一个小小的放大镜玩具。直观展示“寻宝”概念。",
+                    "style": "明亮、简洁的Flatlay（平铺）风格。"
+                },
+                {
+                    "position": 3,
+                    "purpose": "图解第二招：角色扮演",
+                    "description": "一张拼图或漫画式图片。左边是绘本里一个角色的特写（比如大灰狼），右边是一个简笔画风格的对话框，里面写着“用怪腔
+2025-07-05 16:06:15 - modules.strategy - ERROR - API调用过程中发生未知错误: AI响应不是有效的JSON格式: Unterminated string starting at: line 82 column 36 (char 3594)
+2025-07-05 16:06:15 - modules.strategy - INFO - 正在重试... (2/3)
+2025-07-05 16:06:15 - modules.strategy - INFO - 正在调用OpenAI API (尝试 3/4)...
+2025-07-05 16:06:59 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:06:59 - modules.strategy - ERROR - AI响应JSON解析失败: Unterminated string starting at: line 64 column 9 (char 3069)
+2025-07-05 16:06:59 - modules.strategy - ERROR - 原始响应: {
+    "research_report": {
+        "target_audience": {
+            "primary_audience": "3-10岁孩子的父母，尤其是对孩子阅读习惯感到焦虑，尝试过多种方法但效果不佳的年轻爸妈。",
+            "demographics": "主要为25-40岁的女性，居住在一二线城市，受过良好教育，重视子女教育，是小红书等社交平台的活跃用户，习惯于在线上寻求育儿经验和解决方案。",
+            "pain_points": [
+                "花大价钱买了成堆的绘本，孩子却不感兴趣，甚至当玩具撕掉。",
+                "孩子宁愿看动画片、玩iPad，也静不下心来看书，一让他读书就找借口。",
+                "不知道如何为孩子挑选合适的书籍，也不知道怎样陪读才能真正吸引孩子。",
+                "看到‘别人家的孩子’是小书虫，对比之下感到既羡慕又焦虑。"
+            ],
+            "emotional_triggers": [
+                "对孩子未来学业和认知能力落后的深层焦虑感。",
+                "在育儿上感到挫败和无力，渴望得到有效且易于操作的指导。",
+                "希望通过亲子阅读增进与孩子的情感连接，而不仅仅是完成一项‘教育任务’。"
+            ],
+            "content_preferences": "偏好真实、接地气的个人经验分享，而非空洞的理论。喜欢图文并茂、步骤清晰、可直接模仿的实用指南。对温暖、有共鸣感的故事性内容接受度高。"
+        },
+        "market_analysis": {
+            "competition_landscape": "平台上充斥着大量的‘必读绘本书单’、专家讲座式的内容。同质化严重，大多从‘书’本身出发，或者强调某种阅读技巧，容易让家长感到压力。",
+            "content_gaps": "缺乏从‘家长心态’和‘家庭环境’角度切入的内容。很少有内容真正关注如何缓解家长的焦虑，并将阅读融入家庭日常生活，使其成为一种自然而然的习惯。",
+            "opportunity_assessment": "以‘宝爸Conn’的温暖、过来人身份，分享‘反向操作’的育儿智慧，强调‘不强迫、只吸引’的理念，能形成差异化。将重点从‘如何教’转移到‘如何陪’，能精准击中当前家长的情感需求，创造新的内容价值。",
+            "trending_elements": [
+                "氛围感育儿",
+                "情绪价值",
+                "亲子关系",
+                "生活化教育"
+            ]
+        },
+        "insights": {
+            "key_findings": [
+                "家长的焦虑和功利心是孩子抗拒阅读的重要原因之一，压力会传染。",
+                "创造一个随手可及、充满书香的‘环境’，比刻意的‘陪读时间’更重要。",
+                "将阅读与游戏、生活场景结合，是降低孩子阅读门槛的有效方式。"
+            ],
+            "strategic_recommendations": [
+                "内容定位为‘给焦虑父母的宽心丸’，首先要安抚情绪，再提供方法。",
+                "强调‘宝爸Conn’的亲身经历，用‘我家孩子也曾这样’来建立信任和共鸣。",
+                "提供的建议必须是低成本、易执行的，让用户看完就能马上行动。"
+            ],
+            "content_angles": [
+                "不谈大道理，只聊我家那点事：我是如何把一个‘小屏奴’变成‘小书虫’的。",
+                "家庭环境改造：3个小变动，让阅读成为家里最受欢迎的活动。",
+                "游戏化阅读法：把讲故事变成一场亲子冒险游戏。"
+            ]
+        }
+    },
+    "creative_blueprint": {
+        "content_strategy": {
+            "core_message": "培养阅读兴趣，急不得。关键不是硬塞给孩子一本书，而是让阅读像呼吸一样，成为咱们家一种温暖又自然的生活方式。",
+            "value_proposition": "不给复杂的理论和长长的书单。作为过来人，我只想跟你分享3个我家亲测有效的小妙招，帮你和孩子一起，轻松爱上每天的亲子阅读时光。",
+            "unique_angle": "从一个父亲的视角出发，强调‘陪伴’而非‘教导’，聚焦于如何通过营造家庭氛围和调整家长心态，来‘引诱’孩子爱上阅读。",
+            "call_to_action": "今天就试着为孩子打造一个专属的‘阅读角’吧！欢迎在评论区晒出你家的温馨角落，或者分享一下你家娃最近迷上了哪本书？"
+        },
+        "content_structure": {
+            "opening_hook": "“咱们是不是也一样？给娃买了上百本绘本，结果呢？人家只把它们当积木，要么就是垫桌脚。别急，这事儿我家也经历过，今天跟你聊聊咱们是怎么‘熬’过来的。”",
+            "main_body": {
+                "section_1": "第一招：先给自己‘降降温’。聊聊我当初的焦虑，以及如何放下‘必须教会他什么’的功利心。记住，亲子阅读的核心是‘亲子’，不是‘阅读’。咱们的目标是连接，不是KPI。",
+                "section_2": "第二招：给家施个‘环境魔法’。分享3个具体做法：1. 在客厅角落打造一个被靠垫和暖光灯包围的‘阅读角’；2. 在家里各个地方（沙发旁、马桶边、车里）放上‘流动小书筐’，让书无处不在；3. 自己先拿起书，做孩子的‘阅读榜样’，身教大于言传。",
+                "section_3": "第三招：让阅读‘玩起来’。分享几个小游戏：比如，不照着书念，而是让他看图自己编故事；或者玩‘找一找’游戏，在复杂的图画里找某个小东西；甚至可以一起表演书里的情节。"
+            },
+            "closing": "“总而言之，兄弟姐妹们，别把阅读当成一项任务。它应该是咱们和孩子之间最棒的亲密时光。慢慢来，享受过程，你会发现，爱的种子，不知不觉就发芽了。❤️”"
+        },
+        "visual_plan
+2025-07-05 16:06:59 - modules.strategy - ERROR - API调用过程中发生未知错误: AI响应不是有效的JSON格式: Unterminated string starting at: line 64 column 9 (char 3069)
+2025-07-05 16:06:59 - modules.strategy - INFO - 正在重试... (3/3)
+2025-07-05 16:06:59 - modules.strategy - INFO - 正在调用OpenAI API (尝试 4/4)...
+2025-07-05 16:07:44 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:07:44 - modules.strategy - INFO - ✓ OpenAI API调用成功，策略分析完成
+2025-07-05 16:07:44 - modules.strategy - ERROR - AI策略分析失败: name 'pd' is not defined
+2025-07-05 16:07:44 - root - ERROR - 战略规划阶段失败: AI策略分析失败: name 'pd' is not defined
+2025-07-05 16:07:44 - root - ERROR - 流水线执行过程中发生错误: AI策略分析失败: name 'pd' is not defined
+2025-07-05 16:10:16 - root - INFO - 日志系统初始化完成
+2025-07-05 16:10:16 - root - INFO - 目录结构检查完成
+2025-07-05 16:10:16 - root - INFO - 程序启动参数: topic=如何培养孩子的阅读兴趣, force=False, skip_imaging=False
+2025-07-05 16:10:16 - root - INFO - 会话目录已创建: D:\projects\ai_rednote_generate\output\如何培养孩子的阅读兴趣_20250705_161016
+2025-07-05 16:10:16 - root - INFO - 开始执行战略规划阶段
+2025-07-05 16:10:16 - modules.strategy - INFO - ============================================================
+2025-07-05 16:10:16 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-05 16:10:16 - modules.strategy - INFO - 📝 输入主题: 如何培养孩子的阅读兴趣
+2025-07-05 16:10:16 - modules.strategy - INFO - ============================================================
+2025-07-05 16:10:16 - modules.strategy - INFO - ✓ 输入验证通过: 如何培养孩子的阅读兴趣
+2025-07-05 16:10:16 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-05 16:10:16 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-05 16:10:16 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-05 16:10:16 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-05 16:10:16 - modules.strategy - INFO - 正在调用OpenAI API (尝试 1/4)...
+2025-07-05 16:11:08 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:11:08 - modules.strategy - INFO - ✓ OpenAI API调用成功，策略分析完成
+2025-07-05 16:11:08 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-05 16:11:08 - modules.strategy - INFO - 🎯 生成了 4 张图片的规划
+2025-07-05 16:11:08 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-05 16:11:08 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-05 16:11:08 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-05 16:11:08 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-05 16:11:08 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-05 16:11:08 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-05 16:11:08 - modules.strategy - INFO - ============================================================
+2025-07-05 16:11:08 - root - INFO - 战略规划阶段完成
+2025-07-05 16:11:08 - root - INFO - 开始执行叙事与视觉生成阶段
+2025-07-05 16:11:08 - modules.execution - INFO - 开始执行叙事与视觉生成流程
+2025-07-05 16:11:08 - modules.execution - INFO - 参数: force_regenerate=False, force_html_only=False
+2025-07-05 16:11:08 - modules.execution - INFO - 尝试加载缓存的设计规范
+2025-07-05 16:11:08 - modules.utils - WARNING - JSON文件不存在: D:\projects\ai_rednote_generate\cache\design_spec.json
+2025-07-05 16:11:08 - modules.execution - INFO - 未找到缓存的设计规范，将重新生成
+2025-07-05 16:11:08 - modules.execution - INFO - 开始生成新的设计规范
+2025-07-05 16:11:08 - modules.execution - INFO - 开始生成设计规范文档
+2025-07-05 16:11:08 - modules.execution - INFO - 开始调用OpenAI API，期望JSON: True
+2025-07-05 16:11:08 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-05 16:11:40 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:11:40 - modules.execution - INFO - API调用成功，响应长度: 2562
+2025-07-05 16:11:40 - modules.execution - WARNING - JSON解析失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:11:40 - modules.execution - INFO - 准备重试，将错误反馈给AI进行自我修正
+2025-07-05 16:11:40 - modules.execution - INFO - 第 2 次尝试调用API
+2025-07-05 16:12:08 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:12:08 - modules.execution - INFO - API调用成功，响应长度: 2365
+2025-07-05 16:12:08 - modules.execution - WARNING - JSON解析失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:12:08 - modules.execution - INFO - 准备重试，将错误反馈给AI进行自我修正
+2025-07-05 16:12:08 - modules.execution - INFO - 第 3 次尝试调用API
+2025-07-05 16:12:30 - httpx - INFO - HTTP Request: POST https://www.chataiapi.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-05 16:12:30 - modules.execution - INFO - API调用成功，响应长度: 2460
+2025-07-05 16:12:30 - modules.execution - WARNING - JSON解析失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:12:30 - modules.execution - ERROR - API调用失败: 达到最大重试次数(3)，JSON解析仍然失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:12:30 - modules.execution - ERROR - 叙事与视觉生成流程失败: 达到最大重试次数(3)，API调用失败: 达到最大重试次数(3)，JSON解析仍然失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:12:30 - root - ERROR - 叙事与视觉执行阶段失败: 达到最大重试次数(3)，API调用失败: 达到最大重试次数(3)，JSON解析仍然失败: Expecting value: line 1 column 1 (char 0)
+2025-07-05 16:12:30 - root - ERROR - 流水线执行过程中发生错误: 达到最大重试次数(3)，API调用失败: 达到最大重试次数(3)，JSON解析仍然失败: Expecting value: line 1 column 1 (char 0)
