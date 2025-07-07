@@ -1,5 +1,12 @@
 # Core AI/LLM dependencies
 openai>=1.0.0
+google-genai>=0.2.0
+
+# LangChain framework for AI workflows
+langchain>=0.1.0
+langchain-core>=0.1.0
+langchain-google-genai>=1.0.0
+langchain-community>=0.0.20
 
 # Environment management
 python-dotenv>=1.0.0
@@ -42,3 +49,15 @@ jieba>=0.42.1
 
 # Color output
 colorama>=0.4.6
+
+# Type checking and validation
+typing-extensions>=4.5.0
+
+# YAML parsing for LangChain configs
+PyYAML>=6.0
+
+# Memory and caching for LangChain
+faiss-cpu>=1.7.0
+
+# Vector database support
+chromadb>=0.4.0

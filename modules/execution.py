@@ -27,12 +27,12 @@ from config import (
     MAX_RETRIES, DEFAULT_TEMPERATURE, DEFAULT_MAX_TOKENS,
     CACHE_DIR, OUTPUT_DIR, EXECUTION_SYSTEM_PROMPT,
     DESIGN_SPEC_FILENAME, FINAL_HTML_FILENAME, HTML_BASE_STYLE, XIAOHONGSHU_IMAGE_WIDTH, XIAOHONGSHU_IMAGE_HEIGHT,
-    SCREENSHOT_CONFIG
+    SCREENSHOT_CONFIG, COVER_PAGE_TEMPLATE, CONTENT_PAGE_TEMPLATE, COMPARISON_PAGE_TEMPLATE, FINAL_PAGE_TEMPLATE
 )
-from .utils import save_json, load_json, get_logger
+from modules.utils import save_json, load_json, get_logger
 
 # 导入数据模型
-from .models import DesignSpecification
+from modules.models import DesignSpecification
 
 # ===================================
 # 模块级别配置
@@ -481,7 +481,7 @@ def _generate_design_specification(blueprint: Dict[str, Any], theme: str) -> Dic
 
 def _generate_html_pages(design_spec: Dict[str, Any]) -> Dict[str, str]:
     """
-    根据设计规范生成多个HTML页面，每个页面对应一张小红书图片
+    使用专业模板系统生成多个HTML页面，每个页面对应一张小红书图片
     
     Args:
         design_spec (Dict[str, Any]): 设计规范文档
@@ -489,7 +489,7 @@ def _generate_html_pages(design_spec: Dict[str, Any]) -> Dict[str, str]:
     Returns:
         Dict[str, str]: 页面名称到HTML内容的映射
     """
-    logger.info("开始生成小红书多图HTML页面")
+    logger.info("开始生成小红书多图HTML页面（使用专业模板系统）")
     
     html_pages = {}
     
@@ -500,329 +500,191 @@ def _generate_html_pages(design_spec: Dict[str, Any]) -> Dict[str, str]:
         img_num = img_content["image_number"]
         img_type = img_content["type"]
         
-        # 生成HTML内容（使用新的设计系统）
-        html_prompt = f"""
-请根据以下设计规范生成一个HTML页面，用于小红书图片截图。
-
-**页面信息**:
-- 图片编号: {img_num}
-- 图片类型: {img_type}
-- 标题: {img_content["title"]}
-- 主要内容: {img_content["main_content"]}
-- 视觉元素: {img_content["visual_elements"]}
-- 配色方案: {img_content["color_scheme"]}
-- 布局风格: {img_content["layout"]}
-
-**严格技术要求**:
-- 页面尺寸: {XIAOHONGSHU_IMAGE_WIDTH}x{XIAOHONGSHU_IMAGE_HEIGHT}px（3:4黄金比例）
-- 高度控制：严格控制在560px以内，使用逐元素填充与实时高度监控
-- 所有样式必须内联到HTML中
-- 不使用外部图片，用CSS绘制图标
-- 使用Noto Sans SC字体
-- 确保在无头浏览器中正常渲染
-
-**宝爸Conn品牌设计系统（必须使用）**:
-使用以下CSS变量和样式类：
-
-```css
-:root {{
-    --color-primary: #FF7E79;    /* 主题粉色 */
-    --color-secondary: #FFD6D4;  /* 浅粉 */
-    --color-tertiary: #8EC5C5;   /* 辅助青色 */
-    --color-bg-tertiary: #F0FAFA; /* 青色背景 */
-    --color-warn: #FFA958;       /* 警告橙色 */
-    --color-warn-bg: #FFF7EE;    /* 警告背景 */
-    --color-text-dark: #333333;
-    --color-text-light: #555555;
-    --color-text-white: #FFFFFF;
-    --color-bg-light: #FFF7F7;
-    --color-border: #FFEAE8;
-    --font-size-base: 13.5px;
-    --line-height-base: 1.65;
-    --font-size-h1: 38px;
-    --font-size-h2: 22px;
-    --font-size-h3: 16px;
-}}
-```
-
-**必须使用的样式类**:
-- `.page-container` - 主容器，包含左边框装饰
-- `.module` - 页面模块，420x560px
-- `.brand-watermark` - 品牌水印
-- `.cover-title` - 封面标题（38px，粉色）
-- `.section-title` - 章节标题（22px，居中圆角）
-- `.title-mom` - 妈妈主题（粉色背景）
-- `.title-baby` - 宝宝主题（青色背景）
-- `.title-warn` - 警告主题（橙色背景）
-- `.key-value-list` - 信息列表
-- `.highlight-red` - 粉色高亮
-- `.highlight-blue` - 青色高亮
-- `.highlight-orange` - 橙色高亮
-- `.highlight-box` - 重要提醒框
-- `.center-wrapper` - 居中包装器
-
-**基本HTML结构**:
-```html
-<div class="page-container">
-    <div class="module">
-        <!-- 根据图片类型选择相应的内容结构 -->
-        <div class="brand-watermark">@宝爸Conn</div>
-    </div>
-</div>
-```
-
-**内容要求**:
-- 体现宝爸Conn的温暖语调和专业态度
-- 拒绝假词虚词，用具体细节和大白话
-- 包含真实的个人经历或具体案例
-- 重要信息使用高亮色彩突出
-- 使用emoji图标增强可读性
-
-**设计规范**:
-{json.dumps(design_spec.get("design_principles", {}), ensure_ascii=False, indent=2)}
-
-请生成完整的HTML页面代码，包含所有必要的样式和内容。HTML结构要清晰，样式要完整。
-确保使用新的设计系统的CSS变量和样式类。
-
-格式要求：直接输出HTML代码，不要用代码块包装。
-"""
-        
         try:
-            # 调用AI生成HTML（使用新的设计系统）
-            result = _call_gemini_with_self_correction(
-                system_prompt="""
-你是宝爸Conn团队的"原子设计师" - 专门将创意转化为精确可执行代码的系统架构师。
-
-## 🎯 核心理念："AI的母语是逻辑和代码，不是抽象审美"
-
-### 【原子设计师职责】：
-- **精确指令生成**：将设计意图转化为100%可执行的HTML/CSS代码
-- **系统化视觉架构**：不是"画图"，而是"编程视觉逻辑"  
-- **技术性美学**：通过代码结构实现视觉层次和品牌一致性
-
-## 🎨 宝爸Conn设计系统（基于优秀案例升级）
-
-### 新设计系统的核心特点：
-1. **三色系统**：主题粉色(#FF7E79)、辅助青色(#8EC5C5)、警告橙色(#FFA958)
-2. **高密度排版**：字体13.5px，行高1.65，信息密度高但可读性强
-3. **左侧装饰边框**：8px粉色边框，增强品牌识别度
-4. **模块化主题**：妈妈篇(粉色)、宝宝篇(青色)、提醒框(橙色)
-
-### 页面基本结构：
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        [内联CSS样式 - 基于新设计系统]
-    </style>
-</head>
-<body>
-    <div class="page-container">
-        <div class="module">
-            [具体内容]
-            <div class="brand-watermark">@宝爸Conn</div>
-        </div>
-    </div>
-</body>
-</html>
-```
-
-### 必须使用的样式类：
-
-#### 1. 封面页面：
-- 主容器：`<div class="page-container">`
-- 页面模块：`<div class="module">`
-- 封面标题：`<h1 class="cover-title">`（38px，粉色）
-- 副标题：`<div class="cover-subtitle">`
-- 高亮框：`<div class="cover-highlight-box">`
-
-#### 2. 内容页面：
-- 主容器：`<div class="page-container">`
-- 页面模块：`<div class="module">`
-- 章节标题：`<div class="section-title title-mom/title-baby/title-warn">`
-- 居中包装：`<div class="center-wrapper">`
-- 信息列表：`<ul class="key-value-list">`
-- 列表项：`<li>`，包含`<span class="icon">📱</span>`、`<span class="key">标题：</span>`、`<span class="value">内容</span>`
-- 重要提醒：`<div class="highlight-box">`
-
-#### 3. 高亮文本：
-- 粉色高亮：`<span class="highlight-red">重要内容</span>`
-- 青色高亮：`<span class="highlight-blue">重要内容</span>`
-- 橙色高亮：`<span class="highlight-orange">重要内容</span>`
-
-#### 4. 结尾页面：
-- 页面模块：`<div class="module final-module">`
-- 结尾问候：`<div class="final-greeting">`
-- 行动框：`<div class="cta-box">`
-- 品牌标识：`<div class="final-brand">`
-
-### CSS变量系统（必须使用）：
-```css
-:root {
-    --color-primary: #FF7E79;    /* 主题粉色 */
-    --color-secondary: #FFD6D4;  /* 浅粉 */
-    --color-tertiary: #8EC5C5;   /* 辅助青色 */
-    --color-bg-tertiary: #F0FAFA; /* 青色背景 */
-    --color-warn: #FFA958;       /* 警告橙色 */
-    --color-warn-bg: #FFF7EE;    /* 警告背景 */
-    --color-text-dark: #333333;
-    --color-text-light: #555555;
-    --color-text-white: #FFFFFF;
-    --color-bg-light: #FFF7F7;
-    --color-border: #FFEAE8;
-    --font-size-base: 13.5px;
-    --line-height-base: 1.65;
-    --font-size-h1: 38px;
-    --font-size-h2: 22px;
-    --font-size-h3: 16px;
-    --font-size-cta: 28px;
-}
-```
-
-### 极简内容结构要求：
-1. **高密度文字信息**：每页5-8个实用要点
-2. **仅用emoji图标**：简单emoji，不要CSS绘制图形
-3. **key-value列表**：标题+具体内容，清晰实用
-4. **可操作性**：具体数值、时间、方法、品牌推荐
-
-### 技术要求（极简化+高度控制）：
-- 页面尺寸：420x560px，**严格高度控制**
-- 左侧边框：8px solid var(--color-secondary)
-- 品牌水印：右下角，opacity: 0.15
-- 字体：Noto Sans SC，紧凑排版（12px基础，行高1.5）
-- **禁止**：CSS绘制图形、复杂装饰、多余视觉元素、过多间距
-- **专注**：文字内容、信息密度、实用性
-- **高度控制**：总内容高度不超过500px，预留60px安全空间
-
-### 生成要求（极简风格+严格高度控制）：
-1. **禁止CSS绘制装饰图形** - 只用emoji图标
-2. **高密度文字内容** - 每页4-6个要点（避免内容过多截断）
-3. **简洁列表结构** - 使用key-value列表，清晰易读
-4. **三色系统** - 仅用颜色区分主题，不添加装饰
-5. **精确尺寸控制** - 420x560px，左侧8px装饰边框
-6. **严格高度控制** - 内容总高度≤500px，间距最小化
-
-**高度控制策略**：
-- 标题区：≤50px
-- 内容区：≤400px  
-- 品牌水印：≤50px
-- 所有margin/padding最小化，优先内容展示
-
-参考用户提供的优秀案例风格：简洁、信息密度高、emoji图标、列表式排版。
-
-请作为"原子设计师"，生成简洁实用的HTML，专注内容展示，确保内容完整不截断。
-""",
-                user_prompt=html_prompt,
-                expect_json=False,
-                max_retries=2,
-                max_tokens=3000
-            )
-            
-            html_content = result.get("content", "")
-            
-            # 如果HTML内容不包含基础样式，则添加（极简风格）
-            if "<style>" not in html_content:
-                html_content = f"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小红书图片{img_num}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    {HTML_BASE_STYLE}
-</head>
-<body>
-    <div class="page-container">
-        <div class="module">
-            <div class="center-wrapper">
-                <div class="section-title title-mom">{img_content["title"]}</div>
-            </div>
-            <ul class="key-value-list">
-                <li>
-                    <span class="icon">📝</span>
-                    <div>
-                        <span class="key">要点：</span>
-                        <span class="value">{img_content["main_content"]}</span>
-                    </div>
-                </li>
-            </ul>
-            <div class="brand-watermark">@宝爸Conn</div>
-        </div>
-    </div>
-</body>
-</html>"""
-            
-            # 确保HTML包含必要的标签
-            if not html_content.startswith("<!DOCTYPE html>"):
-                html_content = f"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小红书图片{img_num}</title>
-</head>
-<body>
-{html_content}
-</body>
-</html>"""
+            # 智能选择模板并填充数据
+            html_content = _generate_page_with_template(img_content, design_spec)
             
             page_name = f"page_{img_num}_{img_type}"
             html_pages[page_name] = html_content
             
-            logger.info(f"✓ HTML页面生成成功: {page_name}")
+            logger.info(f"✓ HTML页面生成成功: {page_name} (使用专业模板)")
             
         except Exception as e:
-            logger.warning(f"AI生成HTML失败: {e}, 使用备用模板")
+            logger.warning(f"模板生成失败: {e}, 使用备用方案")
             
-            # 使用备用模板（优化版样式）
-            fallback_html = f"""<!DOCTYPE html>
+            # 备用：简化版本
+            html_content = _generate_fallback_page(img_content)
+            
+            page_name = f"page_{img_num}_{img_type}"
+            html_pages[page_name] = html_content
+            
+            logger.info(f"✓ HTML页面生成成功: {page_name} (使用备用方案)")
+    
+    logger.info(f"所有HTML页面生成完成，共{len(html_pages)}个页面")
+    return html_pages
+
+
+def _generate_page_with_template(img_content: Dict[str, Any], design_spec: Dict[str, Any]) -> str:
+    """
+    使用专业模板系统生成单个页面
+    
+    Args:
+        img_content (Dict[str, Any]): 图片内容信息
+        design_spec (Dict[str, Any]): 设计规范
+        
+    Returns:
+        str: 生成的HTML内容
+    """
+    img_num = img_content["image_number"]
+    img_type = img_content["type"]
+    title = img_content.get("title", "")
+    main_content = img_content.get("main_content", "")
+    
+    # 根据图片类型和编号智能选择模板
+    if img_num == 1 or "封面" in img_type or "cover" in img_type.lower():
+        # 封面页：使用封面模板
+        return _fill_cover_template(img_content, design_spec)
+    elif img_num == len(design_spec.get("image_contents", [])) or "总结" in img_type or "final" in img_type.lower():
+        # 结尾页：使用结尾模板
+        return _fill_final_template(img_content, design_spec)
+    elif "对比" in title or "错误" in main_content or "正确" in main_content:
+        # 对比页：使用对比模板
+        return _fill_comparison_template(img_content, design_spec)
+    else:
+        # 内容页：使用内容模板
+        return _fill_content_template(img_content, design_spec)
+
+
+def _fill_cover_template(img_content: Dict[str, Any], design_spec: Dict[str, Any]) -> str:
+    """填充封面页模板"""
+    title = img_content.get("title", "育儿攻略")
+    main_content = img_content.get("main_content", "")
+    
+    # 提取核心问题
+    core_problem = main_content[:80] + "..." if len(main_content) > 80 else main_content
+    
+    # 生成解决方案预览列表
+    solution_preview = ""
+    points = ["快速识别关键信号", "科学有效的处理方法", "避免常见错误做法"]
+    for point in points:
+        solution_preview += f'<li><span class="bullet"></span>{point}</li>\n                    '
+    
+    return COVER_PAGE_TEMPLATE.format(
+        title=title,
+        style=HTML_BASE_STYLE,
+        core_problem=core_problem,
+        solution_preview=solution_preview
+    )
+
+
+def _fill_content_template(img_content: Dict[str, Any], design_spec: Dict[str, Any]) -> str:
+    """填充内容页模板"""
+    title = img_content.get("title", "实用技巧")
+    main_content = img_content.get("main_content", "")
+    img_num = img_content.get("image_number", 2)
+    
+    # 生成内容章节
+    content_sections = f"""
+            <div class="info-card blue">
+                <div style="font-weight: 600; font-size: 16px; margin-bottom: 12px;">
+                    💡 核心要点
+                </div>
+                <p style="font-size: 14px; line-height: 1.5; margin: 0;">
+                    {main_content}
+                </p>
+            </div>
+    """
+    
+    # 提取关键提醒
+    key_reminder = "记住这个关键要点，能让你事半功倍！"
+    
+    return CONTENT_PAGE_TEMPLATE.format(
+        title=title,
+        style=HTML_BASE_STYLE,
+        step_number=img_num,
+        content_sections=content_sections,
+        key_reminder=key_reminder
+    )
+
+
+def _fill_comparison_template(img_content: Dict[str, Any], design_spec: Dict[str, Any]) -> str:
+    """填充对比页模板"""
+    title = img_content.get("title", "正确做法对比")
+    main_content = img_content.get("main_content", "")
+    img_num = img_content.get("image_number", 2)
+    
+    # 简化的对比内容
+    wrong_approach = "常见错误：急于处理，可能加重问题"
+    right_approach = "正确做法：冷静观察，科学应对"
+    explanation = "科学的方法能确保安全有效，避免二次伤害"
+    
+    # 生成步骤列表
+    detailed_steps = ""
+    steps = ["先观察评估情况", "采取适当的应对措施", "持续关注后续变化"]
+    for step in steps:
+        detailed_steps += f'<li><span class="bullet"></span>{step}</li>\n                    '
+    
+    return COMPARISON_PAGE_TEMPLATE.format(
+        title=title,
+        style=HTML_BASE_STYLE,
+        step_number=img_num,
+        wrong_approach=wrong_approach,
+        right_approach=right_approach,
+        explanation=explanation,
+        detailed_steps=detailed_steps
+    )
+
+
+def _fill_final_template(img_content: Dict[str, Any], design_spec: Dict[str, Any]) -> str:
+    """填充结尾页模板"""
+    title = img_content.get("title", "总结回顾")
+    main_content = img_content.get("main_content", "")
+    
+    # 生成核心要点列表
+    key_points = ""
+    points = ["掌握科学的判断方法", "学会正确的处理步骤", "建立长期的预防意识"]
+    for point in points:
+        key_points += f'<li><span class="bullet"></span>{point}</li>\n                    '
+    
+    important_reminder = "每个宝宝都有个体差异，实际操作时要因人而异，安全第一！"
+    cta_message = "关注@宝爸Conn，获取更多科学育儿攻略和实用技巧分享"
+    
+    return FINAL_PAGE_TEMPLATE.format(
+        title=title,
+        style=HTML_BASE_STYLE,
+        key_points=key_points,
+        important_reminder=important_reminder,
+        cta_message=cta_message
+    )
+
+
+def _generate_fallback_page(img_content: Dict[str, Any]) -> str:
+    """生成备用页面"""
+    title = img_content.get("title", "内容页面")
+    main_content = img_content.get("main_content", "")
+    
+    return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小红书图片{img_num}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>{title}</title>
     {HTML_BASE_STYLE}
-    <style>
-    .page-{img_num} {{
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-    }}
-    .content-box {{
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        padding: 20px;
-        margin: 15px 0;
-        backdrop-filter: blur(10px);
-    }}
-    </style>
 </head>
-<body class="page-{img_num}">
+<body>
     <div class="page-container">
-        <div class="illustrated-content-module high-density">
-            <h1 class="icm-title">{img_content["title"]}</h1>
-            <div class="content-section">
-                <div class="content-box">
-                    <p>{img_content["main_content"]}</p>
-                </div>
+        <div class="module">
+            <div class="main-title">{title}</div>
+            <div class="info-card blue">
+                <p style="font-size: 14px; line-height: 1.5; margin: 0;">
+                    {main_content}
+                </p>
             </div>
-            <div class="brand-watermark">@宝爸Conn</div>
         </div>
+        <div class="brand-watermark">宝爸Conn</div>
     </div>
 </body>
 </html>"""
-            
-            page_name = f"page_{img_num}_{img_type}"
-            html_pages[page_name] = fallback_html
-            
-            logger.info(f"✓ 备用HTML页面生成成功: {page_name}")
-    
-    logger.info(f"所有HTML页面生成完成，共{len(html_pages)}个页面")
-    return html_pages
 
 def _generate_final_html(design_spec: Dict[str, Any]) -> str:
     """

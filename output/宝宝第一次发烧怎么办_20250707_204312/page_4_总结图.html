@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宝爸Conn - 必须去医院的6大信号</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFF7F7;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0; /* Page background for context */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: var(--color-bg-light);
+            border-left: 8px solid var(--color-primary); /* Using primary pink for brand consistency */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .center-wrapper {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            color: var(--color-text-white);
+            padding: 8px 20px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        .title-warn {
+            background-color: var(--color-warn);
+            box-shadow: 0 4px 10px rgba(255, 169, 88, 0.3);
+        }
+        
+        .intro-text {
+            font-size: var(--font-size-base);
+            color: var(--color-text-light);
+            text-align: center;
+            margin: 0;
+            padding: 0 10px;
+            line-height: var(--line-height-base);
+            margin-bottom: 25px;
+        }
+
+        .key-value-list {
+            width: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px; /* Fine-tuned for height control */
+        }
+
+        .key-value-list li {
+            display: flex;
+            align-items: flex-start;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .key-value-list .icon {
+            font-size: 20px;
+            margin-right: 12px;
+            line-height: 1.5; /* Align emoji better with text */
+            flex-shrink: 0;
+        }
+
+        .highlight-orange {
+            color: var(--color-warn);
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="center-wrapper">
+                <div class="section-title title-warn">
+                    必须去医院的6大信号
+                </div>
+            </div>
+            
+            <p class="intro-text">
+                宝爸宝妈请牢记！出现以下任何一条，别犹豫，<span class="highlight-orange">立刻去医院</span>！这是宝宝的保命图。
+            </p>
+
+            <ul class="key-value-list">
+                <li>
+                    <span class="icon">🚨</span>
+                    <div>月龄<span class="highlight-orange">＜3个月</span>的宝宝，只要发烧就得去。</div>
+                </li>
+                <li>
+                    <span class="icon">🚨</span>
+                    <div><span class="highlight-orange">精神极差</span>，整天蔫蔫的，或者烦躁哭闹到完全哄不住。</div>
+                </li>
+                <li>
+                    <span class="icon">🚨</span>
+                    <div>出现<span class="highlight-orange">惊厥（抽搐）</span>，哪怕只有一次，也要立刻去急诊。</div>
+                </li>
+                <li>
+                    <span class="icon">🚨</span>
+                    <div><span class="highlight-orange">呼吸困难</span>、急促，能看到鼻翼煽动或脸色、嘴唇发青。</div>
+                </li>
+                <li>
+                    <span class="icon">🚨</span>
+                    <div>有<span class="highlight-orange">脱水迹象</span>，比如超过8小时没尿，或者嘴唇干到起皮。</div>
+                </li>
+                <li>
+                    <span class="icon">🚨</span>
+                    <div><span class="highlight-orange">持续高烧不退</span>，吃了退烧药体温还是纹丝不动，甚至超过40℃。</div>
+                </li>
+            </ul>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

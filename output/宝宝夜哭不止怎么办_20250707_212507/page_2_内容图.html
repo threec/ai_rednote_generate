@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>宝爸Conn - 黄金5分钟！急救排查四步法</title>
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFDFD;
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+        }
+
+        /* 1. Reset and Base Styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f0f0; /* Page background for viewing */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 2. Page Structure */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            border-left: 8px solid var(--color-primary); /* Use primary pink for strong brand ID */
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-light);
+            padding: 30px 25px 25px 25px; /* Controlled padding */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to the top */
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+            user-select: none;
+        }
+
+        /* 3. Content Elements */
+        .section-title {
+            font-size: var(--font-size-h2);
+            font-weight: 900;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 25px; /* Space after title */
+            letter-spacing: 0.5px;
+        }
+        
+        .title-baby {
+            background-color: var(--color-bg-tertiary);
+            color: var(--color-tertiary);
+        }
+
+        .key-value-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between list items */
+        }
+
+        .key-value-list li {
+            display: flex;
+            align-items: flex-start; /* Align icon with first line of text */
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .key-value-list .icon {
+            font-size: 18px;
+            margin-right: 12px;
+            margin-top: 1px; /* Fine-tune vertical alignment */
+            flex-shrink: 0;
+        }
+        
+        .key-value-list .key {
+            font-weight: 700;
+            color: var(--color-text-dark);
+            flex-shrink: 0; /* Prevent key from wrapping */
+        }
+
+        .key-value-list .value {
+            color: var(--color-text-light);
+        }
+
+        /* 4. Highlight and Utility Classes */
+        .highlight-box {
+            background-color: var(--color-warn-bg);
+            border-left: 4px solid var(--color-warn);
+            padding: 15px;
+            margin-top: 25px; /* Space above the box */
+            border-radius: 0 8px 8px 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-light);
+        }
+
+        .highlight-box .key {
+            font-weight: 700;
+            color: var(--color-warn);
+        }
+
+        .highlight-blue {
+            font-weight: 700;
+            color: var(--color-tertiary);
+        }
+
+        /* Unused but defined per system */
+        .highlight-red { font-weight: 700; color: var(--color-primary); }
+        .highlight-orange { font-weight: 700; color: var(--color-warn); }
+        .title-mom { background-color: var(--color-secondary); color: var(--color-primary); }
+        .title-warn { background-color: var(--color-warn-bg); color: var(--color-warn); }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            
+            <div class="section-title title-baby">
+                黄金5分钟！急救排查四步法
+            </div>
+
+            <ul class="key-value-list">
+                <li>
+                    <span class="icon">👀</span>
+                    <div>
+                        <span class="key">1. 看信号，别看表：</span>
+                        <span class="value">区分<span class="highlight-blue">饥饿哭声</span>和寻根反射，按需喂养，而不是按时。</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon">🌡️</span>
+                    <div>
+                        <span class="key">2. 摸后颈，别摸手：</span>
+                        <span class="value">宝宝后颈温热代表温度适宜，手脚末梢偏凉是<span class="highlight-blue">正常现象</span>。</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon">💧</span>
+                    <div>
+                        <span class="key">3. 查尿裤，要干爽：</span>
+                        <span class="value">及时检查并更换湿透的纸尿裤，保持小屁屁干爽舒适。</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon">👶</span>
+                    <div>
+                        <span class="key">4. 试安抚，用对招：</span>
+                        <span class="value">肠胀气时，尝试<span class="highlight-blue">飞机抱</span>或顺时针按摩腹部等有效安抚方式。</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="highlight-box">
+                <span class="key">宝爸Conn亲测有效：</span>
+                <span class="value">我家娃肠胀气时，飞机抱 + 顺时针按摩腹部，通常5分钟内就能排出几个屁，然后就舒服了。</span>
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>

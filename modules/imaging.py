@@ -60,7 +60,7 @@ IMAGING_METHODS = {
 
 async def capture_html_with_playwright(html_file: str, output_file: str, config: Dict[str, Any] = None) -> bool:
     """
-    使用Playwright进行HTML截图
+    使用Playwright进行HTML截图（改进版）
     
     Args:
         html_file (str): HTML文件路径
@@ -80,36 +80,186 @@ async def capture_html_with_playwright(html_file: str, output_file: str, config:
         logger.info(f"开始使用Playwright截图: {html_file}")
         
         async with async_playwright() as p:
-            # 启动浏览器
-            browser = await p.chromium.launch(
-                headless=True,
-                args=['--no-sandbox', '--disable-setuid-sandbox']
-            )
+            # 优化的浏览器启动配置
+            launch_options = {
+                "headless": True,
+                "args": [
+                    '--disable-web-security',
+                    '--disable-dev-shm-usage',
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                    '--force-device-scale-factor=3',  # 3倍像素密度
+                    '--disable-background-timer-throttling',
+                    '--disable-renderer-backgrounding',
+                    '--disable-backgrounding-occluded-windows'
+                ]
+            }
+            
+            # 尝试使用Chrome，失败则使用Chromium
+            try:
+                browser = await p.chromium.launch(channel="chrome", **launch_options)
+                logger.info("使用Chrome浏览器")
+            except Exception as e:
+                logger.warning(f"无法启动Chrome浏览器，使用Chromium: {e}")
+                browser = await p.chromium.launch(**launch_options)
             
             # 创建页面
-            page = await browser.new_page(
-                viewport={
-                    'width': screenshot_config['width'],
-                    'height': screenshot_config['height']
-                },
-                device_scale_factor=screenshot_config.get('device_scale_factor', 2)
-            )
+            page = await browser.new_page()
             
-            # 加载HTML文件
+            # 设置默认超时
+            page.set_default_timeout(10000)  # 10秒超时
+            
+            # 设置用户代理
+            await page.set_extra_http_headers({
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            })
+            
+            # 构造文件URL
             html_path = Path(html_file).as_uri()
-            await page.goto(html_path, wait_until='networkidle')
             
-            # 等待页面渲染完成
+            # 拦截外部资源请求，只允许本地资源
+            await page.route("**/*", lambda route: (
+                route.continue_() if route.request.url.startswith(("file://", "data:")) 
+                else route.abort()
+            ))
+            
+            # 加载HTML文件 - 使用domcontentloaded
+            await page.goto(html_path, wait_until="domcontentloaded", timeout=6000)
+            
+            # 强制设置字体，覆盖所有@font-face
+            await page.add_style_tag(content="""
+                @font-face { font-family: 'Noto Sans SC'; src: local('Microsoft YaHei'); }
+                * { 
+                    font-family: 'Microsoft YaHei', 'SimHei', 'Helvetica', sans-serif !important;
+                }
+            """)
+            
+            # 等待页面渲染
             await page.wait_for_timeout(1000)
             
-            # 截图
-            await page.screenshot(
-                path=output_file,
-                type=screenshot_config.get('format', 'png'),
-                quality=screenshot_config.get('quality', 90),
-                full_page=screenshot_config.get('full_page', False),
-                clip=screenshot_config.get('clip')
-            )
+            # 获取页面内容的实际尺寸 - 智能检测容器
+            content_info = await page.evaluate("""
+                () => {
+                    // 按优先级查找主容器
+                    const containers = [
+                        '.page-container',
+                        '.module',
+                        '.container',
+                        '.content-wrapper',
+                        '.main-container'
+                    ];
+                    
+                    for (const selector of containers) {
+                        const element = document.querySelector(selector);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            const styles = window.getComputedStyle(element);
+                            let width = parseFloat(styles.width);
+                            let height = parseFloat(styles.height);
+                            
+                            // 处理auto高度
+                            if (styles.height === 'auto' || height === 0) {
+                                height = rect.height;
+                            }
+                            
+                            // 检查是否有有效尺寸
+                            if (width > 0 && height > 0 && width < 2000 && height < 3000) {
+                                return { 
+                                    width: Math.ceil(width), 
+                                    height: Math.ceil(height),
+                                    x: Math.ceil(rect.left),
+                                    y: Math.ceil(rect.top),
+                                    source: selector,
+                                    found: true
+                                };
+                            }
+                        }
+                    }
+                    
+                    // 备用方案：使用document尺寸
+                    const body = document.body;
+                    const html = document.documentElement;
+                    const height = Math.max(
+                        body.scrollHeight, body.offsetHeight,
+                        html.clientHeight, html.scrollHeight, html.offsetHeight
+                    );
+                    const width = Math.max(
+                        body.scrollWidth, body.offsetWidth,
+                        html.clientWidth, html.scrollWidth, html.offsetWidth
+                    );
+                    
+                    return { 
+                        width: Math.min(width, 1500), 
+                        height: Math.min(height, 2000),
+                        x: 0,
+                        y: 0,
+                        source: 'document',
+                        found: false
+                    };
+                }
+            """)
+            
+            logger.info(f"检测到页面尺寸: {content_info['width']}x{content_info['height']} (来源: {content_info['source']})")
+            
+            if content_info['found']:
+                # 找到了主容器，使用精确截图
+                scale_factor = 3
+                scaled_width = content_info['width'] * scale_factor
+                scaled_height = content_info['height'] * scale_factor
+                
+                # 设置视口
+                await page.set_viewport_size({
+                    "width": scaled_width,
+                    "height": scaled_height
+                })
+                
+                # 应用CSS变换来放大内容
+                await page.evaluate(f"""
+                    () => {{
+                        const element = document.querySelector('{content_info['source']}');
+                        if (element) {{
+                            // 确保容器居中对齐
+                            document.body.style.margin = '0';
+                            document.body.style.padding = '0';
+                            document.body.style.display = 'flex';
+                            document.body.style.justifyContent = 'center';
+                            document.body.style.alignItems = 'center';
+                            document.body.style.minHeight = '100vh';
+                            document.body.style.background = '#e9e9e9';
+                            
+                            // 缩放元素
+                            element.style.transform = 'scale({scale_factor})';
+                            element.style.transformOrigin = 'center center';
+                        }}
+                    }}
+                """)
+                
+                # 等待CSS变换完成
+                await page.wait_for_timeout(800)
+                
+                # 截图整个视口
+                await page.screenshot(
+                    path=output_file,
+                    type="png",
+                    timeout=8000
+                )
+                
+                logger.info(f"使用精确截图模式: {scaled_width}x{scaled_height}")
+            else:
+                # 使用传统截图方式
+                await page.set_viewport_size({
+                    "width": screenshot_config['width'],
+                    "height": screenshot_config['height']
+                })
+                
+                await page.screenshot(
+                    path=output_file,
+                    type="png",
+                    full_page=True,
+                    timeout=8000
+                )
+                
+                logger.info(f"使用传统截图模式: {screenshot_config['width']}x{screenshot_config['height']}")
             
             await browser.close()
             
@@ -463,7 +613,7 @@ def check_imaging_capabilities() -> Dict[str, Any]:
         import playwright
         capabilities["playwright"] = {
             "available": True,
-            "version": playwright.__version__
+            "version": getattr(playwright, '__version__', 'unknown')
         }
     except ImportError:
         capabilities["playwright"] = {

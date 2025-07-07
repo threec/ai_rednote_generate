@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新生儿SOP通关手册</title>
+    
+<style>
+    :root {
+        /* 专业配色方案 */
+        --color-primary-blue: #4A90E2;     /* 主蓝色 - 战略类 */
+        --color-secondary-green: #7ED321;   /* 主绿色 - 执行类 */
+        --color-accent-pink: #F5A623;       /* 强调色 - 重点信息 */
+        --color-bg-blue: #EBF4FF;           /* 蓝色背景 */
+        --color-bg-green: #F0FFF4;          /* 绿色背景 */
+        --color-bg-pink: #FFF8E1;           /* 粉色背景 */
+        --color-text-dark: #2C3E50;         /* 主文字 */
+        --color-text-medium: #5A6C7D;       /* 次要文字 */
+        --color-text-light: #7F8C8D;        /* 辅助文字 */
+        --color-border: #E1E8ED;            /* 边框色 */
+        --color-shadow: rgba(0,0,0,0.08);   /* 阴影 */
+        
+        /* 字体系统 */
+        --font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        --font-size-xl: 28px;               /* 大标题 */
+        --font-size-lg: 20px;               /* 小标题 */
+        --font-size-md: 16px;               /* 正文 */
+        --font-size-sm: 14px;               /* 小字 */
+        
+        /* 间距系统 */
+        --spacing-xs: 8px;
+        --spacing-sm: 12px;
+        --spacing-md: 20px;
+        --spacing-lg: 32px;
+        --spacing-xl: 48px;
+        
+        /* 圆角系统 */
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: var(--spacing-md);
+    }
+
+    /* 页面容器 - 固定尺寸确保不被截断 */
+    .page-container {
+        width: 420px;
+        min-height: 560px;
+        background: white;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 40px var(--color-shadow);
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 模块基础样式 */
+    .module {
+        padding: var(--spacing-lg) var(--spacing-md);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 标题系统 */
+    .main-title {
+        font-size: var(--font-size-xl);
+        font-weight: 800;
+        color: var(--color-text-dark);
+        line-height: 1.2;
+        margin-bottom: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        color: var(--color-text-dark);
+        margin-bottom: var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    /* 卡片系统 */
+    .info-card {
+        background: white;
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .info-card.blue {
+        background: var(--color-bg-blue);
+        border-color: var(--color-primary-blue);
+    }
+
+    .info-card.green {
+        background: var(--color-bg-green);
+        border-color: var(--color-secondary-green);
+    }
+
+    .info-card.pink {
+        background: var(--color-bg-pink);
+        border-color: var(--color-accent-pink);
+    }
+
+    /* 图标系统 */
+    .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        font-size: 14px;
+        margin-right: var(--spacing-sm);
+    }
+
+    .icon.blue { background: var(--color-primary-blue); color: white; }
+    .icon.green { background: var(--color-secondary-green); color: white; }
+    .icon.pink { background: var(--color-accent-pink); color: white; }
+
+    /* 列表系统 */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: var(--spacing-sm);
+        font-size: var(--font-size-md);
+        line-height: 1.5;
+    }
+
+    .feature-list .bullet {
+        width: 6px;
+        height: 6px;
+        background: var(--color-primary-blue);
+        border-radius: 50%;
+        margin-right: var(--spacing-sm);
+        margin-top: 8px;
+        flex-shrink: 0;
+    }
+
+    /* 强调文本 */
+    .highlight {
+        background: linear-gradient(90deg, var(--color-accent-pink), #FF6B6B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+
+    .emphasis {
+        color: var(--color-primary-blue);
+        font-weight: 600;
+    }
+
+    /* 步骤指示器 */
+    .step-indicator {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--color-primary-blue);
+        color: white;
+        border-radius: 50%;
+        font-weight: 700;
+        font-size: 14px;
+        margin-right: var(--spacing-sm);
+    }
+
+    /* 对比卡片 */
+    .comparison-card {
+        display: flex;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
+    }
+
+    .comparison-item {
+        flex: 1;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        text-align: center;
+    }
+
+    .comparison-item.wrong {
+        background: #FFEBEE;
+        border: 1px solid #F44336;
+    }
+
+    .comparison-item.right {
+        background: #E8F5E8;
+        border: 1px solid #4CAF50;
+    }
+
+    /* 底部品牌水印 */
+    .brand-watermark {
+        position: absolute;
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text-light);
+        opacity: 0.6;
+    }
+
+    /* 响应式优化 */
+    @media (max-width: 480px) {
+        .page-container {
+            width: 100%;
+            min-height: auto;
+        }
+        
+        .module {
+            padding: var(--spacing-md);
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="main-title">新生儿SOP通关手册</div>
+            
+            <div class="info-card blue">
+                <div class="section-title">
+                    <span class="icon blue">💡</span>
+                    核心问题
+                </div>
+                <p style="font-size: 16px; line-height: 1.6; color: var(--color-text-dark); margin: 0;">
+                    【新生儿SOP通关手册】
+搞定0-3月龄宝宝吃睡玩，告别手忙脚乱！
+
+是不是感觉娃的说明书忘肚子里了？别慌，这份IT老爸整理的SOP，就是你的通关秘籍！
+
+核心...
+                </p>
+            </div>
+            
+            <div class="info-card green">
+                <div class="section-title">
+                    <span class="icon green">🎯</span>
+                    解决方案预览
+                </div>
+                <ul class="feature-list">
+                    <li><span class="bullet"></span>快速识别关键信号</li>
+                    <li><span class="bullet"></span>科学有效的处理方法</li>
+                    <li><span class="bullet"></span>避免常见错误做法</li>
+                    
+                </ul>
+            </div>
+            
+            <div class="info-card pink">
+                <div class="section-title">
+                    <span class="icon pink">⚡</span>
+                    你将获得
+                </div>
+                <p style="font-size: 14px; line-height: 1.5; color: var(--color-text-medium); margin: 0;">
+                    <span class="highlight">3分钟掌握</span>核心要点，
+                    <span class="emphasis">实用技巧</span>立即可用
+                </p>
+            </div>
+            
+            <div style="margin-top: auto; text-align: center; font-size: 12px; color: var(--color-text-light);">
+                <div style="background: var(--color-bg-blue); padding: 8px 16px; border-radius: 20px; display: inline-block;">
+                    滑动查看详细攻略 →
+                </div>
+            </div>
+        </div>
+        <div class="brand-watermark">宝爸Conn</div>
+    </div>
+</body>
+</html>

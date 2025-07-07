@@ -2354,3 +2354,709 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2025-07-05 20:43:51 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
 2025-07-05 20:43:51 - modules.execution - INFO - 第 1 次尝试调用API
 2025-07-05 20:43:52 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:41:48 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 20:41:48 - __main__ - INFO - 目录结构检查完成
+2025-07-07 20:41:48 - modules.execution - INFO - 初始化执行模块
+2025-07-07 20:41:48 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 20:41:48 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 20:41:48 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 20:41:48 - modules.imaging - ERROR - 成像模块初始化失败: module 'playwright' has no attribute '__version__'
+2025-07-07 20:41:48 - __main__ - INFO - 程序启动参数: topic=宝宝第一次发烧怎么办, force=False, enable_imaging=False
+2025-07-07 20:41:48 - __main__ - INFO - 开始执行战略规划阶段
+2025-07-07 20:41:48 - modules.strategy - INFO - ============================================================
+2025-07-07 20:41:48 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-07 20:41:48 - modules.strategy - INFO - 📝 输入主题: 宝宝第一次发烧怎么办
+2025-07-07 20:41:48 - modules.strategy - INFO - ============================================================
+2025-07-07 20:41:48 - modules.strategy - INFO - ✓ 输入验证通过: 宝宝第一次发烧怎么办
+2025-07-07 20:41:48 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_宝宝第一次发烧怎么办\blueprint.json
+2025-07-07 20:41:48 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-07 20:41:48 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-07 20:41:48 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-07 20:41:48 - modules.strategy - INFO - 正在调用Gemini API (尝试 1/4)...
+2025-07-07 20:41:49 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:43:12 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:43:12 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:43:12 - modules.strategy - INFO - ✓ Gemini API调用成功，使用模型: gemini-2.5-pro
+2025-07-07 20:43:12 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-07 20:43:12 - modules.strategy - INFO - 🎯 生成了 8 张图片的规划
+2025-07-07 20:43:12 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-07 20:43:12 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_宝宝第一次发烧怎么办\blueprint.json
+2025-07-07 20:43:12 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_宝宝第一次发烧怎么办\blueprint.json
+2025-07-07 20:43:12 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-07 20:43:12 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-07 20:43:12 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-07 20:43:12 - modules.strategy - INFO - ============================================================
+2025-07-07 20:43:12 - __main__ - INFO - 开始执行叙事生成阶段
+2025-07-07 20:43:12 - modules.execution - INFO - ================================================================================
+2025-07-07 20:43:12 - modules.execution - INFO - 🎬 启动小红书多图内容生成管道
+2025-07-07 20:43:12 - modules.execution - INFO - 📝 主题: 宝宝第一次发烧怎么办
+2025-07-07 20:43:12 - modules.execution - INFO - ================================================================================
+2025-07-07 20:43:12 - modules.execution - INFO - 创建主题文件夹：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312
+2025-07-07 20:43:12 - modules.execution - INFO - 第1阶段：叙事设计 - 生成小红书多图设计规范
+2025-07-07 20:43:12 - modules.execution - INFO - 开始生成小红书多图内容设计规范
+2025-07-07 20:43:12 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
+2025-07-07 20:43:12 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:43:14 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:44:19 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:44:19 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:44:19 - modules.execution - INFO - ✓ Gemini API调用成功（结构化输出），使用模型: gemini-2.5-pro
+2025-07-07 20:44:19 - modules.execution - INFO - ✓ 设计规范生成成功
+2025-07-07 20:44:19 - modules.execution - INFO - 设计规范已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\design_spec.json
+2025-07-07 20:44:19 - modules.execution - INFO - 第2阶段：视觉编码 - 生成小红书多图HTML页面
+2025-07-07 20:44:19 - modules.execution - INFO - 开始生成小红书多图HTML页面
+2025-07-07 20:44:19 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 20:44:19 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:44:20 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:45:23 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:45:23 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:45:23 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 4590
+2025-07-07 20:45:23 - modules.execution - INFO - ✓ HTML页面生成成功: page_1_封面图
+2025-07-07 20:45:23 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 20:45:23 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:45:26 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:46:21 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:46:21 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:46:21 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 5947
+2025-07-07 20:46:21 - modules.execution - INFO - ✓ HTML页面生成成功: page_2_内容图
+2025-07-07 20:46:21 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 20:46:21 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:46:23 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:47:50 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:47:50 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:47:51 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 9073
+2025-07-07 20:47:51 - modules.execution - INFO - ✓ HTML页面生成成功: page_3_内容图
+2025-07-07 20:47:51 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 20:47:51 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:47:55 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:48:49 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:48:49 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:48:49 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 5436
+2025-07-07 20:48:49 - modules.execution - INFO - ✓ HTML页面生成成功: page_4_总结图
+2025-07-07 20:48:49 - modules.execution - INFO - 所有HTML页面生成完成，共4个页面
+2025-07-07 20:48:49 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 20:48:49 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 20:48:49 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 20:48:49 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 20:48:49 - modules.execution - INFO - 第3阶段：保存小红书发布内容
+2025-07-07 20:48:49 - modules.execution - INFO - 标题选项已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\xiaohongshu_titles.txt
+2025-07-07 20:48:49 - modules.execution - INFO - 正文内容已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\xiaohongshu_content.txt
+2025-07-07 20:48:49 - modules.execution - INFO - 第4阶段：生成截图配置文件
+2025-07-07 20:48:49 - modules.execution - INFO - 截图配置已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\screenshot_config.json
+2025-07-07 20:48:49 - modules.execution - INFO - 策略蓝图已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\creative_blueprint.json
+2025-07-07 20:48:49 - modules.execution - INFO - README文件已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\README.md
+2025-07-07 20:48:49 - modules.execution - INFO - 会话摘要已保存：D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\session_summary.json
+2025-07-07 20:48:49 - modules.execution - INFO - ================================================================================
+2025-07-07 20:48:49 - modules.execution - INFO - 🎉 小红书多图内容生成管道执行完成
+2025-07-07 20:48:49 - modules.execution - INFO - 📁 输出目录: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312
+2025-07-07 20:48:49 - modules.execution - INFO - 🖼️ 生成图片数量: 4
+2025-07-07 20:48:49 - modules.execution - INFO - ================================================================================
+2025-07-07 20:53:44 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 20:53:44 - __main__ - INFO - 目录结构检查完成
+2025-07-07 20:53:44 - modules.execution - INFO - 初始化执行模块
+2025-07-07 20:53:44 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 20:53:44 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 20:53:44 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 20:53:44 - modules.imaging - ERROR - 成像模块初始化失败: module 'playwright' has no attribute '__version__'
+2025-07-07 20:53:44 - __main__ - INFO - 程序启动参数: topic=如何培养孩子的阅读兴趣, force=False, enable_imaging=True
+2025-07-07 20:53:44 - __main__ - INFO - 开始执行战略规划阶段
+2025-07-07 20:53:44 - modules.strategy - INFO - ============================================================
+2025-07-07 20:53:44 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-07 20:53:44 - modules.strategy - INFO - 📝 输入主题: 如何培养孩子的阅读兴趣
+2025-07-07 20:53:44 - modules.strategy - INFO - ============================================================
+2025-07-07 20:53:44 - modules.strategy - INFO - ✓ 输入验证通过: 如何培养孩子的阅读兴趣
+2025-07-07 20:53:44 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-07 20:53:44 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-07 20:53:44 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-07 20:53:44 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-07 20:53:44 - modules.strategy - INFO - 正在调用Gemini API (尝试 1/4)...
+2025-07-07 20:53:49 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:55:25 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:55:25 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:55:25 - modules.strategy - INFO - ✓ Gemini API调用成功，使用模型: gemini-2.5-pro
+2025-07-07 20:55:25 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-07 20:55:25 - modules.strategy - INFO - 🎯 生成了 4 张图片的规划
+2025-07-07 20:55:25 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-07 20:55:25 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-07 20:55:25 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_如何培养孩子的阅读兴趣\blueprint.json
+2025-07-07 20:55:25 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-07 20:55:25 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-07 20:55:25 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-07 20:55:25 - modules.strategy - INFO - ============================================================
+2025-07-07 20:55:25 - __main__ - INFO - 开始执行叙事生成阶段
+2025-07-07 20:55:25 - modules.execution - INFO - ================================================================================
+2025-07-07 20:55:25 - modules.execution - INFO - 🎬 启动小红书多图内容生成管道
+2025-07-07 20:55:25 - modules.execution - INFO - 📝 主题: 如何培养孩子的阅读兴趣
+2025-07-07 20:55:25 - modules.execution - INFO - ================================================================================
+2025-07-07 20:55:25 - modules.execution - INFO - 创建主题文件夹：D:\projects\ai_rednote_generate\output\如何培养孩子的阅读兴趣_20250707_205525
+2025-07-07 20:55:25 - modules.execution - INFO - 第1阶段：叙事设计 - 生成小红书多图设计规范
+2025-07-07 20:55:25 - modules.execution - INFO - 开始生成小红书多图内容设计规范
+2025-07-07 20:55:25 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
+2025-07-07 20:55:25 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:55:31 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 20:56:24 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 20:56:25 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 20:56:25 - modules.execution - INFO - ✓ Gemini API调用成功（结构化输出），使用模型: gemini-2.5-pro
+2025-07-07 20:56:25 - modules.execution - INFO - ✓ 设计规范生成成功
+2025-07-07 20:56:25 - modules.execution - INFO - 设计规范已保存：D:\projects\ai_rednote_generate\output\如何培养孩子的阅读兴趣_20250707_205525\design_spec.json
+2025-07-07 20:56:25 - modules.execution - INFO - 第2阶段：视觉编码 - 生成小红书多图HTML页面
+2025-07-07 20:56:25 - modules.execution - INFO - 开始生成小红书多图HTML页面
+2025-07-07 20:56:25 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 20:56:25 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 20:56:26 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:05:09 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:05:09 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:05:09 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:05:09 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:05:09 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:05:09 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:05:09 - modules.imaging - ERROR - 成像模块初始化失败: module 'playwright' has no attribute '__version__'
+2025-07-07 21:05:09 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:05:35 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:05:35 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:05:35 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:05:35 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:05:35 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:05:35 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:05:35 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:05:35 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:05:35 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:05:35 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:05:35 - modules.imaging - INFO - 开始处理截图配置: output/宝宝第一次发烧怎么办_20250707_204312\screenshot_config.json
+2025-07-07 21:05:35 - modules.imaging - INFO - 开始批量截图，共4个文件
+2025-07-07 21:05:35 - modules.imaging - INFO - 处理第1/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:05:35 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:05:35 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:05:35 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:05:59 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:05:59 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:05:59 - modules.imaging - INFO - 处理第2/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:05:59 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:05:59 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:05:59 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:07:41 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:07:41 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:07:41 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:07:41 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:07:41 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:07:41 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:07:41 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:07:41 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:07:41 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:07:41 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:07:41 - modules.imaging - INFO - 开始处理截图配置: output/宝宝第一次发烧怎么办_20250707_204312\screenshot_config.json
+2025-07-07 21:07:41 - modules.imaging - INFO - 开始批量截图，共4个文件
+2025-07-07 21:07:41 - modules.imaging - INFO - 处理第1/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:07:41 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:07:41 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:07:41 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:07:43 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:07:45 - modules.imaging - INFO - 检测到页面尺寸: 412x560 (来源: .page-container)
+2025-07-07 21:07:54 - modules.imaging - ERROR - Playwright截图失败: Page.screenshot: Timeout 8000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+
+2025-07-07 21:07:54 - modules.imaging - INFO - 尝试使用 html-to-image前端库 进行截图
+2025-07-07 21:07:54 - modules.imaging - WARNING - html2image未安装，无法使用此方案
+2025-07-07 21:07:54 - modules.imaging - INFO - 尝试使用 备用方案 进行截图
+2025-07-07 21:07:54 - modules.imaging - INFO - 生成备用提示图片: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:07:55 - modules.imaging - INFO - ✓ 备用提示图片生成成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:07:55 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:07:55 - modules.imaging - INFO - 处理第2/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:07:55 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:07:55 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:07:55 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:07:56 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:07:58 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:08:08 - modules.imaging - ERROR - Playwright截图失败: Page.screenshot: Timeout 8000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+
+2025-07-07 21:08:08 - modules.imaging - INFO - 尝试使用 html-to-image前端库 进行截图
+2025-07-07 21:08:08 - modules.imaging - WARNING - html2image未安装，无法使用此方案
+2025-07-07 21:08:08 - modules.imaging - INFO - 尝试使用 备用方案 进行截图
+2025-07-07 21:08:08 - modules.imaging - INFO - 生成备用提示图片: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_2_内容图.png
+2025-07-07 21:08:08 - modules.imaging - INFO - ✓ 备用提示图片生成成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_2_内容图.png
+2025-07-07 21:08:08 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_2_内容图.png
+2025-07-07 21:08:08 - modules.imaging - INFO - 处理第3/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:08:08 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:08:08 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:08:08 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:08:10 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:08:12 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:08:22 - modules.imaging - ERROR - Playwright截图失败: Page.screenshot: Timeout 8000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+
+2025-07-07 21:08:22 - modules.imaging - INFO - 尝试使用 html-to-image前端库 进行截图
+2025-07-07 21:08:22 - modules.imaging - WARNING - html2image未安装，无法使用此方案
+2025-07-07 21:08:22 - modules.imaging - INFO - 尝试使用 备用方案 进行截图
+2025-07-07 21:08:22 - modules.imaging - INFO - 生成备用提示图片: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_3_内容图.png
+2025-07-07 21:08:22 - modules.imaging - INFO - ✓ 备用提示图片生成成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_3_内容图.png
+2025-07-07 21:08:22 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_3_内容图.png
+2025-07-07 21:08:22 - modules.imaging - INFO - 处理第4/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:08:22 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:08:22 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:08:22 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:08:23 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:08:25 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:08:35 - modules.imaging - ERROR - Playwright截图失败: Page.screenshot: Timeout 8000ms exceeded.
+Call log:
+  - taking page screenshot
+  - waiting for fonts to load...
+
+2025-07-07 21:08:35 - modules.imaging - INFO - 尝试使用 html-to-image前端库 进行截图
+2025-07-07 21:08:35 - modules.imaging - WARNING - html2image未安装，无法使用此方案
+2025-07-07 21:08:35 - modules.imaging - INFO - 尝试使用 备用方案 进行截图
+2025-07-07 21:08:35 - modules.imaging - INFO - 生成备用提示图片: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_4_总结图.png
+2025-07-07 21:08:35 - modules.imaging - INFO - ✓ 备用提示图片生成成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_4_总结图.png
+2025-07-07 21:08:35 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_4_总结图.png
+2025-07-07 21:08:35 - modules.imaging - INFO - 批量截图完成: 4/4 成功
+2025-07-07 21:08:35 - modules.imaging - INFO - 总耗时: 53.64秒
+2025-07-07 21:08:35 - modules.imaging - INFO - 截图报告已保存: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\screenshot_report.json
+2025-07-07 21:09:12 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:09:12 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:09:12 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:09:12 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:09:12 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:09:12 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:09:12 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:09:12 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:09:12 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:09:12 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:09:12 - modules.imaging - INFO - 开始处理截图配置: output/宝宝第一次发烧怎么办_20250707_204312\screenshot_config.json
+2025-07-07 21:09:12 - modules.imaging - INFO - 开始批量截图，共4个文件
+2025-07-07 21:09:12 - modules.imaging - INFO - 处理第1/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:09:12 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:09:12 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:09:12 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_1_封面图.html
+2025-07-07 21:09:13 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:09:15 - modules.imaging - INFO - 检测到页面尺寸: 412x560 (来源: .page-container)
+2025-07-07 21:09:16 - modules.imaging - INFO - 使用精确截图模式: 1236x1680
+2025-07-07 21:09:17 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:09:17 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_1_封面图.png
+2025-07-07 21:09:17 - modules.imaging - INFO - 处理第2/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:09:17 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:09:17 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:09:17 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_2_内容图.html
+2025-07-07 21:09:19 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:09:21 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:09:22 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:09:22 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_2_内容图.png
+2025-07-07 21:09:22 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_2_内容图.png
+2025-07-07 21:09:22 - modules.imaging - INFO - 处理第3/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:09:22 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:09:22 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:09:22 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_3_内容图.html
+2025-07-07 21:09:24 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:09:26 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:09:27 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:09:27 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_3_内容图.png
+2025-07-07 21:09:27 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_3_内容图.png
+2025-07-07 21:09:27 - modules.imaging - INFO - 处理第4/4个文件: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:09:27 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:09:27 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:09:27 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\page_4_总结图.html
+2025-07-07 21:09:29 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:09:31 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:09:32 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:09:33 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_4_总结图.png
+2025-07-07 21:09:33 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\images\page_4_总结图.png
+2025-07-07 21:09:33 - modules.imaging - INFO - 批量截图完成: 4/4 成功
+2025-07-07 21:09:33 - modules.imaging - INFO - 总耗时: 21.02秒
+2025-07-07 21:09:33 - modules.imaging - INFO - 截图报告已保存: D:\projects\ai_rednote_generate\output\宝宝第一次发烧怎么办_20250707_204312\screenshot_report.json
+2025-07-07 21:23:48 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:23:48 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:23:48 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:23:48 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:23:48 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:23:48 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:23:48 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:23:48 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:23:48 - __main__ - INFO - 程序启动参数: topic=宝宝夜哭不止怎么办, force=False, enable_imaging=True
+2025-07-07 21:23:48 - __main__ - INFO - 开始执行战略规划阶段
+2025-07-07 21:23:48 - modules.strategy - INFO - ============================================================
+2025-07-07 21:23:48 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-07 21:23:48 - modules.strategy - INFO - 📝 输入主题: 宝宝夜哭不止怎么办
+2025-07-07 21:23:48 - modules.strategy - INFO - ============================================================
+2025-07-07 21:23:48 - modules.strategy - INFO - ✓ 输入验证通过: 宝宝夜哭不止怎么办
+2025-07-07 21:23:48 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_宝宝夜哭不止怎么办\blueprint.json
+2025-07-07 21:23:48 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-07 21:23:48 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-07 21:23:48 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-07 21:23:48 - modules.strategy - INFO - 正在调用Gemini API (尝试 1/4)...
+2025-07-07 21:23:50 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:25:07 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:25:07 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:25:07 - modules.strategy - INFO - ✓ Gemini API调用成功，使用模型: gemini-2.5-pro
+2025-07-07 21:25:07 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-07 21:25:07 - modules.strategy - INFO - 🎯 生成了 8 张图片的规划
+2025-07-07 21:25:07 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-07 21:25:07 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_宝宝夜哭不止怎么办\blueprint.json
+2025-07-07 21:25:07 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_宝宝夜哭不止怎么办\blueprint.json
+2025-07-07 21:25:07 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-07 21:25:07 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-07 21:25:07 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-07 21:25:07 - modules.strategy - INFO - ============================================================
+2025-07-07 21:25:07 - __main__ - INFO - 开始执行叙事生成阶段
+2025-07-07 21:25:07 - modules.execution - INFO - ================================================================================
+2025-07-07 21:25:07 - modules.execution - INFO - 🎬 启动小红书多图内容生成管道
+2025-07-07 21:25:07 - modules.execution - INFO - 📝 主题: 宝宝夜哭不止怎么办
+2025-07-07 21:25:07 - modules.execution - INFO - ================================================================================
+2025-07-07 21:25:07 - modules.execution - INFO - 创建主题文件夹：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507
+2025-07-07 21:25:07 - modules.execution - INFO - 第1阶段：叙事设计 - 生成小红书多图设计规范
+2025-07-07 21:25:07 - modules.execution - INFO - 开始生成小红书多图内容设计规范
+2025-07-07 21:25:07 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
+2025-07-07 21:25:07 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:25:09 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:26:05 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:26:05 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:26:05 - modules.execution - INFO - ✓ Gemini API调用成功（结构化输出），使用模型: gemini-2.5-pro
+2025-07-07 21:26:05 - modules.execution - INFO - ✓ 设计规范生成成功
+2025-07-07 21:26:05 - modules.execution - INFO - 设计规范已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\design_spec.json
+2025-07-07 21:26:05 - modules.execution - INFO - 第2阶段：视觉编码 - 生成小红书多图HTML页面
+2025-07-07 21:26:05 - modules.execution - INFO - 开始生成小红书多图HTML页面
+2025-07-07 21:26:05 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 21:26:05 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:26:06 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:27:04 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:27:04 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:27:04 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 6519
+2025-07-07 21:27:04 - modules.execution - INFO - ✓ HTML页面生成成功: page_1_封面图
+2025-07-07 21:27:04 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 21:27:04 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:27:06 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:27:55 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:27:55 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:27:55 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 6587
+2025-07-07 21:27:55 - modules.execution - INFO - ✓ HTML页面生成成功: page_2_内容图
+2025-07-07 21:27:55 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 21:27:55 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:27:58 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:28:46 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:28:46 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:28:46 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 6326
+2025-07-07 21:28:46 - modules.execution - INFO - ✓ HTML页面生成成功: page_3_内容图
+2025-07-07 21:28:46 - modules.execution - INFO - 开始调用Gemini API，期望JSON: False
+2025-07-07 21:28:46 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:28:49 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:29:44 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:29:45 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:29:45 - modules.execution - INFO - API调用成功，使用模型: gemini-2.5-pro，响应长度: 5599
+2025-07-07 21:29:45 - modules.execution - INFO - ✓ HTML页面生成成功: page_4_总结图
+2025-07-07 21:29:45 - modules.execution - INFO - 所有HTML页面生成完成，共4个页面
+2025-07-07 21:29:45 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_1_封面图.html
+2025-07-07 21:29:45 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_2_内容图.html
+2025-07-07 21:29:45 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_3_内容图.html
+2025-07-07 21:29:45 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_4_总结图.html
+2025-07-07 21:29:45 - modules.execution - INFO - 第3阶段：保存小红书发布内容
+2025-07-07 21:29:45 - modules.execution - INFO - 标题选项已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\xiaohongshu_titles.txt
+2025-07-07 21:29:45 - modules.execution - INFO - 正文内容已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\xiaohongshu_content.txt
+2025-07-07 21:29:45 - modules.execution - INFO - 第4阶段：生成截图配置文件
+2025-07-07 21:29:45 - modules.execution - INFO - 截图配置已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\screenshot_config.json
+2025-07-07 21:29:45 - modules.execution - INFO - 策略蓝图已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\creative_blueprint.json
+2025-07-07 21:29:45 - modules.execution - INFO - README文件已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\README.md
+2025-07-07 21:29:45 - modules.execution - INFO - 会话摘要已保存：D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\session_summary.json
+2025-07-07 21:29:45 - modules.execution - INFO - ================================================================================
+2025-07-07 21:29:45 - modules.execution - INFO - 🎉 小红书多图内容生成管道执行完成
+2025-07-07 21:29:45 - modules.execution - INFO - 📁 输出目录: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507
+2025-07-07 21:29:45 - modules.execution - INFO - 🖼️ 生成图片数量: 4
+2025-07-07 21:29:45 - modules.execution - INFO - ================================================================================
+2025-07-07 21:29:45 - __main__ - INFO - 开始执行成像阶段
+2025-07-07 21:29:45 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:29:45 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:29:45 - modules.imaging - INFO - 开始处理截图配置: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\screenshot_config.json
+2025-07-07 21:29:45 - modules.imaging - INFO - 开始批量截图，共4个文件
+2025-07-07 21:29:45 - modules.imaging - INFO - 处理第1/4个文件: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_1_封面图.html
+2025-07-07 21:29:45 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_1_封面图.html
+2025-07-07 21:29:45 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:29:46 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_1_封面图.html
+2025-07-07 21:30:02 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:30:05 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:30:06 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:30:10 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_1_封面图.png
+2025-07-07 21:30:10 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_1_封面图.png
+2025-07-07 21:30:10 - modules.imaging - INFO - 处理第2/4个文件: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_2_内容图.html
+2025-07-07 21:30:10 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_2_内容图.html
+2025-07-07 21:30:10 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:30:10 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_2_内容图.html
+2025-07-07 21:30:15 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:30:18 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:30:21 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:30:23 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_2_内容图.png
+2025-07-07 21:30:23 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_2_内容图.png
+2025-07-07 21:30:23 - modules.imaging - INFO - 处理第3/4个文件: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_3_内容图.html
+2025-07-07 21:30:23 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_3_内容图.html
+2025-07-07 21:30:23 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:30:23 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_3_内容图.html
+2025-07-07 21:30:29 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:30:32 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:30:34 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:30:36 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_3_内容图.png
+2025-07-07 21:30:36 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_3_内容图.png
+2025-07-07 21:30:36 - modules.imaging - INFO - 处理第4/4个文件: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_4_总结图.html
+2025-07-07 21:30:36 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_4_总结图.html
+2025-07-07 21:30:36 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:30:36 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\page_4_总结图.html
+2025-07-07 21:30:41 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:30:45 - modules.imaging - INFO - 检测到页面尺寸: 1280x720 (来源: .page-container)
+2025-07-07 21:30:51 - modules.imaging - INFO - 使用精确截图模式: 3840x2160
+2025-07-07 21:30:54 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_4_总结图.png
+2025-07-07 21:30:54 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\images\page_4_总结图.png
+2025-07-07 21:30:54 - modules.imaging - INFO - 批量截图完成: 4/4 成功
+2025-07-07 21:30:54 - modules.imaging - INFO - 总耗时: 69.44秒
+2025-07-07 21:30:54 - modules.imaging - INFO - 截图报告已保存: D:\projects\ai_rednote_generate\output\宝宝夜哭不止怎么办_20250707_212507\screenshot_report.json
+2025-07-07 21:38:43 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:38:43 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:38:43 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:38:43 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:38:43 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:38:43 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:38:43 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:38:43 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:38:43 - __main__ - INFO - 程序启动参数: topic=新手爸妈必看攻略, force=False, enable_imaging=True
+2025-07-07 21:38:43 - __main__ - INFO - 开始执行战略规划阶段
+2025-07-07 21:38:43 - modules.strategy - INFO - ============================================================
+2025-07-07 21:38:43 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-07 21:38:43 - modules.strategy - INFO - 📝 输入主题: 新手爸妈必看攻略
+2025-07-07 21:38:43 - modules.strategy - INFO - ============================================================
+2025-07-07 21:38:43 - modules.strategy - INFO - ✓ 输入验证通过: 新手爸妈必看攻略
+2025-07-07 21:38:43 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_新手爸妈必看攻略\blueprint.json
+2025-07-07 21:38:43 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-07 21:38:43 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-07 21:38:43 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-07 21:38:43 - modules.strategy - INFO - 正在调用Gemini API (尝试 1/4)...
+2025-07-07 21:38:47 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:40:00 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:40:00 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:40:00 - modules.strategy - INFO - ✓ Gemini API调用成功，使用模型: gemini-2.5-pro
+2025-07-07 21:40:00 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-07 21:40:00 - modules.strategy - INFO - 🎯 生成了 4 张图片的规划
+2025-07-07 21:40:00 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-07 21:40:00 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_新手爸妈必看攻略\blueprint.json
+2025-07-07 21:40:00 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_新手爸妈必看攻略\blueprint.json
+2025-07-07 21:40:00 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-07 21:40:00 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-07 21:40:00 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-07 21:40:00 - modules.strategy - INFO - ============================================================
+2025-07-07 21:40:00 - __main__ - INFO - 开始执行叙事生成阶段
+2025-07-07 21:40:00 - modules.execution - INFO - ================================================================================
+2025-07-07 21:40:00 - modules.execution - INFO - 🎬 启动小红书多图内容生成管道
+2025-07-07 21:40:00 - modules.execution - INFO - 📝 主题: 新手爸妈必看攻略
+2025-07-07 21:40:00 - modules.execution - INFO - ================================================================================
+2025-07-07 21:40:00 - modules.execution - INFO - 创建主题文件夹：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000
+2025-07-07 21:40:00 - modules.execution - INFO - 第1阶段：叙事设计 - 生成小红书多图设计规范
+2025-07-07 21:40:00 - modules.execution - INFO - 开始生成小红书多图内容设计规范
+2025-07-07 21:40:00 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
+2025-07-07 21:40:00 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:40:02 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:40:08 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 503 Service Unavailable"
+2025-07-07 21:40:08 - modules.execution - ERROR - API调用失败: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}
+2025-07-07 21:40:10 - modules.execution - INFO - 等待2秒后重试...
+2025-07-07 21:40:10 - modules.execution - INFO - 第 2 次尝试调用API
+2025-07-07 21:40:14 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:41:25 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:41:26 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ Gemini API调用成功（结构化输出），使用模型: gemini-2.5-pro
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ 设计规范生成成功
+2025-07-07 21:41:26 - modules.execution - INFO - 设计规范已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\design_spec.json
+2025-07-07 21:41:26 - modules.execution - INFO - 第2阶段：视觉编码 - 生成小红书多图HTML页面
+2025-07-07 21:41:26 - modules.execution - INFO - 开始生成小红书多图HTML页面（使用专业模板系统）
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ HTML页面生成成功: page_1_封面图 (使用专业模板)
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ HTML页面生成成功: page_2_内容图 (使用专业模板)
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ HTML页面生成成功: page_3_内容图 (使用专业模板)
+2025-07-07 21:41:26 - modules.execution - INFO - ✓ HTML页面生成成功: page_4_总结图 (使用专业模板)
+2025-07-07 21:41:26 - modules.execution - INFO - 所有HTML页面生成完成，共4个页面
+2025-07-07 21:41:26 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_1_封面图.html
+2025-07-07 21:41:26 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_2_内容图.html
+2025-07-07 21:41:26 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_3_内容图.html
+2025-07-07 21:41:26 - modules.execution - INFO - HTML页面已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_4_总结图.html
+2025-07-07 21:41:26 - modules.execution - INFO - 第3阶段：保存小红书发布内容
+2025-07-07 21:41:26 - modules.execution - INFO - 标题选项已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\xiaohongshu_titles.txt
+2025-07-07 21:41:26 - modules.execution - INFO - 正文内容已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\xiaohongshu_content.txt
+2025-07-07 21:41:26 - modules.execution - INFO - 第4阶段：生成截图配置文件
+2025-07-07 21:41:26 - modules.execution - INFO - 截图配置已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\screenshot_config.json
+2025-07-07 21:41:26 - modules.execution - INFO - 策略蓝图已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\creative_blueprint.json
+2025-07-07 21:41:26 - modules.execution - INFO - README文件已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\README.md
+2025-07-07 21:41:26 - modules.execution - INFO - 会话摘要已保存：D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\session_summary.json
+2025-07-07 21:41:26 - modules.execution - INFO - ================================================================================
+2025-07-07 21:41:26 - modules.execution - INFO - 🎉 小红书多图内容生成管道执行完成
+2025-07-07 21:41:26 - modules.execution - INFO - 📁 输出目录: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000
+2025-07-07 21:41:26 - modules.execution - INFO - 🖼️ 生成图片数量: 4
+2025-07-07 21:41:26 - modules.execution - INFO - ================================================================================
+2025-07-07 21:41:26 - __main__ - INFO - 开始执行成像阶段
+2025-07-07 21:41:26 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:41:26 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:41:26 - modules.imaging - INFO - 开始处理截图配置: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\screenshot_config.json
+2025-07-07 21:41:26 - modules.imaging - INFO - 开始批量截图，共4个文件
+2025-07-07 21:41:26 - modules.imaging - INFO - 处理第1/4个文件: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_1_封面图.html
+2025-07-07 21:41:26 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_1_封面图.html
+2025-07-07 21:41:26 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:41:26 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_1_封面图.html
+2025-07-07 21:41:29 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:41:32 - modules.imaging - INFO - 检测到页面尺寸: 420x718 (来源: .page-container)
+2025-07-07 21:41:34 - modules.imaging - INFO - 使用精确截图模式: 1260x2154
+2025-07-07 21:41:45 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_1_封面图.png
+2025-07-07 21:41:45 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_1_封面图.png
+2025-07-07 21:41:45 - modules.imaging - INFO - 处理第2/4个文件: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_2_内容图.html
+2025-07-07 21:41:45 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_2_内容图.html
+2025-07-07 21:41:45 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:41:45 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_2_内容图.html
+2025-07-07 21:41:51 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:41:56 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:42:00 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:42:03 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_2_内容图.png
+2025-07-07 21:42:03 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_2_内容图.png
+2025-07-07 21:42:03 - modules.imaging - INFO - 处理第3/4个文件: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_3_内容图.html
+2025-07-07 21:42:03 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_3_内容图.html
+2025-07-07 21:42:03 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:42:03 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_3_内容图.html
+2025-07-07 21:42:06 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:42:09 - modules.imaging - INFO - 检测到页面尺寸: 420x560 (来源: .page-container)
+2025-07-07 21:42:10 - modules.imaging - INFO - 使用精确截图模式: 1260x1680
+2025-07-07 21:42:11 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_3_内容图.png
+2025-07-07 21:42:11 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_3_内容图.png
+2025-07-07 21:42:11 - modules.imaging - INFO - 处理第4/4个文件: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_4_总结图.html
+2025-07-07 21:42:11 - modules.imaging - INFO - 开始单个HTML截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_4_总结图.html
+2025-07-07 21:42:11 - modules.imaging - INFO - 尝试使用 Playwright无头浏览器 进行截图
+2025-07-07 21:42:11 - modules.imaging - INFO - 开始使用Playwright截图: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\page_4_总结图.html
+2025-07-07 21:42:15 - modules.imaging - INFO - 使用Chrome浏览器
+2025-07-07 21:42:18 - modules.imaging - INFO - 检测到页面尺寸: 420x701 (来源: .page-container)
+2025-07-07 21:42:20 - modules.imaging - INFO - 使用精确截图模式: 1260x2103
+2025-07-07 21:42:22 - modules.imaging - INFO - ✓ Playwright截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_4_总结图.png
+2025-07-07 21:42:22 - modules.imaging - INFO - ✓ 截图成功: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\images\page_4_总结图.png
+2025-07-07 21:42:22 - modules.imaging - INFO - 批量截图完成: 4/4 成功
+2025-07-07 21:42:22 - modules.imaging - INFO - 总耗时: 56.50秒
+2025-07-07 21:42:22 - modules.imaging - INFO - 截图报告已保存: D:\projects\ai_rednote_generate\output\新手爸妈必看攻略_20250707_214000\screenshot_report.json
+2025-07-07 21:54:24 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 21:54:24 - __main__ - INFO - 目录结构检查完成
+2025-07-07 21:54:24 - modules.execution - INFO - 初始化执行模块
+2025-07-07 21:54:24 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 21:54:24 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 21:54:24 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 21:54:24 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 21:54:24 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 21:54:24 - __main__ - INFO - 程序启动参数: topic=睡前故事的正确打开方式, force=False, enable_imaging=True
+2025-07-07 21:54:24 - __main__ - INFO - 开始执行战略规划阶段
+2025-07-07 21:54:24 - modules.strategy - INFO - ============================================================
+2025-07-07 21:54:24 - modules.strategy - INFO - 🚀 启动战略规划阶段
+2025-07-07 21:54:24 - modules.strategy - INFO - 📝 输入主题: 睡前故事的正确打开方式
+2025-07-07 21:54:24 - modules.strategy - INFO - ============================================================
+2025-07-07 21:54:24 - modules.strategy - INFO - ✓ 输入验证通过: 睡前故事的正确打开方式
+2025-07-07 21:54:24 - modules.strategy - INFO - 📁 缓存文件路径: D:\projects\ai_rednote_generate\cache\strategy_睡前故事的正确打开方式\blueprint.json
+2025-07-07 21:54:24 - modules.strategy - INFO - 🤖 准备调用AI进行策略分析...
+2025-07-07 21:54:24 - modules.strategy - INFO - 📝 策略分析提示词已构建
+2025-07-07 21:54:24 - modules.strategy - INFO - 🔍 开始深度策略分析...
+2025-07-07 21:54:24 - modules.strategy - INFO - 正在调用Gemini API (尝试 1/4)...
+2025-07-07 21:54:26 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 21:56:06 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent "HTTP/1.1 200 OK"
+2025-07-07 21:56:06 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-07-07 21:56:06 - modules.strategy - INFO - ✓ Gemini API调用成功，使用模型: gemini-2.5-pro
+2025-07-07 21:56:06 - modules.strategy - INFO - ✓ 策略分析完成
+2025-07-07 21:56:06 - modules.strategy - INFO - 🎯 生成了 4 张图片的规划
+2025-07-07 21:56:06 - modules.strategy - INFO - 💾 正在保存策略蓝图到缓存...
+2025-07-07 21:56:06 - modules.utils - INFO - JSON文件保存成功: D:\projects\ai_rednote_generate\cache\strategy_睡前故事的正确打开方式\blueprint.json
+2025-07-07 21:56:06 - modules.strategy - INFO - ✓ 策略蓝图已保存: D:\projects\ai_rednote_generate\cache\strategy_睡前故事的正确打开方式\blueprint.json
+2025-07-07 21:56:06 - modules.strategy - INFO - 🎉 战略规划阶段完成!
+2025-07-07 21:56:06 - modules.strategy - INFO - 📊 策略报告包含 3 个研究维度
+2025-07-07 21:56:06 - modules.strategy - INFO - 🎨 创作蓝图包含 5 个设计维度
+2025-07-07 21:56:06 - modules.strategy - INFO - ============================================================
+2025-07-07 21:56:06 - __main__ - INFO - 开始执行叙事生成阶段
+2025-07-07 21:56:06 - modules.execution - INFO - ================================================================================
+2025-07-07 21:56:06 - modules.execution - INFO - 🎬 启动小红书多图内容生成管道
+2025-07-07 21:56:06 - modules.execution - INFO - 📝 主题: 睡前故事的正确打开方式
+2025-07-07 21:56:06 - modules.execution - INFO - ================================================================================
+2025-07-07 21:56:06 - modules.execution - INFO - 创建主题文件夹：D:\projects\ai_rednote_generate\output\睡前故事的正确打开方式_20250707_215606
+2025-07-07 21:56:06 - modules.execution - INFO - 第1阶段：叙事设计 - 生成小红书多图设计规范
+2025-07-07 21:56:06 - modules.execution - INFO - 开始生成小红书多图内容设计规范
+2025-07-07 21:56:06 - modules.execution - INFO - 开始调用Gemini API，期望JSON: True
+2025-07-07 21:56:06 - modules.execution - INFO - 第 1 次尝试调用API
+2025-07-07 21:56:08 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-07-07 22:55:59 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 22:55:59 - __main__ - INFO - 目录结构检查完成
+2025-07-07 22:55:59 - modules.execution - INFO - 初始化执行模块
+2025-07-07 22:55:59 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 22:55:59 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 22:55:59 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 22:55:59 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 22:55:59 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 22:55:59 - __main__ - INFO - 启动RedCube AI工作流: topic=新手妈妈如何给宝宝添加辅食, enable_imaging=False
+2025-07-07 22:55:59 - __main__ - ERROR - RedCube AI工作流执行失败: name 'RedCubeWorkflow' is not defined
+2025-07-07 22:55:59 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\projects\ai_rednote_generate\main.py", line 486, in run_langchain_workflow
+    workflow = RedCubeWorkflow()
+               ^^^^^^^^^^^^^^^
+NameError: name 'RedCubeWorkflow' is not defined
+
+2025-07-07 22:59:11 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 22:59:11 - __main__ - INFO - 目录结构检查完成
+2025-07-07 22:59:11 - modules.execution - INFO - 初始化执行模块
+2025-07-07 22:59:11 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 22:59:11 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 22:59:11 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 22:59:11 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 22:59:11 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 22:59:11 - __main__ - INFO - 启动RedCube AI工作流: topic=新手妈妈如何给宝宝添加辅食, enable_imaging=False
+2025-07-07 22:59:11 - __main__ - INFO - 正在导入RedCube AI工作流模块...
+2025-07-07 22:59:18 - __main__ - INFO - RedCube AI工作流模块导入成功
+2025-07-07 22:59:18 - __main__ - INFO - 开始执行RedCube AI工作流，主题: 新手妈妈如何给宝宝添加辅食
+2025-07-07 22:59:18 - __main__ - ERROR - RedCube AI工作流执行失败: 'RedCubeWorkflow' object has no attribute 'logger'
+2025-07-07 22:59:18 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\projects\ai_rednote_generate\main.py", line 495, in run_langchain_workflow
+    workflow_result = run_redcube_workflow_sync(topic, force_regenerate=False)
+  File "D:\projects\ai_rednote_generate\modules\langchain_workflow.py", line 314, in run_redcube_workflow_sync
+    return asyncio.run(run_redcube_workflow(topic, force_regenerate))
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "D:\projects\ai_rednote_generate\modules\langchain_workflow.py", line 309, in run_redcube_workflow
+    workflow = RedCubeWorkflow()
+  File "D:\projects\ai_rednote_generate\modules\langchain_workflow.py", line 120, in __init__
+    self._initialize_engines()
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\projects\ai_rednote_generate\modules\langchain_workflow.py", line 153, in _initialize_engines
+    self.logger.info(f"✓ 引擎 {engine_name} 初始化成功")
+    ^^^^^^^^^^^
+AttributeError: 'RedCubeWorkflow' object has no attribute 'logger'
+
+2025-07-07 23:14:51 - __main__ - INFO - 日志系统初始化完成
+2025-07-07 23:14:51 - __main__ - INFO - 目录结构检查完成
+2025-07-07 23:14:51 - modules.execution - INFO - 初始化执行模块
+2025-07-07 23:14:51 - modules.execution - INFO - 执行模块初始化完成
+2025-07-07 23:14:51 - modules.imaging - INFO - 初始化成像模块
+2025-07-07 23:14:51 - modules.imaging - INFO - 检查成像功能可用性
+2025-07-07 23:14:51 - modules.imaging - INFO - 可用成像方案: ['playwright', 'pillow']
+2025-07-07 23:14:51 - modules.imaging - INFO - 成像模块初始化完成
+2025-07-07 23:14:51 - __main__ - INFO - 启动RedCube AI工作流: topic=新手妈妈如何给宝宝添加辅食, enable_imaging=False
+2025-07-07 23:14:51 - __main__ - INFO - 正在导入RedCube AI工作流模块...
+2025-07-07 23:14:54 - __main__ - INFO - RedCube AI工作流模块导入成功
+2025-07-07 23:14:54 - __main__ - INFO - 开始执行RedCube AI工作流，主题: 新手妈妈如何给宝宝添加辅食
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - 开始初始化RedCube AI 8个引擎...
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 persona_core 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 strategy_compass 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 truth_detector 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 insight_distiller 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 narrative_prism 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 atomic_designer 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 visual_encoder 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - ERROR - ❌ 引擎 hifi_imager 初始化失败: "'__name__' not in globals"
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - 引擎初始化完成: 成功 0/8
+2025-07-07 23:14:54 - modules.langchain_workflow - WARNING - 初始化失败的引擎: persona_core, strategy_compass, truth_detector, insight_distiller, narrative_prism, atomic_designer, visual_encoder, hifi_imager
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - 开始执行RedCube AI 8引擎工作流，主题：新手妈妈如何给宝宝添加辅食
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - 开始执行第一认知象限：战略构想
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - 开始执行第二认知象限：叙事表达
+2025-07-07 23:14:54 - modules.utils - ERROR - 数据序列化失败: {'topic': '新手妈妈如何给宝宝添加辅食', 'timestamp': '2025-07-07T23:14:54.909586', 'workflow_version': 'RedCube_AI_v1.0', 'strategic_phase': {}, 'narrative_phase': {}, 'final_outputs': {'html_content': '', 'image_specs': [], 'content_summary': {}, 'design_blueprint': {}}} - expected str, bytes or os.PathLike object, not dict
+2025-07-07 23:14:54 - modules.langchain_workflow - INFO - ✓ RedCube AI 工作流执行完成，结果保存至：D:\projects\ai_rednote_generate\output\redcube_workflow_新手妈妈如何给宝宝添加辅食.json
+2025-07-07 23:14:54 - __main__ - INFO - RedCube AI工作流执行成功
+2025-07-07 23:14:54 - __main__ - INFO - RedCube AI工作流核心逻辑执行完成
+2025-07-07 23:14:54 - __main__ - INFO - 开始提取工作流结果构建模板数据
+2025-07-07 23:14:54 - __main__ - INFO - 模板数据构建完成，包含0个内容页

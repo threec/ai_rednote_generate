@@ -1,0 +1,48 @@
+{
+  "status": "completed",
+  "total_files": 4,
+  "successful_count": 4,
+  "failed_count": 0,
+  "success_rate": 100.0,
+  "total_duration": 21.016185522079468,
+  "average_duration": 5.254046380519867,
+  "output_directory": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\images",
+  "results": [
+    {
+      "status": "success",
+      "method": "playwright",
+      "method_name": "Playwright无头浏览器",
+      "html_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\page_1_封面图.html",
+      "output_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\images\\page_1_封面图.png",
+      "duration": 5.544365167617798,
+      "file_size": 175191
+    },
+    {
+      "status": "success",
+      "method": "playwright",
+      "method_name": "Playwright无头浏览器",
+      "html_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\page_2_内容图.html",
+      "output_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\images\\page_2_内容图.png",
+      "duration": 5.203468561172485,
+      "file_size": 223444
+    },
+    {
+      "status": "success",
+      "method": "playwright",
+      "method_name": "Playwright无头浏览器",
+      "html_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\page_3_内容图.html",
+      "output_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\images\\page_3_内容图.png",
+      "duration": 5.204083442687988,
+      "file_size": 177453
+    },
+    {
+      "status": "success",
+      "method": "playwright",
+      "method_name": "Playwright无头浏览器",
+      "html_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\page_4_总结图.html",
+      "output_file": "D:\\projects\\ai_rednote_generate\\output\\宝宝第一次发烧怎么办_20250707_204312\\images\\page_4_总结图.png",
+      "duration": 5.058666944503784,
+      "file_size": 220796
+    }
+  ]
+}

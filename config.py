@@ -338,396 +338,238 @@ SCREENSHOT_CONFIG = {
     }
 }
 
-# 宝爸Conn品牌设计系统 - 基于优秀案例全面升级
+# HTML基础样式模板 - 专业级设计系统
 HTML_BASE_STYLE = """
 <style>
-:root {
-    /* 三色系统设计 - 参考优秀案例 */
-    --color-primary: #FF7E79;    /* 主题粉色 */
-    --color-secondary: #FFD6D4;  /* 浅粉 */
-    --color-tertiary: #8EC5C5;   /* 辅助青色 */
-    --color-bg-tertiary: #F0FAFA; /* 青色背景 */
-    --color-warn: #FFA958;       /* 警告橙色 */
-    --color-warn-bg: #FFF7EE;    /* 警告背景 */
-    
-    /* 文字色彩 */
-    --color-text-dark: #333333;
-    --color-text-light: #555555;
-    --color-text-white: #FFFFFF;
-    --color-bg-light: #FFF7F7;
-    --color-border: #FFEAE8;
-    --color-title-bg: #FFF0EF;
+    :root {
+        /* 专业配色方案 */
+        --color-primary-blue: #4A90E2;     /* 主蓝色 - 战略类 */
+        --color-secondary-green: #7ED321;   /* 主绿色 - 执行类 */
+        --color-accent-pink: #F5A623;       /* 强调色 - 重点信息 */
+        --color-bg-blue: #EBF4FF;           /* 蓝色背景 */
+        --color-bg-green: #F0FFF4;          /* 绿色背景 */
+        --color-bg-pink: #FFF8E1;           /* 粉色背景 */
+        --color-text-dark: #2C3E50;         /* 主文字 */
+        --color-text-medium: #5A6C7D;       /* 次要文字 */
+        --color-text-light: #7F8C8D;        /* 辅助文字 */
+        --color-border: #E1E8ED;            /* 边框色 */
+        --color-shadow: rgba(0,0,0,0.08);   /* 阴影 */
+        
+        /* 字体系统 */
+        --font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        --font-size-xl: 28px;               /* 大标题 */
+        --font-size-lg: 20px;               /* 小标题 */
+        --font-size-md: 16px;               /* 正文 */
+        --font-size-sm: 14px;               /* 小字 */
+        
+        /* 间距系统 */
+        --spacing-xs: 8px;
+        --spacing-sm: 12px;
+        --spacing-md: 20px;
+        --spacing-lg: 32px;
+        --spacing-xl: 48px;
+        
+        /* 圆角系统 */
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+    }
 
-    /* 高密度排版系统（优化高度控制） */
-    --font-size-base: 12px;
-    --line-height-base: 1.5;
-    --font-size-small: 11px;
-    --font-size-h1: 32px;
-    --font-size-h2: 18px;
-    --font-size-h3: 14px;
-    --font-size-cta: 24px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.page-container {
-    width: 100%;
-    max-width: 420px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    position: relative;
-    /* 经典左侧装饰边框 */
-    border-left: 8px solid var(--color-secondary);
-}
-
-.module {
-    width: 420px;
-    height: 560px;
-    box-sizing: border-box;
-    background-color: var(--color-text-white);
-    position: relative;
-    overflow: hidden;
-    padding: 25px 20px;
-}
-
-/* 宝爸Conn品牌水印 - 优化版 */
-.brand-watermark {
-    position: absolute;
-    bottom: 10px;
-    right: 15px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #000000;
-    opacity: 0.15;
-    pointer-events: none;
-}
-
-/* 封面页样式 */
-.cover-module {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(135deg, var(--color-bg-light) 0%, #ffffff 100%);
-}
-
-.cover-title {
-    font-size: var(--font-size-h1);
-    font-weight: 900;
-    color: var(--color-primary);
-    line-height: 1.35;
-    margin-bottom: 25px;
-    text-shadow: 0 2px 4px rgba(255, 126, 121, 0.2);
-}
-
-.cover-subtitle {
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-    color: var(--color-text-dark);
-    margin-bottom: 30px;
-    opacity: 0.9;
-}
-
-.cover-highlight-box {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid var(--color-secondary);
-    border-radius: 15px;
-    padding: 20px 25px;
-    margin-top: 20px;
-    box-shadow: 0 4px 15px rgba(255, 126, 121, 0.1);
-}
-
-/* 内容页样式 */
-.content-module {
-    background-color: var(--color-text-white);
-}
-
-.section-title {
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-    color: var(--color-text-dark);
-    text-align: center;
-    padding: 6px 12px;
-    border-radius: 30px;
-    margin: 0 auto 15px auto;
-    display: inline-block;
-}
-
-.center-wrapper {
-    text-align: center;
-}
-
-/* 主题色彩变体 */
-.title-mom {
-    background-color: var(--color-bg-light);
-    border: 1px solid var(--color-border);
-}
-
-.title-baby {
-    background-color: var(--color-bg-tertiary);
-    border: 1px solid #D9EBEB;
-    color: #2E6A6A;
-}
-
-.title-warn {
-    background-color: var(--color-warn-bg);
-    border: 1px solid var(--color-warn);
-    color: #8B4513;
-}
-
-/* 高密度信息列表 */
-.key-value-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 15px 0;
-}
-
-.key-value-list li {
-    display: flex;
-    align-items: flex-start;
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: var(--color-text-light);
-    margin-bottom: 8px;
-}
-
-.key-value-list .icon {
-    font-size: 18px;
-    margin-right: 8px;
-    margin-top: 1px;
-    flex-shrink: 0;
-}
-
-.key-value-list .key {
-    font-weight: 700;
-    color: var(--color-text-dark);
-    margin-right: 6px;
-    flex-shrink: 0;
-}
-
-.key-value-list .value {
-    text-align: left;
-    font-weight: 500;
-}
-
-/* 高亮文本 */
-.highlight-red {
-    color: var(--color-primary);
-    font-weight: 700;
-}
-
-.highlight-blue {
-    color: var(--color-tertiary);
-    font-weight: 700;
-}
-
-.highlight-orange {
-    color: var(--color-warn);
-    font-weight: 700;
-}
-
-/* 重要提醒框 */
-.highlight-box {
-    background-color: var(--color-warn-bg);
-    border: 1px solid var(--color-warn);
-    border-radius: 12px;
-    padding: 12px;
-    margin: 15px 0;
-}
-
-.highlight-box-title {
-    font-size: var(--font-size-h3);
-    font-weight: 900;
-    color: var(--color-warn);
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.highlight-box p {
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: var(--color-text-light);
-    margin: 0;
-    font-weight: 500;
-}
-
-/* 步骤列表 */
-.step-list {
-    margin-top: 18px;
-}
-
-.step-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: var(--color-text-light);
-}
-
-.step-number {
-    background: linear-gradient(135deg, var(--color-primary) 0%, #ff9a96 100%);
-    color: white;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    margin-right: 12px;
-    flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(255, 126, 121, 0.3);
-}
-
-/* 方法卡片 */
-.method-card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 16px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    border-left: 4px solid var(--color-primary);
-    border: 1px solid var(--color-border);
-}
-
-.method-title {
-    font-size: var(--font-size-h3);
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.method-title::before {
-    content: "●";
-    color: var(--color-primary);
-    font-size: 14px;
-    margin-right: 8px;
-    font-weight: 900;
-}
-
-.method-desc {
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: var(--color-text-light);
-    font-weight: 500;
-}
-
-/* 结尾页样式 */
-.final-module {
-    background: linear-gradient(135deg, var(--color-bg-light) 0%, #ffffff 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px;
-}
-
-.final-greeting {
-    font-size: var(--font-size-cta);
-    font-weight: 900;
-    color: var(--color-primary);
-    line-height: 1.4;
-    margin-bottom: 30px;
-}
-
-.cta-box {
-    background-color: var(--color-text-white);
-    border: 2px dashed var(--color-secondary);
-    border-radius: 15px;
-    padding: 20px 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(255, 126, 121, 0.1);
-}
-
-.cta-box p {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--color-text-dark);
-    line-height: 1.7;
-    margin: 0;
-}
-
-.final-brand {
-    font-size: var(--font-size-h3);
-    font-weight: 700;
-    color: var(--color-primary);
-    opacity: 0.8;
-}
-
-/* 温馨提示 */
-.warm-tip {
-    background: rgba(255, 183, 77, 0.1);
-    border-left: 4px solid var(--color-warn);
-    padding: 15px 18px;
-    border-radius: 0 12px 12px 0;
-    margin: 18px 0;
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    color: #8B4513;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(255, 169, 88, 0.1);
-}
-
-/* 图标圆圈 */
-.icon-circle {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 12px 12px 0;
-    font-size: 22px;
-    color: white;
-    font-weight: 700;
-}
-
-.icon-pink { 
-    background: linear-gradient(45deg, var(--color-primary), #ff9a96);
-    box-shadow: 0 4px 15px rgba(255, 126, 121, 0.3);
-}
-
-.icon-blue { 
-    background: linear-gradient(45deg, var(--color-tertiary), #a8d5d5);
-    box-shadow: 0 4px 15px rgba(142, 197, 197, 0.3);
-}
-
-.icon-orange { 
-    background: linear-gradient(45deg, var(--color-warn), #ffb573);
-    box-shadow: 0 4px 15px rgba(255, 169, 88, 0.3);
-}
-
-/* 响应式调整 */
-@media (max-width: 480px) {
-    .page-container {
-        max-width: 100%;
+    * {
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    
+
+    body {
+        font-family: var(--font-family);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: var(--spacing-md);
+    }
+
+    /* 页面容器 - 固定尺寸确保不被截断 */
+    .page-container {
+        width: 420px;
+        min-height: 560px;
+        background: white;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 40px var(--color-shadow);
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 模块基础样式 */
     .module {
+        padding: var(--spacing-lg) var(--spacing-md);
         width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
-}
+
+    /* 标题系统 */
+    .main-title {
+        font-size: var(--font-size-xl);
+        font-weight: 800;
+        color: var(--color-text-dark);
+        line-height: 1.2;
+        margin-bottom: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        color: var(--color-text-dark);
+        margin-bottom: var(--spacing-md);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    /* 卡片系统 */
+    .info-card {
+        background: white;
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .info-card.blue {
+        background: var(--color-bg-blue);
+        border-color: var(--color-primary-blue);
+    }
+
+    .info-card.green {
+        background: var(--color-bg-green);
+        border-color: var(--color-secondary-green);
+    }
+
+    .info-card.pink {
+        background: var(--color-bg-pink);
+        border-color: var(--color-accent-pink);
+    }
+
+    /* 图标系统 */
+    .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        font-size: 14px;
+        margin-right: var(--spacing-sm);
+    }
+
+    .icon.blue { background: var(--color-primary-blue); color: white; }
+    .icon.green { background: var(--color-secondary-green); color: white; }
+    .icon.pink { background: var(--color-accent-pink); color: white; }
+
+    /* 列表系统 */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: var(--spacing-sm);
+        font-size: var(--font-size-md);
+        line-height: 1.5;
+    }
+
+    .feature-list .bullet {
+        width: 6px;
+        height: 6px;
+        background: var(--color-primary-blue);
+        border-radius: 50%;
+        margin-right: var(--spacing-sm);
+        margin-top: 8px;
+        flex-shrink: 0;
+    }
+
+    /* 强调文本 */
+    .highlight {
+        background: linear-gradient(90deg, var(--color-accent-pink), #FF6B6B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+
+    .emphasis {
+        color: var(--color-primary-blue);
+        font-weight: 600;
+    }
+
+    /* 步骤指示器 */
+    .step-indicator {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: var(--color-primary-blue);
+        color: white;
+        border-radius: 50%;
+        font-weight: 700;
+        font-size: 14px;
+        margin-right: var(--spacing-sm);
+    }
+
+    /* 对比卡片 */
+    .comparison-card {
+        display: flex;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
+    }
+
+    .comparison-item {
+        flex: 1;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        text-align: center;
+    }
+
+    .comparison-item.wrong {
+        background: #FFEBEE;
+        border: 1px solid #F44336;
+    }
+
+    .comparison-item.right {
+        background: #E8F5E8;
+        border: 1px solid #4CAF50;
+    }
+
+    /* 底部品牌水印 */
+    .brand-watermark {
+        position: absolute;
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text-light);
+        opacity: 0.6;
+    }
+
+    /* 响应式优化 */
+    @media (max-width: 480px) {
+        .page-container {
+            width: 100%;
+            min-height: auto;
+        }
+        
+        .module {
+            padding: var(--spacing-md);
+        }
+    }
 </style>
 """
 
@@ -795,4 +637,231 @@ def validate_config():
     return True
 
 if __name__ == "__main__":
-    validate_config() 
+    validate_config()
+
+# 专业级HTML模板系统 - 全新设计
+
+# 封面页模板 - 吸睛设计
+COVER_PAGE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    {style}
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="main-title">{title}</div>
+            
+            <div class="info-card blue">
+                <div class="section-title">
+                    <span class="icon blue">💡</span>
+                    核心问题
+                </div>
+                <p style="font-size: 16px; line-height: 1.6; color: var(--color-text-dark); margin: 0;">
+                    {core_problem}
+                </p>
+            </div>
+            
+            <div class="info-card green">
+                <div class="section-title">
+                    <span class="icon green">🎯</span>
+                    解决方案预览
+                </div>
+                <ul class="feature-list">
+                    {solution_preview}
+                </ul>
+            </div>
+            
+            <div class="info-card pink">
+                <div class="section-title">
+                    <span class="icon pink">⚡</span>
+                    你将获得
+                </div>
+                <p style="font-size: 14px; line-height: 1.5; color: var(--color-text-medium); margin: 0;">
+                    <span class="highlight">3分钟掌握</span>核心要点，
+                    <span class="emphasis">实用技巧</span>立即可用
+                </p>
+            </div>
+            
+            <div style="margin-top: auto; text-align: center; font-size: 12px; color: var(--color-text-light);">
+                <div style="background: var(--color-bg-blue); padding: 8px 16px; border-radius: 20px; display: inline-block;">
+                    滑动查看详细攻略 →
+                </div>
+            </div>
+        </div>
+        <div class="brand-watermark">宝爸Conn</div>
+    </div>
+</body>
+</html>
+"""
+
+# 内容页模板 - 信息密度优化
+CONTENT_PAGE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    {style}
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="section-title">
+                <span class="step-indicator">{step_number}</span>
+                {title}
+            </div>
+            
+            {content_sections}
+            
+            <div style="margin-top: auto;">
+                <div style="background: var(--color-bg-green); padding: 12px; border-radius: 8px; border-left: 4px solid var(--color-secondary-green);">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--color-secondary-green); margin-bottom: 4px;">
+                        💡 关键提醒
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.4; color: var(--color-text-dark);">
+                        {key_reminder}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="brand-watermark">宝爸Conn</div>
+    </div>
+</body>
+</html>
+"""
+
+# 对比页模板 - 正确vs错误做法
+COMPARISON_PAGE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    {style}
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div class="section-title">
+                <span class="step-indicator">{step_number}</span>
+                {title}
+            </div>
+            
+            <div class="comparison-card">
+                <div class="comparison-item wrong">
+                    <div style="font-size: 18px; margin-bottom: 8px;">❌</div>
+                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px; color: #F44336;">
+                        错误做法
+                    </div>
+                    <div style="font-size: 12px; line-height: 1.4;">
+                        {wrong_approach}
+                    </div>
+                </div>
+                
+                <div class="comparison-item right">
+                    <div style="font-size: 18px; margin-bottom: 8px;">✅</div>
+                    <div style="font-weight: 700; font-size: 14px; margin-bottom: 8px; color: #4CAF50;">
+                        正确做法
+                    </div>
+                    <div style="font-size: 12px; line-height: 1.4;">
+                        {right_approach}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-card blue">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 8px;">
+                    🎯 为什么这样做？
+                </div>
+                <div style="font-size: 13px; line-height: 1.5;">
+                    {explanation}
+                </div>
+            </div>
+            
+            <div class="info-card green">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 8px;">
+                    📋 具体步骤
+                </div>
+                <ul class="feature-list">
+                    {detailed_steps}
+                </ul>
+            </div>
+        </div>
+        <div class="brand-watermark">宝爸Conn</div>
+    </div>
+</body>
+</html>
+"""
+
+# 结尾页模板 - CTA和总结
+FINAL_PAGE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    {style}
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            <div style="text-align: center; margin-bottom: 32px;">
+                <div style="font-size: 24px; font-weight: 800; color: var(--color-primary-blue); margin-bottom: 12px;">
+                    🎉 总结回顾
+                </div>
+                <div style="font-size: 14px; color: var(--color-text-medium);">
+                    掌握这些要点，轻松应对
+                </div>
+            </div>
+            
+            <div class="info-card blue">
+                <div class="section-title">
+                    <span class="icon blue">📝</span>
+                    核心要点
+                </div>
+                <ul class="feature-list">
+                    {key_points}
+                </ul>
+            </div>
+            
+            <div class="info-card pink">
+                <div class="section-title">
+                    <span class="icon pink">⚠️</span>
+                    重要提醒
+                </div>
+                <p style="font-size: 14px; line-height: 1.5; margin: 0;">
+                    {important_reminder}
+                </p>
+            </div>
+            
+            <div style="background: var(--color-bg-green); border: 2px dashed var(--color-secondary-green); border-radius: 12px; padding: 20px; text-align: center; margin-top: 20px;">
+                <div style="font-size: 16px; font-weight: 700; color: var(--color-secondary-green); margin-bottom: 8px;">
+                    💡 想了解更多？
+                </div>
+                <div style="font-size: 13px; line-height: 1.4; color: var(--color-text-dark);">
+                    {cta_message}
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <div style="font-size: 18px; font-weight: 700; color: var(--color-primary-blue);">
+                    关注@宝爸Conn
+                </div>
+                <div style="font-size: 12px; color: var(--color-text-light); margin-top: 4px;">
+                    更多实用育儿攻略
+                </div>
+            </div>
+        </div>
+        <div class="brand-watermark">宝爸Conn</div>
+    </div>
+</body>
+</html>
+""" 

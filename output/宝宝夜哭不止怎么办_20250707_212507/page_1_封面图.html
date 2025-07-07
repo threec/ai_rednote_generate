@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #FF7E79;    /* 主题粉色 */
+            --color-secondary: #FFD6D4;  /* 浅粉 */
+            --color-tertiary: #8EC5C5;   /* 辅助青色 */
+            --color-bg-tertiary: #F0FAFA; /* 青色背景 */
+            --color-warn: #FFA958;       /* 警告橙色 */
+            --color-warn-bg: #FFF7EE;    /* 警告背景 */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+            --color-text-white: #FFFFFF;
+            --color-bg-light: #FFFBFB; /* 调整为更柔和的背景 */
+            --color-border: #FFEAE8;
+            --font-size-base: 13.5px;
+            --line-height-base: 1.65;
+            --font-size-h1: 38px;
+            --font-size-h2: 22px;
+            --font-size-h3: 16px;
+            --font-size-cta: 28px;
+        }
+
+        /* 基础与重置 */
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f0f2f5; /* 方便截图的背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        /* 页面容器与品牌装饰 */
+        .page-container {
+            width: 420px;
+            height: 560px;
+            background-color: var(--color-bg-light);
+            padding-left: 8px; /* 为左侧边框预留空间 */
+            position: relative;
+            overflow: hidden; /* 确保内容不会溢出 */
+        }
+        
+        .page-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background-color: var(--color-primary); /* 使用主题粉色增强品牌识别 */
+        }
+
+        .module {
+            width: 100%;
+            height: 100%;
+            padding: 25px 25px 20px 25px; /* 调整内边距以适应布局 */
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+        }
+
+        .brand-watermark {
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            opacity: 0.15;
+        }
+
+        /* 封面特定样式 */
+        .cover-title {
+            font-size: var(--font-size-h1);
+            font-weight: 900;
+            color: var(--color-text-dark);
+            margin: 15px 0 10px 0;
+            line-height: 1.25;
+            text-align: left;
+        }
+
+        .cover-subtitle {
+            font-size: var(--font-size-h3);
+            color: var(--color-text-light);
+            font-weight: 500;
+            margin-bottom: 25px;
+            text-align: left;
+            padding-left: 2px;
+        }
+        
+        .highlight-red { color: var(--color-primary); }
+        .highlight-blue { color: var(--color-tertiary); }
+        .highlight-orange { color: var(--color-warn); font-weight: 700; }
+
+        /* 对比布局容器 */
+        .comparison-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
+            flex-grow: 1; /* 占据剩余空间 */
+            margin-bottom: 25px;
+        }
+
+        .comparison-box {
+            flex: 1;
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .comparison-box.wrong {
+            background-color: var(--color-warn-bg);
+            border: 1.5px solid var(--color-warn);
+        }
+        
+        .comparison-box.correct {
+            background-color: var(--color-bg-tertiary);
+            border: 1.5px solid var(--color-tertiary);
+        }
+        
+        .box-title {
+            font-size: var(--font-size-h3);
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .box-title .icon {
+            font-size: 18px;
+            margin-right: 8px;
+            line-height: 1;
+        }
+        
+        .wrong .box-title { color: var(--color-warn); }
+        .correct .box-title { color: var(--color-tertiary); }
+
+        .comparison-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-box li {
+            font-size: var(--font-size-base);
+            color: var(--color-text-dark);
+            line-height: var(--line-height-base);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        /* 底部高亮预告框 */
+        .cover-highlight-box {
+            background-color: var(--color-text-white);
+            border: 1.5px solid var(--color-border);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-light);
+            text-align: center;
+            width: 100%;
+            align-self: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="module">
+            
+            <h1 class="cover-title">娃一哭就喂奶？<br><span class="highlight-red">STOP！</span></h1>
+            
+            <div class="cover-subtitle">90%的夜哭根源被你忽略了！</div>
+            
+            <div class="comparison-container">
+                <div class="comparison-box wrong">
+                    <div class="box-title"><span class="icon">❌</span> 错误做法</div>
+                    <ul>
+                        <li>立刻喂奶</li>
+                        <li>疯狂摇晃</li>
+                        <li>开灯检查</li>
+                    </ul>
+                </div>
+                <div class="comparison-box correct">
+                    <div class="box-title"><span class="icon">✅</span> 正确思路</div>
+                    <ul>
+                        <li>先诊断</li>
+                        <li>后行动</li>
+                        <li>精准安抚</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="cover-highlight-box">
+                <span class="highlight-orange">👇下篇预告：</span>4步排查法，告别无效安抚
+            </div>
+
+            <div class="brand-watermark">@宝爸Conn</div>
+        </div>
+    </div>
+</body>
+</html>
