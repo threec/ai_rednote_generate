@@ -48,10 +48,16 @@ class GitAutomation:
                 cwd=self.repo_path,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                encoding='utf-8',  # 明确指定UTF-8编码
+                errors='ignore'    # 忽略编码错误
             )
-            return result.stdout.strip()
+            return result.stdout.strip() if result.stdout else ""
         except subprocess.CalledProcessError:
+            return ""
+        except UnicodeDecodeError:
+            return ""
+        except Exception:
             return ""
     
     def _run_git_command(self, command: List[str]) -> Tuple[bool, str]:
@@ -62,11 +68,21 @@ class GitAutomation:
                 cwd=self.repo_path,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                encoding='utf-8',  # 明确指定UTF-8编码
+                errors='ignore'    # 忽略编码错误
             )
-            return True, result.stdout.strip()
+            return True, result.stdout.strip() if result.stdout else ""
         except subprocess.CalledProcessError as e:
-            error_msg = f"Git命令失败: {' '.join(command)}\n错误: {e.stderr}"
+            error_msg = f"Git命令失败: {' '.join(command)}\n错误: {e.stderr if e.stderr else 'Unknown error'}"
+            self.logger.error(error_msg)
+            return False, error_msg
+        except UnicodeDecodeError as e:
+            error_msg = f"Git命令编码错误: {' '.join(command)}\n错误: {str(e)}"
+            self.logger.error(error_msg)
+            return False, error_msg
+        except Exception as e:
+            error_msg = f"Git命令异常: {' '.join(command)}\n错误: {str(e)}"
             self.logger.error(error_msg)
             return False, error_msg
     
