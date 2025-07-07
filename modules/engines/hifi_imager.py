@@ -23,6 +23,8 @@ RedCube AI 工作流系统
 
 import json
 import os
+import sys
+import os
 import asyncio
 from typing import Dict, Any, Optional, List
 from pathlib import Path
@@ -40,8 +42,11 @@ try:
 except ImportError:
     PLAYWRIGHT_AVAILABLE = False
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class HiFiImagerEngine(BaseWorkflowEngine):
     """高保真成像仪引擎 - 图片生成优化"""
@@ -113,56 +118,56 @@ class HiFiImagerEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "imaging_process": {
+{{
+  "imaging_process": {{
     "total_images": "总图片数量",
     "technical_approach": "技术方案",
     "quality_settings": "质量设置",
     "processing_status": "处理状态"
-  },
+  }},
   "image_specifications": [
-    {
+    {{
       "image_number": 1,
       "page_type": "页面类型",
       "page_title": "页面标题",
       "image_path": "图片文件路径",
-      "image_size": {
+      "image_size": {{
         "width": 448,
         "height": 597,
         "dpi": 72
-      },
-      "quality_metrics": {
+      }},
+      "quality_metrics": {{
         "file_size": "文件大小",
         "color_accuracy": "色彩准确性",
         "text_clarity": "文字清晰度",
         "overall_quality": "整体质量评分"
-      },
-      "technical_details": {
+      }},
+      "technical_details": {{
         "rendering_engine": "渲染引擎",
         "screenshot_method": "截图方法",
         "post_processing": "后处理步骤"
-      }
-    }
+      }}
+    }}
   ],
-  "quality_assurance": {
+  "quality_assurance": {{
     "validation_checks": ["验证检查1", "验证检查2"],
     "quality_score": "质量评分",
     "optimization_applied": ["优化措施1", "优化措施2"],
     "final_review": "最终审查结果"
-  },
-  "delivery_package": {
+  }},
+  "delivery_package": {{
     "output_directory": "输出目录",
     "file_naming": "文件命名规则",
     "metadata_included": "元数据信息",
     "ready_for_publication": "发布就绪状态"
-  },
-  "technical_report": {
+  }},
+  "technical_report": {{
     "processing_time": "处理时间",
     "success_rate": "成功率",
     "error_handling": "错误处理",
     "performance_metrics": "性能指标"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】
@@ -344,8 +349,8 @@ class HiFiImagerEngine(BaseWorkflowEngine):
                             await page.screenshot(
                                 path=filepath,
                                 full_page=True,
-                                type="png",
-                                quality=90
+                                type="png"
+                                # PNG格式不支持quality参数，只有JPEG支持
                             )
                             
                             # 获取文件信息

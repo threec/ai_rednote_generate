@@ -2,29 +2,32 @@
 引擎②: 策略罗盘引擎 (Strategy Compass Engine)
 RedCube AI 工作流系统
 
-目标：明确内容核心战略，追求短期流量还是构建长期深度？
+目标：制定内容的核心战略，解决"做什么内容"的根本问题
 
 核心功能：
-- 分析用户画像，挖掘痛点痒点
-- 构思"避坑"、"省钱"、"对比"等"钩子化"切入点 (流量导向策略)
-- 遗循预设框架(如认知-希望-回行) (深度导向策略)  
-- 规划逻辑严谨、层层递进的内容支柱
-- 嵌入合规性原则，从源头规避风险
+- 在流量导向vs深度导向之间找平衡点，避免盲目追热点或过度小众
+- 受众痛点挖掘：不做表面需求，直击用户真正的深层焦虑
+- 内容差异化：在同质化海洋中找到独特角度
 
 实现方式：
 - 基于LangChain构建策略分析链
-- 双轨战略：流量导向 vs 深度导向
-- 输出结构化的内容战略蓝图
+- 输出结构化的内容战略方案
+- 整合市场分析和受众洞察
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class StrategyCompassEngine(BaseWorkflowEngine):
     """策略罗盘引擎 - 内容战略规划"""
@@ -76,54 +79,54 @@ class StrategyCompassEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "strategy_analysis": {
+{{
+  "strategy_analysis": {{
     "topic_assessment": "主题分析评估",
     "market_potential": "市场潜力评估",
     "competition_landscape": "竞争环境分析",
     "opportunity_window": "机会窗口评估"
-  },
-  "audience_insights": {
-    "primary_audience": {
+  }},
+  "audience_insights": {{
+    "primary_audience": {{
       "demographics": "人群特征",
       "psychographics": "心理特征", 
       "pain_points": ["痛点1", "痛点2", "痛点3"],
       "motivations": ["动机1", "动机2", "动机3"]
-    },
-    "content_consumption": {
+    }},
+    "content_consumption": {{
       "preferred_formats": ["格式1", "格式2"],
       "engagement_triggers": ["触发点1", "触发点2"],
       "sharing_drivers": ["分享动机1", "分享动机2"]
-    }
-  },
-  "strategy_selection": {
+    }}
+  }},
+  "strategy_selection": {{
     "recommended_approach": "流量导向 或 深度导向",
     "strategy_rationale": "战略选择理由",
     "success_metrics": ["成功指标1", "成功指标2"]
-  },
-  "content_strategy": {
+  }},
+  "content_strategy": {{
     "core_message": "核心信息",
     "value_proposition": "价值主张",
     "differentiation_angle": "差异化角度",
     "content_themes": ["主题1", "主题2", "主题3"]
-  },
-  "hook_elements": {
+  }},
+  "hook_elements": {{
     "attention_grabbers": ["吸引元素1", "吸引元素2"],
     "curiosity_gaps": ["好奇缺口1", "好奇缺口2"],
     "emotional_triggers": ["情感触发1", "情感触发2"]
-  },
-  "content_framework": {
+  }},
+  "content_framework": {{
     "opening_strategy": "开篇策略",
     "development_logic": "展开逻辑",
     "climax_design": "高潮设计", 
     "closing_strategy": "结尾策略"
-  },
-  "compliance_guidelines": {
+  }},
+  "compliance_guidelines": {{
     "content_boundaries": ["边界1", "边界2"],
     "risk_mitigation": ["风险控制1", "风险控制2"],
     "safety_principles": ["安全原则1", "安全原则2"]
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

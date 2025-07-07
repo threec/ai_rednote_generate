@@ -21,13 +21,18 @@ RedCube AI 工作流系统
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class VisualEncoderEngine(BaseWorkflowEngine):
     """视觉编码器引擎 - HTML/CSS代码生成"""
@@ -101,15 +106,15 @@ class VisualEncoderEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "html_generation": {
+{{
+  "html_generation": {{
     "total_pages": "总页数",
     "generation_approach": "生成方法",
     "technical_stack": "技术栈说明",
     "quality_assurance": "质量保证措施"
-  },
+  }},
   "page_codes": [
-    {
+    {{
       "page_number": 1,
       "page_type": "页面类型",
       "page_title": "页面标题",
@@ -118,40 +123,40 @@ class VisualEncoderEngine(BaseWorkflowEngine):
       "responsive_design": "响应式设计说明",
       "accessibility_features": ["无障碍特性1", "无障碍特性2"],
       "performance_notes": "性能优化说明"
-    }
+    }}
   ],
-  "design_implementation": {
-    "color_system": {
-      "css_variables": {
+  "design_implementation": {{
+    "color_system": {{
+      "css_variables": {{
         "--primary-color": "#颜色值",
         "--secondary-color": "#颜色值"
-      },
+      }},
       "color_usage": "颜色使用说明"
-    },
-    "typography_system": {
+    }},
+    "typography_system": {{
       "font_definitions": "字体定义",
       "text_hierarchy": "文字层级",
       "responsive_typography": "响应式字体"
-    },
-    "layout_system": {
+    }},
+    "layout_system": {{
       "grid_structure": "网格结构",
       "spacing_scale": "间距系统",
       "component_layout": "组件布局"
-    }
-  },
-  "technical_specifications": {
+    }}
+  }},
+  "technical_specifications": {{
     "html_standards": "HTML标准遵循",
     "css_methodology": "CSS方法论",
     "browser_support": "浏览器支持范围",
     "performance_metrics": "性能指标"
-  },
-  "code_quality": {
+  }},
+  "code_quality": {{
     "validation_status": "代码验证状态",
     "optimization_level": "优化等级",
     "maintainability_score": "可维护性评分",
     "documentation_coverage": "文档覆盖率"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

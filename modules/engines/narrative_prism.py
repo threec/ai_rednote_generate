@@ -2,28 +2,31 @@
 引擎⑤: 叙事棱镜引擎 (Narrative Prism Engine)
 RedCube AI 工作流系统
 
-目标：将"大故事"蓝图解构成逻辑连贯、引人入胜的系列笔记目录
+目标：故事架构设计，拒绝平铺直叙
 
 核心功能：
-- 封面标题策略：矩阵化、系列化的内容才能构建护城河
-- 拒绝平铺直叙："XX介绍"
-- 拥抱"钩子"，创造高点击率标题（悬念、冲突、问题、比喻等）
+- 故事结构设计：构建引人入胜的内容架构
+- 钩子机制：创造高点击率的开篇和标题
+- 叙事节奏：控制内容的起承转合
 
 实现方式：
-- 基于LangChain构建叙事架构链
-- 多页面内容规划设计
-- 标题优化和钩子设计
-- 输出完整的叙事架构
+- 基于LangChain构建叙事设计链
+- 整合故事理论和传播学原理
+- 输出结构化的叙事框架
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class NarrativePrismEngine(BaseWorkflowEngine):
     """叙事棱镜引擎 - 故事架构设计"""
@@ -83,21 +86,21 @@ class NarrativePrismEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "narrative_overview": {
+{{
+  "narrative_overview": {{
     "story_theme": "整体故事主题",
     "narrative_strategy": "叙事策略选择",
     "target_emotion": "目标情感体验",
     "engagement_approach": "互动参与方式"
-  },
-  "content_series": {
+  }},
+  "content_series": {{
     "series_title": "系列内容标题",
     "total_pages": "总页数",
     "content_flow": "内容流动逻辑",
     "key_differentiators": ["差异化要素1", "差异化要素2"]
-  },
+  }},
   "page_breakdown": [
-    {
+    {{
       "page_number": 1,
       "page_type": "封面页",
       "page_title": "具体页面标题",
@@ -106,48 +109,48 @@ class NarrativePrismEngine(BaseWorkflowEngine):
       "visual_concept": "视觉概念",
       "engagement_trigger": "参与触发器",
       "transition_to_next": "与下页的连接"
-    }
+    }}
   ],
-  "title_optimization": {
+  "title_optimization": {{
     "headline_strategies": [
-      {
+      {{
         "strategy_name": "策略名称",
         "technique": "技巧说明",
         "example_titles": ["示例标题1", "示例标题2"]
-      }
+      }}
     ],
-    "hook_library": {
+    "hook_library": {{
       "curiosity_gaps": ["好奇缺口1", "好奇缺口2"],
       "conflict_elements": ["冲突元素1", "冲突元素2"],
       "benefit_promises": ["利益承诺1", "利益承诺2"],
       "social_proof": ["社会证明1", "社会证明2"]
-    }
-  },
-  "engagement_design": {
+    }}
+  }},
+  "engagement_design": {{
     "interaction_points": [
-      {
+      {{
         "page_location": "页面位置",
         "interaction_type": "互动类型",
         "engagement_goal": "互动目标",
         "implementation": "实现方式"
-      }
+      }}
     ],
     "discussion_starters": ["讨论引发点1", "讨论引发点2"],
     "sharing_hooks": ["分享钩子1", "分享钩子2"]
-  },
-  "content_continuity": {
+  }},
+  "content_continuity": {{
     "story_arc": "故事弧线设计",
     "emotional_journey": "情感旅程规划",
     "knowledge_progression": "知识递进路径",
     "action_pathway": "行动引导路径"
-  },
-  "quality_metrics": {
+  }},
+  "quality_metrics": {{
     "clickability_score": "点击性评分",
     "engagement_potential": "参与潜力",
     "shareability_index": "分享指数",
     "memorability_factor": "记忆度因子"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

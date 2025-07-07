@@ -16,13 +16,18 @@ RedCube AI 工作流系统
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class PersonaCoreEngine(BaseWorkflowEngine):
     """人格核心引擎 - 建立统一的内容人格"""
@@ -69,53 +74,53 @@ class PersonaCoreEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式，包含以下结构：
 
 ```json
-{
-  "persona_analysis": {
+{{
+  "persona_analysis": {{
     "topic_category": "内容领域分类",
     "target_audience": "目标受众画像",
     "content_context": "内容背景分析"
-  },
-  "persona_core": {
-    "signature_identity": {
+  }},
+  "persona_core": {{
+    "signature_identity": {{
       "name": "署名/昵称",
       "title": "职业/身份标签", 
       "credentials": "专业背景/资历",
       "unique_identifier": "独特标识/slogan"
-    },
-    "character_traits": {
+    }},
+    "character_traits": {{
       "personality_keywords": ["关键词1", "关键词2", "关键词3"],
       "value_orientation": "价值观导向描述",
       "communication_style": "沟通风格描述"
-    },
-    "voice_and_tone": {
+    }},
+    "voice_and_tone": {{
       "language_style": "语言风格定义",
       "emotional_tone": "情感基调设定", 
-      "expression_habits": {
+      "expression_habits": {{
         "preferred_words": ["常用词1", "常用词2"],
         "sentence_patterns": "句式特点",
         "signature_phrases": ["口头禅1", "口头禅2"]
-      }
-    },
-    "content_strategy": {
+      }}
+    }},
+    "content_strategy": {{
       "expertise_angles": ["专长角度1", "专长角度2"],
       "argumentation_style": "论证方式偏好",
       "interaction_mode": "与读者互动模式"
-    }
-  },
-  "style_guide": {
+    }}
+  }},
+  "style_guide": {{
     "do_rules": ["应该做的1", "应该做的2", "应该做的3"],
     "dont_rules": ["不应该做的1", "不应该做的2", "不应该做的3"],
-    "language_examples": {
+    "language_examples": {{
       "good_examples": ["优秀表达示例1", "优秀表达示例2"],
       "bad_examples": ["需要避免的表达1", "需要避免的表达2"]
-    }
-  },
-  "persona_consistency": {
+    }}
+  }},
+  "persona_consistency": {{
     "key_mantras": ["核心理念1", "核心理念2"],
     "content_themes": ["内容主题1", "内容主题2"],
     "brand_differentiation": "品牌差异化要点"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

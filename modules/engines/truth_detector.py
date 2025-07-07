@@ -19,13 +19,17 @@ RedCube AI 工作流系统
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine  
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine  
+from modules.utils import get_logger
 
 class TruthDetectorEngine(BaseWorkflowEngine):
     """真理探机引擎 - 权威事实验证"""
@@ -90,83 +94,83 @@ class TruthDetectorEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "fact_verification": {
+{{
+  "fact_verification": {{
     "topic_domain": "专业领域分类",
     "verification_scope": "验证范围说明",
     "authority_level": "权威性等级评估",
     "fact_reliability": "事实可靠性评分"
-  },
-  "core_facts": {
+  }},
+  "core_facts": {{
     "verified_facts": [
-      {
+      {{
         "fact_statement": "核心事实陈述",
         "authority_source": "权威来源",
         "evidence_type": "证据类型",
         "confidence_level": "置信度等级",
         "last_updated": "最后更新时间"
-      }
+      }}
     ],
     "data_points": [
-      {
+      {{
         "data_description": "数据描述",
         "numerical_value": "具体数值",
         "data_source": "数据来源",
         "collection_method": "收集方法",
         "sample_size": "样本规模"
-      }
+      }}
     ]
-  },
-  "expert_insights": {
+  }},
+  "expert_insights": {{
     "professional_opinions": [
-      {
+      {{
         "expert_name": "专家姓名",
         "credentials": "专业资质",
         "opinion_summary": "观点摘要",
         "supporting_evidence": "支撑证据"
-      }
+      }}
     ],
     "consensus_views": ["共识观点1", "共识观点2"],
     "controversial_points": ["争议点1", "争议点2"]
-  },
-  "research_foundation": {
+  }},
+  "research_foundation": {{
     "key_studies": [
-      {
+      {{
         "study_title": "研究标题",
         "researchers": "研究者",
         "publication": "发表期刊",
         "year": "发表年份",
         "main_findings": "主要发现",
         "sample_characteristics": "样本特征"
-      }
+      }}
     ],
     "institutional_reports": [
-      {
+      {{
         "institution": "机构名称",
         "report_title": "报告标题",
         "key_statistics": "关键统计",
         "report_date": "报告日期"
-      }
+      }}
     ]
-  },
-  "content_blueprint": {
+  }},
+  "content_blueprint": {{
     "big_idea": "核心叙事理念",
     "key_messages": ["关键信息点1", "关键信息点2"],
     "evidence_hierarchy": "证据层次结构",
     "credibility_anchors": ["可信度锚点1", "可信度锚点2"]
-  },
-  "fact_updates": {
+  }},
+  "fact_updates": {{
     "latest_developments": ["最新发展1", "最新发展2"],
     "trend_analysis": "趋势分析",
     "future_implications": "未来影响预测"
-  },
-  "verification_metadata": {
+  }},
+  "verification_metadata": {{
     "sources_consulted": ["咨询来源1", "咨询来源2"],
     "verification_date": "验证日期",
     "next_review_date": "下次审查日期",
     "reliability_score": "可靠性评分"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

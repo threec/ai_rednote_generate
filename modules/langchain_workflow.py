@@ -18,9 +18,11 @@ RedCube AI 工作流深度复刻版本
 import os
 import json
 import asyncio
-from typing import Dict, Any, List, Optional, Tuple
+import sys
+from typing import Dict, Any, List, Optional, Tuple, Union
 from datetime import datetime
 from pathlib import Path
+import importlib
 
 # LangChain核心组件
 from langchain.chains import LLMChain
@@ -38,6 +40,8 @@ from config import (
     CACHE_DIR, OUTPUT_DIR, DEFAULT_TEMPERATURE
 )
 from modules.utils import get_logger, save_json, load_json
+from modules.models import get_langchain_model
+from modules.git_automation import get_git_automation, auto_commit_if_needed, commit_checkpoint
 
 # ===================================
 # 核心配置
@@ -70,34 +74,140 @@ class RedCubeWorkflowConfig:
 # 基础工作流引擎类
 # ===================================
 
+class FlexibleOutput:
+    """灵活的输出格式管理"""
+    
+    def __init__(self, engine_name: str, topic: str):
+        self.engine_name = engine_name
+        self.topic = topic
+        self.metadata = {}
+        self.content = ""
+        self.format_type = "json"  # json, text, hybrid
+    
+    def set_metadata(self, **kwargs):
+        """设置元数据"""
+        self.metadata.update(kwargs)
+    
+    def set_content(self, content: str, format_type: str = "text"):
+        """设置内容"""
+        self.content = content
+        self.format_type = format_type
+    
+    def to_result(self) -> Dict[str, Any]:
+        """转换为标准结果格式"""
+        result = {
+            "engine": self.engine_name,
+            "version": "1.0.0",
+            "topic": self.topic,
+            "format_type": self.format_type,
+            "metadata": self.metadata,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        
+        if self.format_type == "json":
+            # 传统JSON模式
+            result["data"] = json.loads(self.content) if isinstance(self.content, str) else self.content
+        elif self.format_type == "text":
+            # 纯文本模式
+            result["content"] = self.content
+        elif self.format_type == "hybrid":
+            # 混合模式：结构化数据 + 文本报告
+            result["content"] = self.content
+            result["structured_data"] = self.metadata.get("structured_data", {})
+        
+        return result
+    
+    def save(self, cache_dir: str):
+        """保存到缓存"""
+        cache_path = Path(cache_dir)
+        cache_path.mkdir(parents=True, exist_ok=True)
+        
+        # 保存元数据
+        metadata_file = cache_path / f"{self.engine_name}_metadata.json"
+        with open(metadata_file, 'w', encoding='utf-8') as f:
+            json.dump(self.metadata, f, ensure_ascii=False, indent=2)
+        
+        # 保存内容
+        if self.format_type in ["text", "hybrid"]:
+            content_file = cache_path / f"{self.engine_name}_content.txt"
+            with open(content_file, 'w', encoding='utf-8') as f:
+                f.write(self.content)
+        
+        # 保存完整结果
+        result_file = cache_path / f"{self.engine_name}.json"
+        with open(result_file, 'w', encoding='utf-8') as f:
+            json.dump(self.to_result(), f, ensure_ascii=False, indent=2)
+
 class BaseWorkflowEngine:
     """工作流引擎基类"""
     
-    def __init__(self, engine_name: str, llm: ChatGoogleGenerativeAI):
-        self.engine_name = engine_name
+    def __init__(self, llm, logger=None):
         self.llm = llm
-        self.logger = get_logger(f"engine.{engine_name}")
-        self.cache_dir = os.path.join(CACHE_DIR, f"engine_{engine_name}")
-        os.makedirs(self.cache_dir, exist_ok=True)
+        self.logger = logger or get_logger()
+        self.cache_dir = "cache"
+        self.engine_name = self.__class__.__name__.lower().replace("engine", "")
+        self.git_auto = get_git_automation()
     
-    def get_cache_path(self, topic: str, suffix: str = "result.json") -> str:
-        """获取缓存文件路径"""
-        safe_topic = "".join(c for c in topic if c.isalnum() or c in (' ', '-', '_')).rstrip()
-        return os.path.join(self.cache_dir, f"{safe_topic}_{suffix}")
+    def create_output(self, topic: str) -> FlexibleOutput:
+        """创建灵活的输出对象"""
+        return FlexibleOutput(self.engine_name, topic)
     
-    def load_cache(self, topic: str, suffix: str = "result.json") -> Optional[Dict[str, Any]]:
-        """加载缓存结果"""
-        cache_path = self.get_cache_path(topic, suffix)
-        return load_json(cache_path)
+    def load_cache(self, topic: str, filename: str) -> Optional[Dict[str, Any]]:
+        """加载缓存文件"""
+        cache_path = Path(self.cache_dir) / f"engine_{self.engine_name}" / filename
+        if cache_path.exists():
+            try:
+                with open(cache_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                self.logger.warning(f"加载缓存失败: {e}")
+        return None
     
-    def save_cache(self, topic: str, result: Dict[str, Any], suffix: str = "result.json") -> bool:
-        """保存缓存结果"""
-        cache_path = self.get_cache_path(topic, suffix)
-        return save_json(cache_path, result)
+    def save_cache(self, topic: str, data: Dict[str, Any], filename: str):
+        """保存缓存文件"""
+        cache_dir = Path(self.cache_dir) / f"engine_{self.engine_name}"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        
+        cache_path = cache_dir / filename
+        with open(cache_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    def load_flexible_cache(self, topic: str) -> Optional[Dict[str, Any]]:
+        """加载灵活格式的缓存"""
+        cache_dir = Path(self.cache_dir) / f"engine_{self.engine_name}"
+        result_file = cache_dir / f"{self.engine_name}.json"
+        
+        if result_file.exists():
+            try:
+                with open(result_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                self.logger.warning(f"加载灵活缓存失败: {e}")
+        return None
+    
+    async def execute_with_git(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
+        """带Git自动提交的执行"""
+        topic = inputs.get("topic", "")
+        
+        # 执行引擎逻辑
+        result = await self.execute(inputs)
+        
+        # 检查是否成功并自动提交
+        if result.get("execution_status") == "success":
+            commit_result = self.git_auto.commit_on_engine_complete(
+                self.engine_name, topic
+            )
+            if commit_result["success"]:
+                self.logger.info(f"✅ {self.engine_name}引擎完成，已自动提交Git")
+                result["git_commit"] = commit_result["commit_hash"]
+            else:
+                self.logger.warning(f"Git自动提交失败: {commit_result['message']}")
+        
+        return result
     
     async def execute(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        """执行引擎逻辑 - 由子类实现"""
-        raise NotImplementedError("Subclasses must implement execute method")
+        """执行引擎逻辑"""
+        raise NotImplementedError("子类必须实现execute方法")
 
 # ===================================
 # RedCube AI 主工作流类
@@ -143,9 +253,9 @@ class RedCubeWorkflow:
         
         for engine_name, engine_class_name in engine_classes:
             try:
-                # 动态导入引擎模块
-                module_path = f".engines.{engine_name}"
-                engine_module = __import__(module_path, fromlist=[engine_class_name], level=1)
+                # 使用绝对导入路径
+                module_path = f"modules.engines.{engine_name}"
+                engine_module = __import__(module_path, fromlist=[engine_class_name])
                 engine_class = getattr(engine_module, engine_class_name)
                 
                 # 初始化引擎实例

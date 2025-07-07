@@ -19,13 +19,17 @@ RedCube AI 工作流系统
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class InsightDistillerEngine(BaseWorkflowEngine):
     """洞察提炼器引擎 - 核心价值挖掘"""
@@ -83,85 +87,85 @@ class InsightDistillerEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "insight_analysis": {
+{{
+  "insight_analysis": {{
     "data_synthesis": "数据综合分析",
     "pattern_recognition": "模式识别结果",
     "value_discovery": "价值发现总结",
     "opportunity_mapping": "机会地图"
-  },
-  "core_insights": {
+  }},
+  "core_insights": {{
     "key_insights": [
-      {
+      {{
         "insight_statement": "核心洞察陈述",
         "supporting_evidence": "支撑证据",
         "value_implication": "价值含义",
         "practical_application": "实际应用"
-      }
+      }}
     ],
     "hidden_gems": [
-      {
+      {{
         "gem_description": "隐藏价值描述",
         "discovery_method": "发现方法",
         "potential_impact": "潜在影响"
-      }
+      }}
     ]
-  },
-  "big_idea": {
+  }},
+  "big_idea": {{
     "central_concept": "核心概念",
     "value_proposition": "价值主张",
     "unique_angle": "独特角度",
     "emotional_hook": "情感钩子",
     "viral_potential": "传播潜力评估"
-  },
-  "narrative_architecture": {
-    "story_spine": {
+  }},
+  "narrative_architecture": {{
+    "story_spine": {{
       "setup": "故事设定",
       "conflict": "冲突张力",
       "resolution": "解决方案",
       "transformation": "转化价值"
-    },
+    }},
     "content_modules": [
-      {
+      {{
         "module_name": "模块名称",
         "module_purpose": "模块目的",
         "key_content": "核心内容",
         "connection_logic": "连接逻辑"
-      }
+      }}
     ]
-  },
-  "content_blueprint": {
-    "content_outline": {
+  }},
+  "content_blueprint": {{
+    "content_outline": {{
       "opening_hook": "开篇钩子设计",
       "main_sections": [
-        {
+        {{
           "section_title": "章节标题",
           "section_purpose": "章节目的",
           "key_points": ["要点1", "要点2"],
           "evidence_support": "证据支撑"
-        }
+        }}
       ],
       "climax_moment": "高潮时刻设计",
       "closing_impact": "结尾冲击力"
-    },
-    "engagement_strategy": {
+    }},
+    "engagement_strategy": {{
       "attention_grabbers": ["注意力抓手1", "注意力抓手2"],
       "curiosity_builders": ["好奇心构建器1", "好奇心构建器2"],
       "emotional_triggers": ["情感触发器1", "情感触发器2"]
-    }
-  },
-  "creative_elements": {
+    }}
+  }},
+  "creative_elements": {{
     "viral_components": ["病毒性元素1", "病毒性元素2"],
     "discussion_starters": ["讨论话题1", "讨论话题2"],
     "shareability_factors": ["分享因子1", "分享因子2"]
-  },
-  "execution_guidance": {
+  }},
+  "execution_guidance": {{
     "content_priorities": ["优先级1", "优先级2"],
     "tone_guidelines": "语调指导",
     "style_recommendations": "风格建议",
     "quality_checkpoints": ["质量检查点1", "质量检查点2"]
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】

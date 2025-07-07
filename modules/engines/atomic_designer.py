@@ -22,13 +22,18 @@ RedCube AI 工作流系统
 """
 
 import json
+import os
+import sys
 from typing import Dict, Any, Optional, List
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
-from ..langchain_workflow import BaseWorkflowEngine
-from ..utils import get_logger
+# 修复导入路径问题
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from modules.langchain_workflow import BaseWorkflowEngine
+from modules.utils import get_logger
 
 class AtomicDesignerEngine(BaseWorkflowEngine):
     """原子设计师引擎 - 页面布局设计"""
@@ -88,103 +93,103 @@ class AtomicDesignerEngine(BaseWorkflowEngine):
 必须返回严格的JSON格式：
 
 ```json
-{
-  "publication_package": {
+{{
+  "publication_package": {{
     "xiaohongshu_titles": [
       "主标题选项1（高点击率导向）",
       "主标题选项2（价值导向）",
       "主标题选项3（话题导向）"
     ],
-    "xiaohongshu_content": {
+    "xiaohongshu_content": {{
       "main_text": "小红书正文内容",
       "hashtags": ["#标签1", "#标签2", "#标签3"],
       "call_to_action": "行动引导文案"
-    },
-    "content_metadata": {
+    }},
+    "content_metadata": {{
       "target_audience": "目标受众",
       "content_category": "内容分类",
       "publishing_timing": "发布时机建议"
-    }
-  },
+    }}
+  }},
   "page_design_specs": [
-    {
+    {{
       "page_number": 1,
       "page_type": "封面页/内容页/对比页/结尾页",
       "page_title": "具体页面标题",
-      "layout_structure": {
+      "layout_structure": {{
         "layout_type": "布局类型（单栏/双栏/上下分割/左右分割）",
         "main_sections": [
-          {
+          {{
             "section_name": "区域名称",
             "section_purpose": "区域功能",
             "content_elements": ["元素1", "元素2"],
             "visual_treatment": "视觉处理方式"
-          }
+          }}
         ]
-      },
-      "content_specification": {
+      }},
+      "content_specification": {{
         "headline": "页面主标题",
         "subheadline": "副标题（如有）",
         "body_content": [
-          {
+          {{
             "content_type": "文本/列表/引用/数据",
             "content_text": "具体文字内容",
             "visual_emphasis": "视觉强调方式",
             "formatting": "格式化要求"
-          }
+          }}
         ],
         "supporting_elements": ["支撑元素1", "支撑元素2"]
-      },
-      "visual_design": {
-        "color_scheme": {
+      }},
+      "visual_design": {{
+        "color_scheme": {{
           "primary_color": "主色调（CSS代码）",
           "secondary_color": "辅助色（CSS代码）",
           "background_color": "背景色（CSS代码）",
           "text_color": "文字色（CSS代码）"
-        },
-        "typography": {
+        }},
+        "typography": {{
           "title_font": "标题字体设置",
           "body_font": "正文字体设置",
           "emphasis_treatment": "强调文字处理"
-        },
+        }},
         "visual_elements": [
-          {
+          {{
             "element_type": "图标/插图/图表/装饰",
             "element_description": "元素具体描述",
             "placement": "放置位置",
             "size_specification": "尺寸规格",
             "style_treatment": "样式处理"
-          }
+          }}
         ]
-      },
-      "technical_implementation": {
+      }},
+      "technical_implementation": {{
         "css_classes": ["css-class-1", "css-class-2"],
         "layout_code": "布局代码指导",
         "responsive_notes": "响应式设计说明",
         "accessibility_considerations": "无障碍访问考虑"
-      }
-    }
+      }}
+    }}
   ],
-  "design_system": {
-    "brand_guidelines": {
+  "design_system": {{
+    "brand_guidelines": {{
       "color_palette": ["#颜色1", "#颜色2", "#颜色3"],
       "typography_scale": "字体层级系统",
       "spacing_system": "间距系统",
       "component_library": ["组件1", "组件2"]
-    },
-    "visual_consistency": {
+    }},
+    "visual_consistency": {{
       "design_principles": ["原则1", "原则2"],
       "style_guidelines": "风格指导原则",
       "quality_standards": "质量标准"
-    }
-  },
-  "production_notes": {
+    }}
+  }},
+  "production_notes": {{
     "design_priorities": ["优先级1", "优先级2"],
     "implementation_sequence": "实施顺序",
     "quality_checkpoints": ["检查点1", "检查点2"],
     "revision_guidelines": "修改指导原则"
-  }
-}
+  }}
+}}
 ```
 
 ### 【质量标准】
