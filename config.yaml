@@ -147,7 +147,8 @@ security:
 xiaohongshu:
   max_title_length: 20
   max_content_length: 1000
-  image_count: 4
+  max_image_count: 18  # 支持最多18张图片，具体数量由AI根据主题复杂度决定
+  min_image_count: 4   # 最少4张图片，确保基本信息完整性
   preferred_tags: ["育儿", "生活", "分享"]
   
 # 开发配置

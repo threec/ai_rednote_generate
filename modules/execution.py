@@ -347,119 +347,82 @@ def _fix_json_issues(json_str: str) -> str:
 
 def _generate_design_specification(blueprint: Dict[str, Any], theme: str) -> Dict[str, Any]:
     """
-    生成设计规范，为小红书多图内容提供详细的创作指南
-    
-    Args:
-        blueprint (Dict[str, Any]): 来自策略模块的创作蓝图
-        theme (str): 内容主题
-        
-    Returns:
-        Dict[str, Any]: 包含多图内容创作规范的设计文档
+    根据策略蓝图生成详细的设计规范
+    确保与小红书生态完美适配
     """
-    logger.info("开始生成小红书多图内容设计规范")
+    logger.info("开始生成设计规范...")
     
-    # 构建设计规范生成提示词（已整合优化版prompt）
+    # 从策略蓝图中提取图片数量 - 完全依据策略规划
+    visual_plan = blueprint.get("visual_plan", {})
+    planned_image_count = visual_plan.get("image_count")  # 不设默认值，强制AI明确决定
+    planned_images = visual_plan.get("images", [])
+    
+    # 如果AI没有明确指定图片数量，则要求重新生成策略
+    if not planned_image_count:
+        logger.error("策略蓝图中缺少明确的图片数量规划，需要重新生成策略")
+        raise ValueError("策略蓝图必须明确指定图片数量")
+    
+    # 确保图片数量为整数（如果AI返回了字符串描述）
+    if isinstance(planned_image_count, str):
+        # 尝试从字符串中提取数字
+        import re
+        numbers = re.findall(r'\d+', planned_image_count)
+        if numbers:
+            planned_image_count = int(numbers[0])
+        else:
+            logger.error(f"无法从图片数量描述中提取数字: {planned_image_count}")
+            raise ValueError("图片数量必须是明确的数字")
+    
+    # 确保在系统限制范围内（4-18张）
+    planned_image_count = max(4, min(18, int(planned_image_count)))
+    
+    logger.info(f"策略蓝图明确规划图片数量: {planned_image_count}张")
+    
     design_prompt = f"""
-请根据以下策略蓝图，以宝爸Conn的身份为小红书多图内容生成详细的设计规范。
+根据以下策略蓝图，生成详细的设计规范，严格按照策略蓝图中规划的 {planned_image_count} 张图片执行。
 
-**主题**: {theme}
+**策略蓝图内容**：
+{json.dumps(blueprint, ensure_ascii=False, indent=2)}
 
-**策略蓝图**: {json.dumps(blueprint, ensure_ascii=False, indent=2)}
+**主题**：{theme}
 
-## 重要身份设定：
-你是宝爸Conn，一位经验丰富、细心体贴、乐于分享的"有温度的专业主义者"。你不是专家在讲课，而是朋友在分享真实的育儿经历。
+**设计要求**：
+1. 必须生成 {planned_image_count} 张图片的设计规范
+2. 严格按照策略蓝图中的visual_plan执行
+3. 每张图片的功能定位和内容描述要与策略蓝图保持一致
+4. 图片数量完全由策略蓝图决定，不做任何修改
 
-## 核心语言优化原则：
-1. **拒绝"假词"**：不用"超好看"、"巨好用"、"性价比绝了"等空洞词汇，用具体细节建立说服力
-2. **拒绝"虚词"**：不用"赋能"、"矩阵"、"链路"等高大上词汇，用大白话表达
-3. **具体场景**：要有具体的时间、地点、人物和对话
-4. **可量化数据**：用实测数据证明效果
-5. **生动细节**：用感官体验描述
-
-请生成一个包含以下结构的JSON对象：
+请生成如下格式的设计规范JSON：
 
 {{
     "content_overview": {{
         "theme": "{theme}",
-        "total_images": 4,
-        "target_audience": "年轻父母群体",
-        "content_style": "宝爸Conn的温暖实用分享",
-        "persona_voice": "有温度的专业主义者，像学霸朋友一样"
+        "total_images": {planned_image_count},
+        "content_strategy_summary": "根据策略蓝图的内容策略总结",
+        "visual_narrative_flow": "视觉叙事流程描述"
     }},
-    "xiaohongshu_titles": [
-        "爆款标题1 - 攻略/干货型（保姆级、手把手）",
-        "爆款标题2 - 痛点/解惑型（讲透了、终于搞懂）",
-        "爆款标题3 - 共鸣/安心型（@新手爸妈、别焦虑）",
-        "爆款标题4 - 结果/受益型（省钱、省时、避坑）",
-        "爆款标题5 - 总结/合集型（吐血整理、必看）"
-    ],
-    "xiaohongshu_content": "完整的小红书正文内容，严格按照爆款黄金三句话法则：第一句沉浸式代入+情绪共鸣，第二句反转解脱+价值捧出，第三句建立圈子+开启话匣子。必须包含真实的个人经历、具体的实施步骤、温暖的情感表达，用宝爸Conn的语调写作，最后附上hashtags。",
-    "image_contents": [
-        {{
-            "image_number": 1,
-            "type": "封面图",
-            "title": "吸引眼球的标题（图文插画型内容封面）",
-            "main_content": "核心痛点或吸引点，包含第一个核心内容章节",
-            "visual_elements": ["巨大标题44px", "第一章节内容", "温暖色调"],
-            "color_scheme": "温暖橙色系",
-            "layout": "图文插画型内容封面",
-            "height_constraint": "严格控制在560px以内"
-        }},
-        {{
-            "image_number": 2,
-            "type": "内容图",
-            "title": "第一个核心要点",
-            "main_content": "具体的方法或经验分享，包含真实案例",
-            "visual_elements": ["步骤编号", "重点文字", "个人经历"],
-            "color_scheme": "清新绿色系",
-            "layout": "上下结构布局",
-            "height_constraint": "严格控制在560px以内"
-        }},
-        {{
-            "image_number": 3,
-            "type": "内容图",
-            "title": "第二个核心要点",
-            "main_content": "具体的方法或经验分享，包含可量化数据",
-            "visual_elements": ["对比数据", "重点文字", "感官体验"],
-            "color_scheme": "温馨蓝色系",
-            "layout": "左右对比布局",
-            "height_constraint": "严格控制在560px以内"
-        }},
-        {{
-            "image_number": 4,
-            "type": "总结图",
-            "title": "核心要点总结",
-            "main_content": "总结要点和行动指引，互动引导",
-            "visual_elements": ["要点列表", "互动引导", "结尾互动"],
-            "color_scheme": "渐变紫色系",
-            "layout": "列表式布局",
-            "height_constraint": "严格控制在560px以内"
-        }}
-    ],
     "design_principles": {{
-        "size_constraint": "420x560px（3:4黄金比例）",
-        "font_hierarchy": "主标题44px，章节标题22px，正文13px（高密度）",
-        "color_palette": ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1"],
-        "spacing": "内边距25px 15px，元素间距适中",
-        "visual_consistency": "统一的圆角风格，一致的阴影效果",
-        "brand_signature": "@宝爸Conn右下角水印，不占文档流"
+        "visual_style": "现代简约风格，温暖色调",
+        "color_palette": "主色调：温暖橙色 #FF6B35，辅助色：柔和蓝色 #4A90E2，点缀色：清新绿色 #7ED321",
+        "typography": "主标题：44px 粗体，副标题：24px 中等，正文：18px 常规",
+        "layout_principles": "清晰层次，重点突出，信息密度适中",
+        "brand_elements": "宝爸Conn品牌标识，温暖人设体现"
     }},
-    "engagement_elements": {{
-        "call_to_action": "建立圈子，开启话匣子的具体文案",
-        "hashtags": ["#育儿经验", "#宝爸日常", "#实用技巧", "#新手爸妈"],
-        "emotional_triggers": ["真实经历共鸣", "具体效果证明", "温暖陪伴感"]
-    }}
+    "page_specifications": [
+        // 这里根据策略蓝图的planned_images生成对应数量的页面规范
+    ]
 }}
 
-请确保：
-1. 内容真实具体，体现宝爸Conn的个人经历和温暖语调
-2. 每张图片都有独立完整的信息，严格控制在560px高度内
-3. 视觉设计简洁美观，适合小红书平台
-4. 文案拒绝假词虚词，用具体细节和大白话
-5. 包含可操作的具体建议和真实案例
-6. 品牌署名使用@宝爸Conn右下角水印
+**重要要求**：
+1. page_specifications数组必须包含 {planned_image_count} 个页面规范
+2. 每个页面规范必须包含完整的设计细节
+3. 严格遵循策略蓝图中每张图片的purpose和description
+4. 确保所有图片形成完整的内容逻辑链条
+5. 高度控制在560px以内，宽度375px，符合小红书规范
+
+现在请生成完整的设计规范。
 """
-    
+
     try:
         # 调用AI生成设计规范
         result = _call_gemini_with_self_correction(
@@ -472,12 +435,26 @@ def _generate_design_specification(blueprint: Dict[str, Any], theme: str) -> Dic
             response_schema=DesignSpecification
         )
         
-        logger.info("✓ 设计规范生成成功")
+        # 验证图片数量是否正确
+        page_specs = result.get("image_contents", [])
+        if len(page_specs) != planned_image_count:
+            logger.warning(f"AI生成的页面规范数量({len(page_specs)})与策略规划({planned_image_count})不符")
+            # 如果数量不对，使用fallback方案，传入明确的图片数量
+            fallback_spec = _get_fallback_design_spec(theme, planned_image_count)
+            # 调整fallback方案的图片数量为策略规划的数量
+            fallback_spec = _adjust_fallback_spec_for_count(fallback_spec, planned_image_count)
+            return fallback_spec
+        
+        logger.info(f"✅ 设计规范生成成功！包含 {len(page_specs)} 张图片")
         return result
         
     except Exception as e:
-        logger.error(f"设计规范生成失败：{str(e)}")
-        raise Exception(f"设计规范生成失败：{str(e)}")
+        logger.error(f"设计规范生成失败: {e}")
+        # 使用fallback方案，传入明确的图片数量
+        fallback_spec = _get_fallback_design_spec(theme, planned_image_count)
+        # 调整fallback方案的图片数量为策略规划的数量
+        fallback_spec = _adjust_fallback_spec_for_count(fallback_spec, planned_image_count)
+        return fallback_spec
 
 def _generate_html_pages(design_spec: Dict[str, Any]) -> Dict[str, str]:
     """
@@ -828,7 +805,7 @@ def execute_narrative_pipeline(blueprint: Dict[str, Any], theme: str, output_dir
             design_spec = _generate_design_specification(blueprint, theme)
         except Exception as e:
             logger.warning(f"AI生成设计规范失败，使用备用方案: {e}")
-            design_spec = _get_fallback_design_spec(theme)
+            design_spec = _get_fallback_design_spec(theme, len(design_spec.get("image_contents", [])))
             logger.info("已启用备用设计规范")
         
         # 保存设计规范到主题文件夹
@@ -1002,9 +979,41 @@ def _generate_fallback_html_pages(design_spec: Dict[str, Any], theme: str) -> Di
     
     html_pages = {}
     
-    # 生成4个基础页面
-    for i in range(1, 5):
+    # 从设计规范中获取图片数量，必须由设计规范明确指定
+    total_images = design_spec.get("content_overview", {}).get("total_images")
+    
+    if not total_images:
+        logger.error("设计规范中缺少明确的图片数量")
+        raise ValueError("设计规范必须明确指定图片数量")
+    
+    # 生成对应数量的基础页面
+    for i in range(1, total_images + 1):
         page_name = f"page_{i}_备用页面"
+        
+        # 根据页面位置选择不同的背景颜色
+        gradients = [
+            '#667eea, #764ba2',  # 封面页 - 蓝紫渐变
+            '#f093fb, #f5576c',  # 内容页1 - 粉红渐变
+            '#4facfe, #00f2fe',  # 内容页2 - 蓝色渐变
+            '#43e97b, #38f9d7',  # 内容页3 - 绿色渐变
+            '#fa709a, #fee140',  # 内容页4 - 橙粉渐变
+            '#a8edea, #fed6e3',  # 内容页5 - 青粉渐变
+            '#ffecd2, #fcb69f',  # 总结页 - 橙色渐变
+            '#667eea, #764ba2'   # 额外页面 - 重复使用
+        ]
+        
+        gradient = gradients[(i-1) % len(gradients)]
+        
+        # 根据页面类型设置不同的内容
+        if i == 1:
+            page_type = "封面页"
+            page_content = f"宝爸Conn为您分享{theme}的专业攻略"
+        elif i == total_images:
+            page_type = "总结页"
+            page_content = "总结要点，开启你的育儿新篇章"
+        else:
+            page_type = f"内容页{i-1}"
+            page_content = f"第{i-1}部分：实用育儿经验分享"
         
         html_content = f"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -1015,8 +1024,7 @@ def _generate_fallback_html_pages(design_spec: Dict[str, Any], theme: str) -> Di
     {HTML_BASE_STYLE}
     <style>
     .page-{i} {{
-        background: linear-gradient(135deg, 
-            {['#667eea, #764ba2', '#f093fb, #f5576c', '#4facfe, #00f2fe', '#43e97b, #38f9d7'][i-1]});
+        background: linear-gradient(135deg, {gradient});
         color: white;
     }}
     .content-box {{
@@ -1040,17 +1048,31 @@ def _generate_fallback_html_pages(design_spec: Dict[str, Any], theme: str) -> Di
         justify-content: center;
         font-weight: bold;
     }}
+    .page-type {{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }}
     </style>
 </head>
 <body class="page-{i}">
     <div class="container">
         <div class="page-number">{i}</div>
+        <div class="page-type">{page_type}</div>
         <div class="title">{theme}</div>
         <div class="content">
             <div class="content-box">
-                <p>这是第{i}页内容</p>
-                <p>宝爸Conn为您准备的实用育儿经验分享</p>
+                <p>{page_content}</p>
+                <p>系统正在为您生成更详细的内容...</p>
             </div>
+        </div>
+        <div style="position: absolute; bottom: 15px; right: 20px; font-size: 10px; opacity: 0.7;">
+            @宝爸Conn
         </div>
     </div>
 </body>
@@ -1099,14 +1121,94 @@ if __name__ == "__main__":
     else:
         print("✗ 执行模块初始化失败")
 
-def _get_fallback_design_spec(theme: str) -> Dict[str, Any]:
+def _get_fallback_design_spec(theme: str, image_count: int = None) -> Dict[str, Any]:
     """
-    获取fallback设计规范，用于AI生成失败时的备用方案（已整合优化版prompt）
+    获取fallback设计规范，用于AI生成失败时的备用方案
+    
+    Args:
+        theme (str): 主题
+        image_count (int): 明确的图片数量，必须指定
     """
+    if image_count is None:
+        logger.error("Fallback设计规范必须指定明确的图片数量")
+        raise ValueError("必须明确指定图片数量，不能使用默认值")
+    
+    # 确保图片数量在合理范围内
+    image_count = max(4, min(18, int(image_count)))
+    
+    # 生成对应数量的图片内容
+    image_contents = []
+    
+    for i in range(1, image_count + 1):
+        if i == 1:
+            # 封面图
+            image_content = {
+                "image_number": 1,
+                "type": "封面图",
+                "title": f"宝爸Conn分享：{theme}",
+                "main_content": f"【第一次当爸妈必看】{theme}完整攻略，让你少走弯路！",
+                "visual_elements": ["巨大标题44px", "核心要点概览", "温暖色调"],
+                "color_scheme": "温暖橙色系",
+                "layout": "图文插画型内容封面",
+                "height_constraint": "严格控制在560px以内"
+            }
+        elif i == image_count:
+            # 总结图
+            image_content = {
+                "image_number": i,
+                "type": "总结图",
+                "title": "核心要点总结",
+                "main_content": "总结所有要点，互动引导和下期预告",
+                "visual_elements": ["要点列表", "互动引导", "结尾互动"],
+                "color_scheme": "渐变紫色系",
+                "layout": "列表式布局",
+                "height_constraint": "严格控制在560px以内"
+            }
+        else:
+            # 内容图
+            content_titles = [
+                "核心方法详解",
+                "关键要点解析", 
+                "实践技巧分享",
+                "进阶技巧库",
+                "避坑指南"
+            ]
+            
+            color_schemes = [
+                "清新绿色系",
+                "温馨蓝色系", 
+                "活力橙色系",
+                "专业紫色系",
+                "警示红色系"
+            ]
+            
+            layouts = [
+                "上下结构布局",
+                "左右对比布局",
+                "卡片式布局",
+                "流程图布局",
+                "网格式布局"
+            ]
+            
+            content_index = (i - 2) % len(content_titles)
+            
+            image_content = {
+                "image_number": i,
+                "type": "内容图", 
+                "title": content_titles[content_index],
+                "main_content": f"具体的{content_titles[content_index]}，包含真实的经验分享和注意事项",
+                "visual_elements": ["步骤编号", "重点文字", "个人经历"],
+                "color_scheme": color_schemes[content_index],
+                "layout": layouts[content_index],
+                "height_constraint": "严格控制在560px以内"
+            }
+        
+        image_contents.append(image_content)
+    
     return {
         "content_overview": {
             "theme": theme,
-            "total_images": 4,
+            "total_images": image_count,
             "target_audience": "年轻父母群体",
             "content_style": "宝爸Conn的温暖实用分享",
             "persona_voice": "有温度的专业主义者，像学霸朋友一样"
@@ -1125,52 +1227,11 @@ def _get_fallback_design_spec(theme: str) -> Dict[str, Any]:
 准爸爸们，你们现在进行到哪一步了？评论区一起交流经验呀！咱们抱团取暖，互相支持💪
 
 #育儿经验 #宝爸日常 #实用技巧 #新手爸妈 #准爸爸必看""",
-        "image_contents": [
-            {
-                "image_number": 1,
-                "type": "封面图",
-                "title": f"宝爸Conn分享：{theme}",
-                "main_content": f"【第一次当爸妈必看】{theme}完整攻略，让你少走弯路！",
-                "visual_elements": ["巨大标题44px", "核心要点概览", "温暖色调"],
-                "color_scheme": "温暖橙色系",
-                "layout": "图文插画型内容封面",
-                "height_constraint": "严格控制在560px以内"
-            },
-            {
-                "image_number": 2,
-                "type": "内容图", 
-                "title": "关键要点详解",
-                "main_content": "具体的方法和步骤说明，包含真实的经验分享和注意事项",
-                "visual_elements": ["步骤编号", "重点文字", "个人经历"],
-                "color_scheme": "清新绿色系",
-                "layout": "上下结构布局",
-                "height_constraint": "严格控制在560px以内"
-            },
-            {
-                "image_number": 3,
-                "type": "内容图",
-                "title": "避坑指南",
-                "main_content": "常见问题和解决方案，用实际案例说明",
-                "visual_elements": ["对比数据", "重点提醒", "感官体验"],
-                "color_scheme": "温馨蓝色系",
-                "layout": "左右对比布局",
-                "height_constraint": "严格控制在560px以内"
-            },
-            {
-                "image_number": 4,
-                "type": "总结图",
-                "title": "核心要点总结",
-                "main_content": "总结所有要点，互动引导和下期预告",
-                "visual_elements": ["要点列表", "互动引导", "结尾互动"],
-                "color_scheme": "渐变紫色系",
-                "layout": "列表式布局",
-                "height_constraint": "严格控制在560px以内"
-            }
-        ],
+        "image_contents": image_contents,
         "design_principles": {
             "size_constraint": "420x560px（3:4黄金比例）",
             "font_hierarchy": "主标题44px，章节标题22px，正文13px（高密度）",
-            "color_palette": ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1"],
+            "color_palette": ["#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1", "#5758bb", "#ff9ff3"],
             "spacing": "内边距25px 15px，元素间距适中",
             "visual_consistency": "统一的圆角风格，一致的阴影效果",
             "brand_signature": "@宝爸Conn右下角水印，不占文档流"
@@ -1181,3 +1242,70 @@ def _get_fallback_design_spec(theme: str) -> Dict[str, Any]:
             "emotional_triggers": ["真实经历共鸣", "具体效果证明", "温暖陪伴感"]
         }
     }
+
+def _adjust_fallback_spec_for_count(fallback_spec: Dict[str, Any], count: int) -> Dict[str, Any]:
+    """
+    调整fallback设计规范的图片数量
+    
+    Args:
+        fallback_spec (Dict[str, Any]): 原始的fallback设计规范
+        count (int): 目标图片数量
+        
+    Returns:
+        Dict[str, Any]: 调整后的设计规范
+    """
+    import copy
+    
+    # 深拷贝原始规范，避免修改原对象
+    adjusted_spec = copy.deepcopy(fallback_spec)
+    
+    # 获取原始图片内容
+    original_images = adjusted_spec.get("image_contents", [])
+    
+    # 如果目标数量小于等于原始数量，直接截取
+    if count <= len(original_images):
+        adjusted_spec["image_contents"] = original_images[:count]
+        adjusted_spec["content_overview"]["total_images"] = count
+        return adjusted_spec
+    
+    # 如果需要增加图片，智能生成额外内容
+    new_images = original_images.copy()
+    
+    # 额外图片的功能类型
+    additional_types = [
+        {"type": "实用工具", "title": "实用工具清单", "content": "核心工具和资源汇总"},
+        {"type": "进阶技巧", "title": "进阶应用方法", "content": "高级策略和深度应用"},
+        {"type": "案例分析", "title": "真实案例分享", "content": "成功案例和效果展示"},
+        {"type": "避坑指南", "title": "常见误区对比", "content": "错误示范vs正确方法"},
+        {"type": "扩展阅读", "title": "相关知识拓展", "content": "延伸学习和深度理解"},
+        {"type": "行动计划", "title": "具体行动步骤", "content": "可执行的完整计划"},
+        {"type": "效果评估", "title": "效果检验方法", "content": "如何判断和评估效果"},
+        {"type": "资源推荐", "title": "推荐资源汇总", "content": "有用的书籍、工具、网站等"}
+    ]
+    
+    # 为额外的图片生成内容
+    for i in range(len(original_images), count):
+        # 选择一个额外类型
+        extra_type = additional_types[(i - len(original_images)) % len(additional_types)]
+        
+        # 创建新的图片内容
+        new_image = {
+            "image_number": i + 1,
+            "type": extra_type["type"],
+            "title": extra_type["title"],
+            "main_content": extra_type["content"],
+            "visual_elements": ["清晰标题", "核心要点", "实用信息"],
+            "color_scheme": f"配色方案{(i % 5) + 1}",
+            "layout": "简洁实用布局",
+            "height_constraint": "严格控制在560px以内"
+        }
+        
+        new_images.append(new_image)
+    
+    # 更新设计规范
+    adjusted_spec["image_contents"] = new_images
+    adjusted_spec["content_overview"]["total_images"] = count
+    
+    logger.info(f"✅ 已调整fallback设计规范，图片数量: {len(original_images)} → {count}")
+    
+    return adjusted_spec

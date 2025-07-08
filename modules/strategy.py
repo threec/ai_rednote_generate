@@ -109,7 +109,16 @@ def _build_strategy_prompt(topic: str) -> str:
 **用户输入的主题：** {topic}
 
 **你的任务：**
-请为这个主题制定一个完整的内容策略，输出一个包含以下结构的JSON对象：
+请为这个主题制定一个完整的内容策略。根据主题的复杂度和信息量，智能决定最合适的图片数量。
+
+**图片数量决策原则：**
+- 根据主题的信息密度和用户理解需求来判断
+- 简单主题：确保信息清晰完整
+- 复杂主题：确保深度覆盖，不遗漏重要信息
+- 每张图片都必须有独特价值和明确功能
+- 优先考虑用户的认知负担和理解效果
+
+输出一个包含以下结构的JSON对象：
 
 ```json
 {{
@@ -117,20 +126,20 @@ def _build_strategy_prompt(topic: str) -> str:
         "target_audience": {{
             "primary_audience": "主要目标受众描述",
             "demographics": "人群特征分析",
-            "pain_points": ["痛点1", "痛点2", "痛点3"],
-            "emotional_triggers": ["情感触发点1", "情感触发点2"],
+            "pain_points": ["痛点1", "痛点2", "痛点3", "..."],
+            "emotional_triggers": ["情感触发点1", "情感触发点2", "..."],
             "content_preferences": "内容偏好分析"
         }},
         "market_analysis": {{
             "competition_landscape": "竞争环境分析",
             "content_gaps": "内容空白点",
             "opportunity_assessment": "机会评估",
-            "trending_elements": ["热门元素1", "热门元素2"]
+            "trending_elements": ["热门元素1", "热门元素2", "..."]
         }},
         "insights": {{
-            "key_findings": ["关键发现1", "关键发现2"],
-            "strategic_recommendations": ["策略建议1", "策略建议2"],
-            "content_angles": ["内容角度1", "内容角度2", "内容角度3"]
+            "key_findings": ["关键发现1", "关键发现2", "..."],
+            "strategic_recommendations": ["策略建议1", "策略建议2", "..."],
+            "content_angles": ["内容角度1", "内容角度2", "..."]
         }}
     }},
     "creative_blueprint": {{
@@ -138,50 +147,40 @@ def _build_strategy_prompt(topic: str) -> str:
             "core_message": "核心信息",
             "value_proposition": "价值主张",
             "unique_angle": "独特角度",
-            "call_to_action": "行动号召"
+            "call_to_action": "行动号召",
+            "complexity_assessment": "主题复杂度评估（简单/中等/复杂）"
         }},
         "content_structure": {{
             "opening_hook": "开头吸引点设计",
             "main_body": {{
-                "section_1": "第一部分内容要点",
-                "section_2": "第二部分内容要点",
-                "section_3": "第三部分内容要点"
+                "section_count": "根据主题复杂度决定的章节数量",
+                "sections": [
+                    {{
+                        "section_title": "章节标题",
+                        "section_content": "章节要点",
+                        "information_density": "信息密度评估"
+                    }}
+                ]
             }},
             "closing": "结尾设计"
         }},
         "visual_plan": {{
-            "image_count": 4,
+            "image_count": "根据主题复杂度智能决定的最佳图片数量",
+            "content_coverage_strategy": "内容覆盖策略说明",
             "images": [
                 {{
-                    "position": 1,
-                    "purpose": "图片1的作用",
-                    "description": "图片1的详细描述",
-                    "style": "图片1的风格要求"
-                }},
-                {{
-                    "position": 2,
-                    "purpose": "图片2的作用",
-                    "description": "图片2的详细描述",
-                    "style": "图片2的风格要求"
-                }},
-                {{
-                    "position": 3,
-                    "purpose": "图片3的作用",
-                    "description": "图片3的详细描述",
-                    "style": "图片3的风格要求"
-                }},
-                {{
-                    "position": 4,
-                    "purpose": "图片4的作用",
-                    "description": "图片4的详细描述",
-                    "style": "图片4的风格要求"
+                    "position": "图片序号",
+                    "purpose": "图片功能定位（如：封面图、基础概念、核心方法、实操细节、进阶技巧、案例展示、避坑指南、总结升华等）",
+                    "description": "图片内容详细描述",
+                    "style": "图片风格要求",
+                    "information_weight": "信息权重（高/中/低）"
                 }}
             ]
         }},
         "engagement_design": {{
-            "interactive_elements": ["互动元素1", "互动元素2"],
-            "discussion_starters": ["讨论话题1", "讨论话题2"],
-            "shareability_factors": ["分享因素1", "分享因素2"]
+            "interactive_elements": ["互动元素1", "互动元素2", "..."],
+            "discussion_starters": ["讨论话题1", "讨论话题2", "..."],
+            "shareability_factors": ["分享因素1", "分享因素2", "..."]
         }},
         "content_tone": {{
             "personality": "内容人格特征",
@@ -194,13 +193,26 @@ def _build_strategy_prompt(topic: str) -> str:
 ```
 
 **重要要求：**
-1. 必须严格按照上述JSON结构输出
-2. 每个字段都要有具体、实用的内容，不要使用占位符
-3. 体现"宝爸Conn"的温暖、专业和实用的特质
-4. 确保策略具有强烈的可操作性和针对性
-5. 图片规划要与内容紧密配合，每张图片都有明确的功能定位
+1. 必须根据主题实际复杂度动态决定图片数量，不要使用固定值
+2. 每张图片都要有独特的价值和功能定位
+3. 确保内容深度和信息密度与图片数量匹配
+4. 简单主题不要强行拆分过多图片，复杂主题不要压缩信息
+5. 体现"宝爸Conn"的温暖、专业和实用的特质
+6. 确保策略具有强烈的可操作性和针对性
+7. 图片规划要形成完整的认知升级路径
 
-请现在开始你的策略规划工作。
+**图片功能类型参考：**
+- 封面图：吸引注意，建立期待
+- 概念图：基础认知，理念建立
+- 方法图：核心流程，步骤指导
+- 细节图：具体操作，实用技巧
+- 进阶图：高级策略，深度内容
+- 对比图：错误避坑，正确示范
+- 案例图：真实例证，效果展示  
+- 工具图：实用清单，操作指南
+- 总结图：要点归纳，行动引导
+
+请根据"{topic}"这个主题的具体特点，智能决定最合适的图片数量和内容分配。
 """
 
 def _call_gemini_api(prompt: str, retries: int = 0) -> Dict[str, Any]:

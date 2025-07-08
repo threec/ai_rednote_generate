@@ -326,14 +326,13 @@ class AtomicDesignerEngine(BaseWorkflowEngine):
         if narrative_data.get("page_breakdown"):
             page_breakdown = narrative_data["page_breakdown"]
         else:
-            # 默认6页结构
+            # 如果没有明确的页面分解，创建基础结构（最少4页）
+            self.logger.warning("叙事数据中没有页面分解信息，使用基础4页结构")
             page_breakdown = [
                 {"page_number": 1, "page_type": "封面页", "page_title": f"掌握{topic}的关键秘诀"},
                 {"page_number": 2, "page_type": "内容页", "page_title": f"{topic}的核心方法"},
                 {"page_number": 3, "page_type": "内容页", "page_title": f"实践{topic}的具体步骤"},
-                {"page_number": 4, "page_type": "内容页", "page_title": f"{topic}的进阶技巧"},
-                {"page_number": 5, "page_type": "对比页", "page_title": f"{topic}的常见误区"},
-                {"page_number": 6, "page_type": "结尾页", "page_title": f"开始你的{topic}之旅"}
+                {"page_number": 4, "page_type": "结尾页", "page_title": f"开始你的{topic}之旅"}
             ]
         
         return {
