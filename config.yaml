@@ -1,0 +1,158 @@
+# 小红书内容自动化生成系统 V2.0 配置文件
+# 这是系统的核心配置，包含所有引擎、AI模型、路径等设置
+
+# 系统信息
+system:
+  name: "ai_rednote_generate"
+  version: "2.0.0"
+  environment: "development"
+  debug: true
+  log_level: "INFO"
+
+# AI模型配置
+ai:
+  provider: "google"
+  model_name: "gemini-pro"
+  api_key: "${GOOGLE_API_KEY}"  # 从环境变量读取
+  temperature: 0.7
+  max_tokens: 2048
+  timeout: 30
+  retry_attempts: 3
+  retry_delay: 1.0
+
+# 引擎配置
+engines:
+  # 第一认知象限：战略构想
+  persona_core:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "人格核心引擎"
+    
+  strategy_compass:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "策略罗盘引擎"
+    
+  truth_detector:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "真理探机引擎"
+    
+  insight_distiller:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "洞察提炼器引擎"
+    
+  # 第二认知象限：叙事表达
+  narrative_prism:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "叙事棱镜引擎"
+    
+  atomic_designer:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "原子设计师引擎"
+    
+  visual_encoder:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "视觉编码器引擎"
+    
+  hifi_imager:
+    enabled: true
+    cache_ttl: 3600
+    retry_attempts: 3
+    timeout: 30
+    description: "高保真成像仪引擎"
+
+# 工作流配置
+workflow:
+  enable_cache: true
+  cache_ttl: 3600
+  parallel_engines: false  # 暂时禁用，未来实现
+  max_concurrent: 2
+  timeout: 300
+  auto_save: true
+  
+# 路径配置
+paths:
+  cache_dir: "cache"
+  output_dir: "output"
+  logs_dir: "logs"
+  templates_dir: "templates"
+  temp_dir: "temp"
+
+# Git自动化配置
+git:
+  auto_commit: true
+  commit_on_engine_complete: true
+  commit_on_major_changes: true
+  commit_prefix: "feat"
+  auto_push: false  # 安全起见，默认不自动推送
+  branch: "main"
+  
+# 错误处理配置
+error_handling:
+  max_retries: 3
+  retry_delay: 1.0
+  fail_fast: false
+  log_errors: true
+  save_error_reports: true
+  
+# 输出格式配置
+output:
+  default_format: "hybrid"  # text, json, markdown, hybrid
+  enable_structured_data: true
+  enable_metadata: true
+  auto_validate: true
+  compression: false
+  
+# 缓存配置
+cache:
+  enabled: true
+  default_ttl: 3600
+  max_size: "100MB"
+  cleanup_interval: 86400
+  strategy: "lru"
+  
+# 性能配置
+performance:
+  async_enabled: true
+  thread_pool_size: 4
+  memory_limit: "512MB"
+  timeout_warning_threshold: 20
+  
+# 安全配置
+security:
+  api_rate_limit: 60  # 每分钟请求数
+  content_filter: true
+  log_sensitive_data: false
+  
+# 小红书平台配置
+xiaohongshu:
+  max_title_length: 20
+  max_content_length: 1000
+  image_count: 4
+  preferred_tags: ["育儿", "生活", "分享"]
+  
+# 开发配置
+development:
+  mock_ai_responses: false
+  save_debug_info: true
+  enable_profiling: false
+  test_mode: false 

@@ -1,246 +1,244 @@
 """
-小红书内容自动化管线 - LangChain 8引擎工作流系统
-RedCube AI 工作流深度复刻版本
+RedCube AI 工作流系统 - 重构版
+集成新的核心组件：配置管理、异常处理、依赖注入、输出管理
 
-基于LangChain框架实现的专业级内容生成工作流，包含8个核心引擎：
-1. 人格核心引擎 - 建立统一的内容人格
-2. 策略罗盘引擎 - 内容战略规划
-3. 真理探机引擎 - 权威事实验证
-4. 洞察提炼器引擎 - 核心价值挖掘  
-5. 叙事棱镜引擎 - 故事架构设计
-6. 原子设计师引擎 - 页面布局设计
-7. 视觉编码器引擎 - HTML/CSS代码生成
-8. 高保真成像仪引擎 - 图片生成优化
-
-采用"系统思维"而非"指令思维"，让AI扮演"架构师"而非"命令者"
+核心改进：
+1. 使用统一配置管理
+2. 集成异常处理框架
+3. 采用依赖注入模式
+4. 使用混合数据流架构
+5. 改进错误恢复机制
 """
 
-import os
-import json
 import asyncio
-import sys
-from typing import Dict, Any, List, Optional, Tuple, Union
 from datetime import datetime
+from typing import Dict, Any, Optional, List
 from pathlib import Path
-import importlib
 
-# LangChain核心组件
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate, ChatPromptTemplate
-from langchain.schema import BaseMessage, HumanMessage, SystemMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.memory import ConversationBufferMemory
-from langchain.schema.runnable import RunnableLambda, RunnablePassthrough
-from langchain.schema.output_parser import StrOutputParser
-from langchain_core.runnables import RunnableSequence
-
-# 项目内部导入
-from config import (
-    GEMINI_API_KEY, MODEL_FOR_EXECUTION, 
-    CACHE_DIR, OUTPUT_DIR, DEFAULT_TEMPERATURE
+# 核心组件导入
+from modules.core.config import get_config, get_config_value
+from modules.core.exceptions import (
+    WorkflowException, EngineException, SystemException,
+    ErrorCode, get_exception_handler
 )
-from modules.utils import get_logger, save_json, load_json
+from modules.core.container import get_engine_container, EngineContainer
+from modules.core.output import (
+    get_output_manager, UnifiedOutput, ContentType, OutputFormat
+)
+
+# 传统组件导入
+from modules.utils import get_logger
 from modules.models import get_langchain_model
-from modules.git_automation import get_git_automation, auto_commit_if_needed, commit_checkpoint
-
-# ===================================
-# 核心配置
-# ===================================
-
-logger = get_logger(__name__)
-
-class RedCubeWorkflowConfig:
-    """RedCube AI 工作流配置类"""
-    
-    # 引擎配置
-    ENGINES = {
-        "persona_core": "人格核心",
-        "strategy_compass": "策略罗盘", 
-        "truth_detector": "真理探机",
-        "insight_distiller": "洞察提炼器",
-        "narrative_prism": "叙事棱镜",
-        "atomic_designer": "原子设计师",
-        "visual_encoder": "视觉编码器",
-        "hifi_imager": "高保真成像仪"
-    }
-    
-    # 工作流阶段
-    PHASES = {
-        "strategic_thinking": "第一认知象限：战略构想",
-        "narrative_expression": "第二认知象限：叙事表达"
-    }
-
-# ===================================
-# 基础工作流引擎类
-# ===================================
-
-class FlexibleOutput:
-    """灵活的输出格式管理"""
-    
-    def __init__(self, engine_name: str, topic: str):
-        self.engine_name = engine_name
-        self.topic = topic
-        self.metadata = {}
-        self.content = ""
-        self.format_type = "json"  # json, text, hybrid
-    
-    def set_metadata(self, **kwargs):
-        """设置元数据"""
-        self.metadata.update(kwargs)
-    
-    def set_content(self, content: str, format_type: str = "text"):
-        """设置内容"""
-        self.content = content
-        self.format_type = format_type
-    
-    def to_result(self) -> Dict[str, Any]:
-        """转换为标准结果格式"""
-        result = {
-            "engine": self.engine_name,
-            "version": "1.0.0",
-            "topic": self.topic,
-            "format_type": self.format_type,
-            "metadata": self.metadata,
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        
-        if self.format_type == "json":
-            # 传统JSON模式
-            result["data"] = json.loads(self.content) if isinstance(self.content, str) else self.content
-        elif self.format_type == "text":
-            # 纯文本模式
-            result["content"] = self.content
-        elif self.format_type == "hybrid":
-            # 混合模式：结构化数据 + 文本报告
-            result["content"] = self.content
-            result["structured_data"] = self.metadata.get("structured_data", {})
-        
-        return result
-    
-    def save(self, cache_dir: str):
-        """保存到缓存"""
-        cache_path = Path(cache_dir)
-        cache_path.mkdir(parents=True, exist_ok=True)
-        
-        # 保存元数据
-        metadata_file = cache_path / f"{self.engine_name}_metadata.json"
-        with open(metadata_file, 'w', encoding='utf-8') as f:
-            json.dump(self.metadata, f, ensure_ascii=False, indent=2)
-        
-        # 保存内容
-        if self.format_type in ["text", "hybrid"]:
-            content_file = cache_path / f"{self.engine_name}_content.txt"
-            with open(content_file, 'w', encoding='utf-8') as f:
-                f.write(self.content)
-        
-        # 保存完整结果
-        result_file = cache_path / f"{self.engine_name}.json"
-        with open(result_file, 'w', encoding='utf-8') as f:
-            json.dump(self.to_result(), f, ensure_ascii=False, indent=2)
+from modules.git_automation import get_git_automation, commit_checkpoint
 
 class BaseWorkflowEngine:
-    """工作流引擎基类"""
+    """重构后的工作流引擎基类"""
     
-    def __init__(self, llm, logger=None):
-        self.llm = llm
-        self.logger = logger or get_logger()
-        self.cache_dir = "cache"
+    def __init__(self, llm=None, **kwargs):
+        # 获取核心服务
+        self.config = get_config()
+        self.logger = get_logger(self.__class__.__name__)
+        self.exception_handler = get_exception_handler()
+        self.output_manager = get_output_manager()
+        self.git_auto = get_git_automation() if get_config_value("git.auto_commit", True) else None
+        
+        # 引擎配置
         self.engine_name = self.__class__.__name__.lower().replace("engine", "")
-        self.git_auto = get_git_automation()
-    
-    def create_output(self, topic: str) -> FlexibleOutput:
-        """创建灵活的输出对象"""
-        return FlexibleOutput(self.engine_name, topic)
-    
-    def load_cache(self, topic: str, filename: str) -> Optional[Dict[str, Any]]:
-        """加载缓存文件"""
-        cache_path = Path(self.cache_dir) / f"engine_{self.engine_name}" / filename
-        if cache_path.exists():
-            try:
-                with open(cache_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except Exception as e:
-                self.logger.warning(f"加载缓存失败: {e}")
-        return None
-    
-    def save_cache(self, topic: str, data: Dict[str, Any], filename: str):
-        """保存缓存文件"""
-        cache_dir = Path(self.cache_dir) / f"engine_{self.engine_name}"
-        cache_dir.mkdir(parents=True, exist_ok=True)
+        self.llm = llm
+        self.cache_enabled = get_config_value("workflow.enable_cache", True)
+        self.cache_dir = Path(get_config_value("paths.cache_dir", "cache"))
         
-        cache_path = cache_dir / filename
-        with open(cache_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        # 初始化引擎
+        self._initialize_engine()
     
-    def load_flexible_cache(self, topic: str) -> Optional[Dict[str, Any]]:
-        """加载灵活格式的缓存"""
-        cache_dir = Path(self.cache_dir) / f"engine_{self.engine_name}"
-        result_file = cache_dir / f"{self.engine_name}.json"
-        
-        if result_file.exists():
-            try:
-                with open(result_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except Exception as e:
-                self.logger.warning(f"加载灵活缓存失败: {e}")
-        return None
-    
-    async def execute_with_git(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        """带Git自动提交的执行"""
-        topic = inputs.get("topic", "")
-        
-        # 执行引擎逻辑
-        result = await self.execute(inputs)
-        
-        # 检查是否成功并自动提交
-        if result.get("execution_status") == "success":
-            commit_result = self.git_auto.commit_on_engine_complete(
-                self.engine_name, topic
+    def _initialize_engine(self):
+        """初始化引擎"""
+        try:
+            # 检查引擎是否启用
+            engine_enabled = get_config_value(f"engines.{self.engine_name}.enabled", True)
+            if not engine_enabled:
+                self.logger.warning(f"引擎 {self.engine_name} 已禁用")
+                return
+            
+            # 创建缓存目录
+            engine_cache_dir = self.cache_dir / f"engine_{self.engine_name}"
+            engine_cache_dir.mkdir(parents=True, exist_ok=True)
+            
+            # 调用子类初始化
+            self._setup_engine()
+            
+            self.logger.info(f"✓ {self.engine_name} 引擎初始化成功")
+            
+        except Exception as e:
+            error_msg = f"引擎 {self.engine_name} 初始化失败"
+            self.logger.error(f"{error_msg}: {str(e)}")
+            raise EngineException(
+                self.engine_name, 
+                error_msg, 
+                ErrorCode.ENGINE_INIT_FAILED,
+                context={"initialization_error": str(e)},
+                cause=e
             )
-            if commit_result["success"]:
-                self.logger.info(f"✅ {self.engine_name}引擎完成，已自动提交Git")
-                result["git_commit"] = commit_result["commit_hash"]
-            else:
-                self.logger.warning(f"Git自动提交失败: {commit_result['message']}")
+    
+    def _setup_engine(self):
+        """子类应重写此方法进行具体初始化"""
+        pass
+    
+    def create_output(self, topic: str, content_type: ContentType = ContentType.REPORT) -> UnifiedOutput:
+        """创建统一输出对象"""
+        return self.output_manager.create_output(self.engine_name, topic, content_type)
+    
+    def load_cache(self, topic: str) -> Optional[UnifiedOutput]:
+        """加载缓存"""
+        if not self.cache_enabled:
+            return None
         
-        return result
+        try:
+            return self.output_manager.load_output(
+                self.engine_name, 
+                topic, 
+                subdirectory=f"engine_{self.engine_name}"
+            )
+        except Exception as e:
+            self.logger.warning(f"缓存加载失败: {str(e)}")
+            return None
     
-    async def execute(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        """执行引擎逻辑"""
-        raise NotImplementedError("子类必须实现execute方法")
-
-# ===================================
-# RedCube AI 主工作流类
-# ===================================
-
-class RedCubeWorkflow:
-    """RedCube AI 8引擎工作流主类"""
+    def save_cache(self, output: UnifiedOutput):
+        """保存缓存"""
+        if not self.cache_enabled:
+            return
+        
+        try:
+            self.output_manager.save_output(
+                output, 
+                subdirectory=f"engine_{self.engine_name}"
+            )
+        except Exception as e:
+            self.logger.warning(f"缓存保存失败: {str(e)}")
     
-    def __init__(self, api_key: str = GEMINI_API_KEY):
-        """初始化工作流"""
-        self.api_key = api_key
-        self.llm = ChatGoogleGenerativeAI(
-            google_api_key=api_key,
-            model=MODEL_FOR_EXECUTION,
-            temperature=DEFAULT_TEMPERATURE
+    async def execute_with_recovery(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
+        """带异常恢复的执行"""
+        topic = inputs.get("topic", "")
+        max_retries = get_config_value("error_handling.max_retries", 3)
+        retry_delay = get_config_value("error_handling.retry_delay", 1.0)
+        
+        for attempt in range(max_retries + 1):
+            try:
+                self.logger.info(f"🔄 {self.engine_name} 引擎执行 (尝试 {attempt + 1}/{max_retries + 1})")
+                
+                # 执行核心逻辑
+                result = await self.execute(inputs)
+                
+                # 检查执行结果
+                if result.get("success", True):
+                    # 自动提交Git（如果启用）
+                    if self.git_auto and get_config_value("git.commit_on_engine_complete", True):
+                        commit_result = self.git_auto.commit_on_engine_complete(
+                            self.engine_name, topic
+                        )
+                        if commit_result["success"]:
+                            result["git_commit"] = commit_result["commit_hash"]
+                
+                return result
+                
+            except Exception as e:
+                self.logger.error(f"引擎执行失败 (尝试 {attempt + 1}): {str(e)}")
+                
+                # 使用异常处理器
+                error_result = self.exception_handler.handle_exception(e)
+                
+                # 检查是否应该重试
+                if attempt < max_retries and error_result.get("should_retry", False):
+                    retry_delay_actual = error_result.get("retry_delay", retry_delay)
+                    self.logger.info(f"⏳ {retry_delay_actual}秒后重试...")
+                    await asyncio.sleep(retry_delay_actual)
+                    continue
+                else:
+                    # 返回错误结果
+                    return self._create_error_result(e, error_result)
+        
+        # 如果所有重试都失败了
+        return self._create_error_result(
+            Exception(f"引擎 {self.engine_name} 在 {max_retries} 次重试后仍然失败"),
+            {"success": False, "error": "max_retries_exceeded"}
+        )
+    
+    def _create_error_result(self, exception: Exception, error_result: Dict[str, Any]) -> Dict[str, Any]:
+        """创建错误结果"""
+        topic = "unknown"
+        
+        # 创建错误输出
+        error_output = self.create_output(topic, ContentType.REPORT)
+        error_output.set_content(
+            f"# {self.engine_name} 引擎执行失败\n\n## 错误信息\n{str(exception)}\n\n## 错误详情\n{error_result}",
+            OutputFormat.TEXT
+        )
+        error_output.set_metadata(
+            execution_status="failed",
+            error_type=type(exception).__name__,
+            error_message=str(exception),
+            recovery_attempted=True
         )
         
-        # 工作流状态
-        self.current_topic = None
-        self.workflow_state = {}
+        return error_output.to_dict()
+    
+    async def execute(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
+        """执行引擎逻辑 - 子类必须实现"""
+        raise NotImplementedError("子类必须实现execute方法")
+
+class RedCubeWorkflow:
+    """重构后的RedCube AI工作流系统"""
+    
+    def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
+        # 获取核心服务
+        self.config = get_config()
+        self.logger = get_logger("RedCubeWorkflow")
+        self.exception_handler = get_exception_handler()
+        self.container = get_engine_container()
+        self.output_manager = get_output_manager()
+        self.git_auto = get_git_automation() if get_config_value("git.auto_commit", True) else None
         
-        # 初始化logger（必须在_initialize_engines之前）
-        self.logger = get_logger(__name__)
+        # 初始化AI模型
+        self.llm = self._initialize_llm(api_key, model_name)
         
-        # 初始化8个引擎
+        # 初始化引擎
         self.engines = {}
         self._initialize_engines()
+        
+        self.logger.info("🚀 RedCube AI 工作流系统初始化完成")
+    
+    def _initialize_llm(self, api_key: Optional[str], model_name: Optional[str]):
+        """初始化语言模型"""
+        try:
+            # 使用配置或参数
+            final_api_key = api_key or self.config.get("ai.api_key")
+            final_model_name = model_name or get_config_value("ai.model_name", "gemini-pro")
+            
+            if not final_api_key:
+                import os
+                final_api_key = os.environ.get("GOOGLE_API_KEY")
+            
+            if not final_api_key:
+                raise SystemException(
+                    "API密钥未配置",
+                    ErrorCode.API_KEY_MISSING,
+                    context={"required_env_var": "GOOGLE_API_KEY"}
+                )
+            
+            return get_langchain_model(final_api_key, final_model_name)
+            
+        except Exception as e:
+            raise SystemException(
+                f"语言模型初始化失败: {str(e)}",
+                ErrorCode.SYSTEM_INIT_FAILED,
+                cause=e
+            )
     
     def _initialize_engines(self):
         """初始化8个引擎"""
         self.logger.info("开始初始化RedCube AI 8个引擎...")
         
-        engine_classes = [
+        engine_configs = [
             ("persona_core", "PersonaCoreEngine"),
             ("strategy_compass", "StrategyCompassEngine"),
             ("truth_detector", "TruthDetectorEngine"),
@@ -251,192 +249,205 @@ class RedCubeWorkflow:
             ("hifi_imager", "HiFiImagerEngine")
         ]
         
-        for engine_name, engine_class_name in engine_classes:
+        success_count = 0
+        
+        for engine_name, engine_class_name in engine_configs:
             try:
-                # 使用绝对导入路径
+                # 检查引擎是否启用
+                if not get_config_value(f"engines.{engine_name}.enabled", True):
+                    self.logger.info(f"⏭️ {engine_name} 引擎已禁用，跳过")
+                    continue
+                
+                # 动态导入引擎
                 module_path = f"modules.engines.{engine_name}"
                 engine_module = __import__(module_path, fromlist=[engine_class_name])
                 engine_class = getattr(engine_module, engine_class_name)
                 
-                # 初始化引擎实例
+                # 实例化引擎
                 self.engines[engine_name] = engine_class(self.llm)
-                self.logger.info(f"✓ 引擎 {engine_name} 初始化成功")
-            except ImportError as e:
-                self.logger.warning(f"⚠️ 引擎 {engine_name} 导入失败: {e}")
-                self.engines[engine_name] = None
+                success_count += 1
+                
+                self.logger.info(f"✓ {engine_name} 引擎初始化成功")
+                
             except Exception as e:
-                self.logger.error(f"❌ 引擎 {engine_name} 初始化失败: {e}")
-                self.engines[engine_name] = None
+                self.logger.error(f"✗ {engine_name} 引擎初始化失败: {str(e)}")
+                
+                # 根据配置决定是否继续
+                fail_fast = get_config_value("error_handling.fail_fast", False)
+                if fail_fast:
+                    raise WorkflowException(
+                        f"引擎初始化失败: {engine_name}",
+                        ErrorCode.ENGINE_INIT_FAILED,
+                        context={"failed_engine": engine_name, "error": str(e)},
+                        cause=e
+                    )
         
-        successful_engines = [name for name, engine in self.engines.items() if engine is not None]
-        failed_engines = [name for name, engine in self.engines.items() if engine is None]
+        self.logger.info(f"🎯 引擎初始化完成: {success_count}/8 个引擎加载成功")
         
-        self.logger.info(f"引擎初始化完成: 成功 {len(successful_engines)}/{len(engine_classes)}")
-        if successful_engines:
-            self.logger.info(f"成功初始化的引擎: {', '.join(successful_engines)}")
-        if failed_engines:
-            self.logger.warning(f"初始化失败的引擎: {', '.join(failed_engines)}")
+        if success_count == 0:
+            raise SystemException(
+                "没有任何引擎初始化成功",
+                ErrorCode.SYSTEM_INIT_FAILED
+            )
     
-    async def run_complete_workflow(self, topic: str, force_regenerate: bool = False) -> Dict[str, Any]:
-        """运行完整的8引擎工作流"""
-        self.current_topic = topic
-        self.logger.info(f"开始执行RedCube AI 8引擎工作流，主题：{topic}")
+    async def execute_workflow(self, topic: str, **kwargs) -> Dict[str, Any]:
+        """执行完整工作流"""
+        self.logger.info(f"🎬 开始执行RedCube AI工作流 - 主题: {topic}")
+        
+        # 创建执行上下文
+        context = {
+            "topic": topic,
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "force_regenerate": kwargs.get("force_regenerate", False),
+            "enable_git": kwargs.get("enable_git", get_config_value("git.auto_commit", True)),
+            "parallel_execution": kwargs.get("parallel_execution", get_config_value("workflow.parallel_engines", False))
+        }
         
         try:
-            # 第一认知象限：战略构想
-            strategic_results = await self._run_strategic_phase(topic, force_regenerate)
+            # 工作流开始检查点
+            if context["enable_git"]:
+                commit_checkpoint(f"开始工作流 - {topic}")
             
-            # 第二认知象限：叙事表达  
-            narrative_results = await self._run_narrative_phase(strategic_results, force_regenerate)
+            # 执行引擎阶段
+            if context["parallel_execution"]:
+                results = await self._execute_parallel_workflow(context)
+            else:
+                results = await self._execute_sequential_workflow(context)
             
-            # 整合最终结果
-            final_result = {
-                "topic": topic,
-                "timestamp": datetime.now().isoformat(),
-                "workflow_version": "RedCube_AI_v1.0",
-                "strategic_phase": strategic_results,
-                "narrative_phase": narrative_results,
-                "final_outputs": {
-                    "html_content": narrative_results.get("visual_encoder", {}).get("html_code", ""),
-                    "image_specs": narrative_results.get("hifi_imager", {}).get("image_specifications", []),
-                    "content_summary": strategic_results.get("insight_distiller", {}).get("core_insights", {}),
-                    "design_blueprint": narrative_results.get("atomic_designer", {}).get("design_specs", {})
-                }
-            }
+            # 构建最终结果
+            final_result = self._build_final_result(topic, context, results)
             
-            # 保存最终结果
-            output_path = os.path.join(OUTPUT_DIR, f"redcube_workflow_{topic[:20]}.json")
-            save_json(output_path, final_result)
+            # 保存工作流结果
+            self._save_workflow_result(topic, final_result)
             
-            self.logger.info(f"✓ RedCube AI 工作流执行完成，结果保存至：{output_path}")
+            # 最终提交
+            if context["enable_git"]:
+                final_commit = self.git_auto.auto_commit(
+                    f"完成完整工作流 - {topic}", "feat"
+                )
+                if final_commit["success"]:
+                    final_result["final_commit"] = final_commit["commit_hash"]
+            
+            self.logger.info("🎉 RedCube AI工作流执行完成")
             return final_result
             
         except Exception as e:
-            self.logger.error(f"工作流执行失败：{str(e)}")
-            raise
+            self.logger.error(f"工作流执行失败: {str(e)}")
+            error_result = self.exception_handler.handle_exception(e)
+            
+            # 返回错误结果
+            return {
+                "success": False,
+                "topic": topic,
+                "error": error_result,
+                "partial_results": context.get("partial_results", {})
+            }
     
-    async def _run_strategic_phase(self, topic: str, force_regenerate: bool) -> Dict[str, Any]:
-        """执行第一认知象限：战略构想"""
-        self.logger.info("开始执行第一认知象限：战略构想")
-        
+    async def _execute_sequential_workflow(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """串行执行工作流"""
+        topic = context["topic"]
         results = {}
         
-        # 1. 人格核心 - 建立统一的内容人格
-        if self.engines["persona_core"]:
-            persona_result = await self.engines["persona_core"].execute({
-                "topic": topic,
-                "force_regenerate": force_regenerate
-            })
-            results["persona_core"] = persona_result
-            self.workflow_state["persona"] = persona_result
+        # 第一认知象限：战略构想
+        self.logger.info("🧠 第一认知象限：战略构想阶段")
         
-        # 2. 策略罗盘 - 内容战略规划
-        if self.engines["strategy_compass"]:
-            strategy_inputs = {
-                "topic": topic,
-                "persona": self.workflow_state.get("persona", {}),
-                "force_regenerate": force_regenerate
-            }
-            strategy_result = await self.engines["strategy_compass"].execute(strategy_inputs)
-            results["strategy_compass"] = strategy_result
-            self.workflow_state["strategy"] = strategy_result
+        # 按依赖顺序执行
+        execution_order = [
+            ("persona_core", "人格核心"),
+            ("strategy_compass", "策略罗盘"),
+            ("truth_detector", "真理探机"),
+            ("insight_distiller", "洞察提炼器")
+        ]
         
-        # 3. 真理探机 - 权威事实验证
-        if self.engines["truth_detector"]:
-            truth_inputs = {
-                "topic": topic,
-                "strategy": self.workflow_state.get("strategy", {}),
-                "force_regenerate": force_regenerate
-            }
-            truth_result = await self.engines["truth_detector"].execute(truth_inputs)
-            results["truth_detector"] = truth_result
-            self.workflow_state["facts"] = truth_result
+        for engine_name, engine_desc in execution_order:
+            if engine_name in self.engines:
+                results[engine_name] = await self._execute_single_engine(
+                    engine_name, engine_desc, context, results
+                )
         
-        # 4. 洞察提炼器 - 核心价值挖掘
-        if self.engines["insight_distiller"]:
-            insight_inputs = {
-                "topic": topic,
-                "persona": self.workflow_state.get("persona", {}),
-                "strategy": self.workflow_state.get("strategy", {}),
-                "facts": self.workflow_state.get("facts", {}),
-                "force_regenerate": force_regenerate
-            }
-            insight_result = await self.engines["insight_distiller"].execute(insight_inputs)
-            results["insight_distiller"] = insight_result
-            self.workflow_state["insights"] = insight_result
+        # 战略阶段检查点
+        if context["enable_git"]:
+            commit_checkpoint(f"完成战略构想阶段 - {topic}")
+        
+        # 第二认知象限：叙事表达
+        self.logger.info("🎨 第二认知象限：叙事表达阶段")
+        
+        execution_order = [
+            ("narrative_prism", "叙事棱镜"),
+            ("atomic_designer", "原子设计师"),
+            ("visual_encoder", "视觉编码器"),
+            ("hifi_imager", "高保真成像仪")
+        ]
+        
+        for engine_name, engine_desc in execution_order:
+            if engine_name in self.engines:
+                results[engine_name] = await self._execute_single_engine(
+                    engine_name, engine_desc, context, results
+                )
         
         return results
     
-    async def _run_narrative_phase(self, strategic_results: Dict[str, Any], force_regenerate: bool) -> Dict[str, Any]:
-        """执行第二认知象限：叙事表达"""
-        self.logger.info("开始执行第二认知象限：叙事表达")
+    async def _execute_parallel_workflow(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """并行执行工作流（未来实现）"""
+        # 目前回退到串行执行
+        self.logger.info("并行执行模式尚未实现，回退到串行模式")
+        return await self._execute_sequential_workflow(context)
+    
+    async def _execute_single_engine(self, engine_name: str, engine_desc: str,
+                                   context: Dict[str, Any], 
+                                   previous_results: Dict[str, Any]) -> Dict[str, Any]:
+        """执行单个引擎"""
+        self.logger.info(f"🔧 执行{engine_desc}引擎...")
         
-        results = {}
+        engine = self.engines[engine_name]
         
-        # 5. 叙事棱镜 - 故事架构设计
-        if self.engines["narrative_prism"]:
-            narrative_inputs = {
-                "topic": self.current_topic,
-                "strategic_results": strategic_results,
-                "workflow_state": self.workflow_state,
-                "force_regenerate": force_regenerate
-            }
-            narrative_result = await self.engines["narrative_prism"].execute(narrative_inputs)
-            results["narrative_prism"] = narrative_result
-            self.workflow_state["narrative"] = narrative_result
+        # 准备引擎输入
+        engine_context = context.copy()
+        engine_context.update(previous_results)
         
-        # 6. 原子设计师 - 页面布局设计
-        if self.engines["atomic_designer"]:
-            design_inputs = {
-                "topic": self.current_topic,
-                "narrative": self.workflow_state.get("narrative", {}),
-                "insights": self.workflow_state.get("insights", {}),
-                "force_regenerate": force_regenerate
-            }
-            design_result = await self.engines["atomic_designer"].execute(design_inputs)
-            results["atomic_designer"] = design_result
-            self.workflow_state["design"] = design_result
+        # 执行引擎
+        result = await engine.execute_with_recovery(engine_context)
         
-        # 7. 视觉编码器 - HTML/CSS代码生成
-        if self.engines["visual_encoder"]:
-            encoder_inputs = {
-                "topic": self.current_topic,
-                "design": self.workflow_state.get("design", {}),
-                "narrative": self.workflow_state.get("narrative", {}),
-                "force_regenerate": force_regenerate
-            }
-            encoder_result = await self.engines["visual_encoder"].execute(encoder_inputs)
-            results["visual_encoder"] = encoder_result
-            self.workflow_state["html_code"] = encoder_result
+        return result
+    
+    def _build_final_result(self, topic: str, context: Dict[str, Any], 
+                           results: Dict[str, Any]) -> Dict[str, Any]:
+        """构建最终结果"""
+        successful_engines = sum(1 for result in results.values() 
+                               if result.get("success", True))
         
-        # 8. 高保真成像仪 - 图片生成优化
-        if self.engines["hifi_imager"]:
-            imager_inputs = {
-                "topic": self.current_topic,
-                "html_code": self.workflow_state.get("html_code", {}),
-                "design": self.workflow_state.get("design", {}),
-                "force_regenerate": force_regenerate
-            }
-            imager_result = await self.engines["hifi_imager"].execute(imager_inputs)
-            results["hifi_imager"] = imager_result
+        return {
+            "workflow": "redcube_ai_v2",
+            "version": "2.0.0",
+            "topic": topic,
+            "timestamp": context["timestamp"],
+            "execution_summary": {
+                "total_engines": len(self.engines),
+                "successful_engines": successful_engines,
+                "success_rate": successful_engines / len(self.engines) if self.engines else 0,
+                "enable_git": context["enable_git"],
+                "parallel_execution": context["parallel_execution"]
+            },
+            "results": results,
+            "success": successful_engines > 0
+        }
+    
+    def _save_workflow_result(self, topic: str, result: Dict[str, Any]):
+        """保存工作流结果"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_dir = Path(get_config_value("paths.output_dir", "output"))
+        workflow_dir = output_dir / f"redcube_{topic}_{timestamp}"
+        workflow_dir.mkdir(parents=True, exist_ok=True)
         
-        return results
+        result_file = workflow_dir / "redcube_workflow_result.json"
+        import json
+        with open(result_file, 'w', encoding='utf-8') as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        
+        self.logger.info(f"📁 工作流结果已保存: {result_file}")
 
-# ===================================
-# 工作流入口函数
-# ===================================
-
-async def run_redcube_workflow(topic: str, force_regenerate: bool = False) -> Dict[str, Any]:
-    """运行RedCube AI工作流的主入口函数"""
-    workflow = RedCubeWorkflow()
-    return await workflow.run_complete_workflow(topic, force_regenerate)
-
-def run_redcube_workflow_sync(topic: str, force_regenerate: bool = False) -> Dict[str, Any]:
-    """同步版本的工作流入口函数"""
-    return asyncio.run(run_redcube_workflow(topic, force_regenerate))
-
-if __name__ == "__main__":
-    # 测试代码
-    test_topic = "科学育儿的睡眠训练方法"
-    result = run_redcube_workflow_sync(test_topic)
-    print(f"工作流测试完成，主题：{test_topic}") 
+# 便捷函数
+def create_redcube_workflow(api_key: Optional[str] = None, 
+                           model_name: Optional[str] = None) -> RedCubeWorkflow:
+    """创建RedCube工作流实例"""
+    return RedCubeWorkflow(api_key, model_name) 
