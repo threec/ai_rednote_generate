@@ -3,8 +3,41 @@
 使用Pydantic定义结构化输出的数据模型，用于Google Genai API的结构化响应
 """
 
+import os
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
+
+# ===================================
+# LangChain相关函数
+# ===================================
+
+def get_api_key() -> Optional[str]:
+    """获取API密钥"""
+    return os.environ.get("GOOGLE_API_KEY")
+
+def get_langchain_model(api_key: Optional[str] = None, model_name: Optional[str] = None):
+    """获取LangChain模型实例"""
+    try:
+        from langchain_google_genai import ChatGoogleGenerativeAI
+        
+        if not api_key:
+            api_key = get_api_key()
+        
+        if not api_key:
+            raise ValueError("未提供API密钥，请设置GOOGLE_API_KEY环境变量")
+        
+        if not model_name:
+            model_name = "gemini-pro"
+        
+        return ChatGoogleGenerativeAI(
+            model=model_name,
+            google_api_key=api_key,
+            temperature=0.7,
+            max_tokens=2048,
+            timeout=30
+        )
+    except ImportError:
+        raise ImportError("LangChain Google GenAI未安装，请运行: pip install langchain-google-genai")
 
 # ===================================
 # 策略规划模块的数据模型

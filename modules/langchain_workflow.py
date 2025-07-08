@@ -239,23 +239,26 @@ class RedCubeWorkflow:
         self.logger.info("开始初始化RedCube AI 8个引擎...")
         
         engine_configs = [
-            ("persona_core", "PersonaCoreEngine"),
-            ("strategy_compass", "StrategyCompassEngine"),
-            ("truth_detector", "TruthDetectorEngine"),
-            ("insight_distiller", "InsightDistillerEngine"),
-            ("narrative_prism", "NarrativePrismEngine"),
-            ("atomic_designer", "AtomicDesignerEngine"),
-            ("visual_encoder", "VisualEncoderEngine"),
-            ("hifi_imager", "HiFiImagerEngine")
+            ("persona_core_v2", "PersonaCoreEngineV2"),
+            ("strategy_compass_v2", "StrategyCompassEngineV2"),
+            ("truth_detector_v2", "TruthDetectorEngineV2"),
+            ("insight_distiller_v2", "InsightDistillerEngineV2"),
+            ("narrative_prism_v2", "NarrativePrismEngineV2"),
+            ("atomic_designer_v2", "AtomicDesignerEngineV2"),
+            ("visual_encoder_v2", "VisualEncoderEngineV2"),
+            ("hifi_imager_v2", "HiFiImagerEngineV2")
         ]
         
         success_count = 0
         
         for engine_name, engine_class_name in engine_configs:
             try:
+                # 基础引擎名（去掉_v2后缀）
+                base_engine_name = engine_name.replace("_v2", "")
+                
                 # 检查引擎是否启用
-                if not get_config_value(f"engines.{engine_name}.enabled", True):
-                    self.logger.info(f"⏭️ {engine_name} 引擎已禁用，跳过")
+                if not get_config_value(f"engines.{base_engine_name}.enabled", True):
+                    self.logger.info(f"⏭️ {base_engine_name} 引擎已禁用，跳过")
                     continue
                 
                 # 动态导入引擎
@@ -264,10 +267,10 @@ class RedCubeWorkflow:
                 engine_class = getattr(engine_module, engine_class_name)
                 
                 # 实例化引擎
-                self.engines[engine_name] = engine_class(self.llm)
+                self.engines[base_engine_name] = engine_class(self.llm)
                 success_count += 1
                 
-                self.logger.info(f"✓ {engine_name} 引擎初始化成功")
+                self.logger.info(f"✓ {base_engine_name} 引擎V2初始化成功")
                 
             except Exception as e:
                 self.logger.error(f"✗ {engine_name} 引擎初始化失败: {str(e)}")

@@ -73,6 +73,7 @@ def main():
                        help='验证配置文件并退出')
     
     args = parser.parse_args()
+    logger = get_logger("main")
     
     try:
         # 初始化核心组件
@@ -107,34 +108,34 @@ def main():
             logger.warning(f"⚠️ 核心组件导入失败，回退到传统模式: {str(e)}")
             config = None
             exception_handler = None
-    
-    # 初始化Git自动化
-    git_auto = None
-    if args.git_auto:
-        git_auto = get_git_automation()
-        logger.info("📝 Git自动化已启用")
-    
-    # 手动Git操作
-    if args.git_checkpoint:
-        if not git_auto:
+        
+        # 初始化Git自动化
+        git_auto = None
+        if args.git_auto:
             git_auto = get_git_automation()
-        result = git_auto.create_commit_checkpoint(args.git_checkpoint)
-        if result["success"]:
-            logger.info(f"✅ 检查点创建成功: {args.git_checkpoint}")
-        else:
-            logger.error(f"❌ 检查点创建失败: {result['message']}")
-        return
-    
-    if args.git_message:
-        if not git_auto:
-            git_auto = get_git_automation()
-        result = git_auto.manual_commit(args.git_message)
-        if result["success"]:
-            logger.info(f"✅ 手动提交成功: {args.git_message}")
-        else:
-            logger.error(f"❌ 手动提交失败: {result['message']}")
-        return
-    
+            logger.info("📝 Git自动化已启用")
+        
+        # 手动Git操作
+        if args.git_checkpoint:
+            if not git_auto:
+                git_auto = get_git_automation()
+            result = git_auto.create_commit_checkpoint(args.git_checkpoint)
+            if result["success"]:
+                logger.info(f"✅ 检查点创建成功: {args.git_checkpoint}")
+            else:
+                logger.error(f"❌ 检查点创建失败: {result['message']}")
+            return
+        
+        if args.git_message:
+            if not git_auto:
+                git_auto = get_git_automation()
+            result = git_auto.manual_commit(args.git_message)
+            if result["success"]:
+                logger.info(f"✅ 手动提交成功: {args.git_message}")
+            else:
+                logger.error(f"❌ 手动提交失败: {result['message']}")
+            return
+        
         # 开始工作流
         if args.git_auto:
             commit_checkpoint(f"开始内容生成 - {args.topic}")
@@ -180,6 +181,7 @@ def main():
         logger.info("✅ 程序执行完成")
         
     except Exception as e:
+        logger = get_logger()
         logger.error(f"❌ 程序执行失败: {str(e)}")
         if args.verbose:
             import traceback
