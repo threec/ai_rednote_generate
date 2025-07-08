@@ -1,303 +1,313 @@
 """
-洞察提炼器引擎 V2.0 - 改进版
-采用文本分析报告+结构化元数据的混合输出模式
+洞察提炼器引擎 V2.0 - 重构版
+基于新核心架构，提供深度洞察分析和用户需求挖掘
 
-核心改进：
-1. 主要分析内容用文本形式输出，便于阅读和理解
-2. 关键数据和结论用结构化格式存储
-3. 避免复杂的JSON转义问题
-4. 更符合人类思维的输出方式
-
-目标：将零散数据升华为核心故事，挖掘爆款潜质
+目标：从数据中提炼出有价值的洞察，发现用户真实需求和痛点
 """
 
-import json
-import os
-import sys
 from typing import Dict, Any, Optional, List
-from pathlib import Path
-from datetime import datetime
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.output_parser import StrOutputParser
+from modules.engines.base_engine_v2 import AnalysisEngine
+from modules.core.output import ContentType, OutputFormat
 
-# 修复导入路径问题
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from modules.langchain_workflow import BaseWorkflowEngine
-from modules.utils import get_logger
-
-class InsightDistillerEngineV2(BaseWorkflowEngine):
-    """洞察提炼器引擎V2 - 混合输出模式"""
+class InsightDistillerEngineV2(AnalysisEngine):
+    """洞察提炼器引擎 V2.0"""
     
-    def __init__(self, llm):
-        super().__init__(llm)
-        self.engine_name = "insight_distiller_v2"
-        self._initialize_insight_chain()
+    def __init__(self, llm, **kwargs):
+        super().__init__(llm, **kwargs)
+        self.engine_name = "insight_distiller"
     
-    def _initialize_insight_chain(self):
-        """初始化洞察分析链"""
+    def _setup_processing_chain(self):
+        """设置洞察分析处理链"""
         
-        # 系统提示词 - 要求输出分析报告格式
-        system_prompt = """你是一个专业的内容策略分析师和洞察挖掘专家。
+        system_prompt = """你是一个资深的用户研究专家和数据洞察分析师。
 
-你的任务是基于事实验证结果，深度分析并提炼出核心洞察，形成一份专业的洞察分析报告。
+你的任务是从复杂的信息中提炼出深层的用户洞察，发现隐藏的需求模式和行为动机。
 
-**你的核心能力**：
-1. 从海量信息中提炼核心价值点
-2. 识别内容的爆款潜质和传播要素
-3. 将复杂数据转化为有故事性的洞察
-4. 预测内容的用户反响和传播效果
+**核心能力**：
+1. 用户行为模式识别和分析
+2. 深层心理需求挖掘
+3. 痛点和机会点识别
+4. 情感驱动因素分析
+5. 用户决策路径解构
+6. 潜在需求预测
 
-**报告要求**：
-- 以分析报告的形式输出，逻辑清晰，见解深刻
-- 重点突出Big Idea和核心价值主张
-- 包含具体的内容建议和执行要点
-- 语言专业但充满洞察力
+**分析维度**：
+- 用户行为洞察
+- 情感需求分析
+- 痛点深度挖掘
+- 决策影响因素
+- 使用场景分析
+- 潜在机会识别
 
-**报告结构**：
-# 洞察提炼分析报告
+**输出要求**：
+- 采用深度分析报告格式
+- 包含具体的洞察要点
+- 提供可执行的建议
+- 结合心理学和行为学原理
+- 确保洞察的可操作性
 
-## 1. 核心洞察摘要
-- 最重要的3个关键洞察
-- Big Idea核心理念
-- 目标用户的核心痛点
+输出格式：
+# 用户洞察深度分析报告
 
-## 2. 深度价值分析
-- 内容的独特价值主张
-- 与竞争内容的差异化优势
-- 用户获得感和共鸣点
+## 1. 核心洞察概览
+### 1.1 关键发现摘要
+### 1.2 洞察价值评估
+### 1.3 影响力分析
 
-## 3. 爆款潜质评估
-- 传播要素分析
-- 用户分享动机
-- 病毒传播可能性
+## 2. 用户行为洞察
+### 2.1 行为模式识别
+### 2.2 使用场景分析
+### 2.3 决策路径解构
 
-## 4. 故事化包装建议
-- 核心故事线设计
-- 情感共鸣点挖掘
-- 具体的表达建议
+## 3. 深层需求挖掘
+### 3.1 显性需求分析
+### 3.2 隐性需求发现
+### 3.3 情感驱动因素
 
-## 5. 内容执行要点
-- 关键信息层次
-- 重点突出策略
-- 互动设计建议
+## 4. 痛点与机会分析
+### 4.1 核心痛点识别
+### 4.2 痛点程度评估
+### 4.3 解决方案机会
 
-## 6. 预期效果评估
-- 目标用户反响预测
-- 传播效果评估
-- 潜在风险点提示
+## 5. 心理动机分析
+### 5.1 动机层次解构
+### 5.2 情感触发点
+### 5.3 心理预期管理
 
-请确保分析深入、洞察精准，为后续内容创作提供有力的指导。
+## 6. 可执行洞察
+### 6.1 内容策略指导
+### 6.2 用户体验优化
+### 6.3 价值主张调整
 """
 
         user_template = """
-请基于以下信息进行深度洞察分析：
+请对以下主题进行深度的用户洞察分析：
 
 **主题**: {topic}
 
-**人格档案**: {persona_summary}
-
-**策略方向**: {strategy_summary}
-
-**事实基础**: {truth_summary}
+**已有分析背景**:
+- 人格设定: {persona_info}
+- 策略分析: {strategy_info}
+- 事实核查: {truth_info}
 
 **分析要求**:
-1. 深度挖掘该主题的核心价值和独特洞察
-2. 识别内容的爆款潜质和传播要素
-3. 提炼出能够引起用户共鸣的Big Idea
-4. 给出具体的内容包装和执行建议
-5. 评估内容的预期效果和传播潜力
+1. 深入分析该主题下用户的真实需求和痛点
+2. 挖掘用户的深层心理动机和情感驱动因素
+3. 识别用户行为模式和决策影响因素
+4. 发现潜在的机会点和价值创造空间
+5. 提供具体可执行的洞察指导
 
-请输出一份完整的洞察分析报告。
+**特别关注**:
+- 用户在该领域的困惑和焦虑点
+- 信息获取和理解的障碍
+- 实际行动的阻碍因素
+- 情感支持和认同需求
+- 社交分享和互动动机
+
+请输出完整的用户洞察分析报告，确保洞察的深度性和可操作性。
 """
 
-        self.insight_prompt = ChatPromptTemplate.from_messages([
-            ("system", system_prompt),
-            ("human", user_template)
-        ])
+        prompt_template = self._create_prompt_template(system_prompt, user_template)
+        self.processing_chain = self._create_processing_chain(prompt_template)
+    
+    async def _process_content(self, inputs: Dict[str, Any]) -> str:
+        """处理内容 - 生成洞察分析"""
+        topic = inputs.get("topic", "")
         
-        self.insight_chain = (
-            self.insight_prompt
-            | self.llm
-            | StrOutputParser()
+        # 获取前序分析信息
+        persona_info = self._extract_info(inputs, "persona_core", "未提供人格设定")
+        strategy_info = self._extract_info(inputs, "strategy_compass", "未提供策略分析")
+        truth_info = self._extract_info(inputs, "truth_detector", "未提供事实核查")
+        
+        # 准备链输入
+        chain_inputs = {
+            "topic": topic,
+            "persona_info": persona_info,
+            "strategy_info": strategy_info,
+            "truth_info": truth_info
+        }
+        
+        # 执行AI处理
+        result = await self._invoke_chain_with_timeout(chain_inputs)
+        
+        return result
+    
+    def _extract_info(self, inputs: Dict[str, Any], key: str, default: str) -> str:
+        """提取前序分析信息"""
+        if key in inputs:
+            data = inputs[key]
+            if isinstance(data, dict) and "content" in data:
+                content = data["content"]
+                return content[:500] + "..." if len(content) > 500 else content
+        return default
+    
+    async def _post_process(self, output, inputs: Dict[str, Any]):
+        """后处理 - 提取洞察数据"""
+        content = output.content or ""
+        
+        # 提取结构化的洞察数据
+        insight_data = self._extract_insight_data(content)
+        if insight_data:
+            output.set_structured_data(insight_data)
+        
+        # 添加洞察相关元数据
+        output.set_metadata(
+            insight_analysis_completed=True,
+            has_behavior_insights=self._has_section(content, "行为洞察"),
+            has_need_analysis=self._has_section(content, "需求挖掘"),
+            has_pain_points=self._has_section(content, "痛点"),
+            has_psychological_analysis=self._has_section(content, "心理动机"),
+            has_actionable_insights=self._has_section(content, "可执行洞察"),
+            insight_depth=self._assess_insight_depth(content),
+            actionability_score=self._assess_actionability(content)
         )
     
-    async def execute(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
-        """执行洞察分析"""
-        topic = inputs.get("topic", "")
-        persona = inputs.get("persona", {})
-        strategy = inputs.get("strategy", {})
-        truth = inputs.get("truth", {})
-        force_regenerate = inputs.get("force_regenerate", False)
+    def _extract_insight_data(self, content: str) -> Dict[str, Any]:
+        """从分析报告中提取结构化的洞察数据"""
+        from datetime import datetime
         
-        self.logger.info(f"💡 洞察提炼器引擎V2启动 - 主题: {topic}")
+        insight_data = {
+            "analyzed_at": datetime.now().isoformat(),
+            "analysis_method": "deep_insight_analysis"
+        }
         
-        # 检查缓存
-        if not force_regenerate:
-            cached_result = self.load_flexible_cache(topic)
-            if cached_result:
-                self.logger.info("✓ 使用缓存的洞察分析报告")
-                return cached_result
+        # 提取关键洞察点
+        key_insights = []
+        lines = content.split('\n')
         
-        try:
-            # 提取各引擎的摘要信息
-            persona_summary = self._extract_persona_summary(persona)
-            strategy_summary = self._extract_strategy_summary(strategy)
-            truth_summary = self._extract_truth_summary(truth)
-            
-            # 执行洞察分析链
-            self.logger.info("执行洞察深度分析...")
-            report_text = await self.insight_chain.ainvoke({
-                "topic": topic,
-                "persona_summary": persona_summary,
-                "strategy_summary": strategy_summary,
-                "truth_summary": truth_summary
-            })
-            
-            # 创建灵活输出
-            output = self.create_output(topic)
-            
-            # 设置文本内容
-            output.set_content(report_text, "text")
-            
-            # 设置元数据
-            output.set_metadata(
-                engine_version="2.0",
-                topic=topic,
-                analysis_type="insight_distillation",
-                word_count=len(report_text.split()),
-                execution_status="success",
-                insight_quality="high",
-                viral_potential="evaluated",
-                big_idea_extracted=True,
-                dependencies={
-                    "persona": bool(persona),
-                    "strategy": bool(strategy),
-                    "truth": bool(truth)
-                }
-            )
-            
-            # 转换为结果
-            result = output.to_result()
-            
-            # 保存缓存
-            self.save_cache(topic, result, "insight_distiller_v2.json")
-            
-            self.logger.info("✓ 洞察分析报告完成")
-            return result
-            
-        except Exception as e:
-            self.logger.error(f"洞察提炼器引擎V2执行失败: {str(e)}")
-            
-            # 创建错误输出
-            output = self.create_output(topic)
-            output.set_content(self._get_fallback_report(topic), "text")
-            output.set_metadata(
-                execution_status="fallback",
-                error=str(e),
-                topic=topic
-            )
-            
-            return output.to_result()
+        for i, line in enumerate(lines):
+            # 查找洞察要点
+            if any(keyword in line for keyword in ["洞察", "发现", "关键", "核心"]):
+                if line.strip() and not line.startswith('#'):
+                    key_insights.append(line.strip())
+        
+        if key_insights:
+            insight_data["key_insights"] = key_insights[:8]  # 限制数量
+        
+        # 提取痛点信息
+        pain_points = []
+        for line in lines:
+            if any(keyword in line for keyword in ["痛点", "困难", "挑战", "障碍", "问题"]):
+                if line.strip() and not line.startswith('#'):
+                    pain_points.append(line.strip())
+        
+        if pain_points:
+            insight_data["pain_points"] = pain_points[:5]
+        
+        # 提取用户需求
+        user_needs = []
+        for line in lines:
+            if any(keyword in line for keyword in ["需求", "期望", "希望", "想要", "渴望"]):
+                if line.strip() and not line.startswith('#'):
+                    user_needs.append(line.strip())
+        
+        if user_needs:
+            insight_data["user_needs"] = user_needs[:5]
+        
+        # 提取行为模式
+        behavior_patterns = []
+        for line in lines:
+            if any(keyword in line for keyword in ["行为", "模式", "习惯", "倾向", "偏好"]):
+                if line.strip() and not line.startswith('#'):
+                    behavior_patterns.append(line.strip())
+        
+        if behavior_patterns:
+            insight_data["behavior_patterns"] = behavior_patterns[:5]
+        
+        # 提取可执行建议
+        actionable_suggestions = []
+        for line in lines:
+            if any(keyword in line for keyword in ["建议", "策略", "方案", "措施", "优化"]):
+                if line.strip() and not line.startswith('#'):
+                    actionable_suggestions.append(line.strip())
+        
+        if actionable_suggestions:
+            insight_data["actionable_suggestions"] = actionable_suggestions[:6]
+        
+        # 检查分析完整性
+        completeness_score = 0
+        if insight_data.get("key_insights"):
+            completeness_score += 2
+        if insight_data.get("pain_points"):
+            completeness_score += 2
+        if insight_data.get("user_needs"):
+            completeness_score += 2
+        if insight_data.get("behavior_patterns"):
+            completeness_score += 2
+        if insight_data.get("actionable_suggestions"):
+            completeness_score += 2
+        
+        insight_data["completeness_score"] = completeness_score
+        insight_data["analysis_quality"] = "high" if completeness_score >= 8 else "medium" if completeness_score >= 6 else "low"
+        
+        return insight_data
     
-    def _extract_persona_summary(self, persona: Dict[str, Any]) -> str:
-        """提取人格档案摘要"""
-        if not persona:
-            return "通用内容人格"
-        
-        persona_data = persona.get("persona_data", {})
-        persona_core = persona_data.get("persona_core", {})
-        
-        name = persona_core.get("signature_identity", {}).get("name", "内容创作者")
-        style = persona_core.get("voice_and_tone", {}).get("language_style", "专业亲切")
-        
-        return f"人格: {name}, 风格: {style}"
+    def _has_section(self, content: str, section_keyword: str) -> bool:
+        """检查内容是否包含特定章节"""
+        return section_keyword in content
     
-    def _extract_strategy_summary(self, strategy: Dict[str, Any]) -> str:
-        """提取策略摘要"""
-        if not strategy:
-            return "通用内容战略"
+    def _assess_insight_depth(self, content: str) -> str:
+        """评估洞察深度"""
+        depth_indicators = ["心理", "动机", "深层", "根本", "本质", "潜在"]
+        depth_count = sum(1 for indicator in depth_indicators if indicator in content)
         
-        strategy_data = strategy.get("strategy_data", {})
-        approach = strategy_data.get("strategy_selection", {}).get("recommended_approach", "")
-        core_msg = strategy_data.get("content_strategy", {}).get("core_message", "")
-        
-        return f"策略: {approach}, 核心信息: {core_msg}"
+        if depth_count >= 4:
+            return "deep"
+        elif depth_count >= 2:
+            return "medium"
+        else:
+            return "shallow"
     
-    def _extract_truth_summary(self, truth: Dict[str, Any]) -> str:
-        """提取事实摘要"""
-        if not truth:
-            return "基础事实验证"
+    def _assess_actionability(self, content: str) -> int:
+        """评估可执行性评分（1-10）"""
+        actionable_indicators = ["建议", "策略", "方案", "实施", "操作", "执行", "具体", "步骤"]
+        actionability_count = sum(1 for indicator in actionable_indicators if indicator in content)
         
-        # 如果是V2版本的文本格式
-        if "content" in truth:
-            content = truth["content"]
-            # 提取报告的关键信息
-            lines = content.split('\n')
-            key_facts = []
-            for line in lines:
-                if line.strip() and ('核心事实' in line or '权威数据' in line or '专家观点' in line):
-                    key_facts.append(line.strip())
-            return " | ".join(key_facts[:3]) if key_facts else "已完成基础事实验证"
-        
-        # 传统JSON格式
-        truth_data = truth.get("truth_data", {})
-        authority = truth_data.get("verification_summary", {}).get("authority_level", "中等")
-        
-        return f"事实验证: {authority}权威性"
+        # 基于可执行指标数量评分
+        score = min(actionability_count, 10)
+        return max(score, 1)  # 确保最低1分
     
-    def _get_fallback_report(self, topic: str) -> str:
-        """获取备用报告"""
-        return f"""# {topic} - 洞察分析报告
-
-## 1. 核心洞察摘要
-- 该主题具有良好的内容创作潜力
-- 目标用户对此类内容有明确需求
-- 可以通过专业角度提供独特价值
-
-## 2. 深度价值分析
-- 内容价值：为用户提供实用的指导和建议
-- 差异化优势：结合个人经验和专业知识
-- 用户获得感：解决实际问题，提升认知水平
-
-## 3. 爆款潜质评估
-- 传播要素：实用性强，有明确的目标群体
-- 分享动机：用户愿意分享有价值的内容
-- 病毒传播：中等潜力，需要精心设计传播点
-
-## 4. 故事化包装建议
-- 核心故事线：以问题-解决方案为主线
-- 情感共鸣点：关注用户的实际困难和需求
-- 表达建议：结合具体案例和实践经验
-
-## 5. 内容执行要点
-- 关键信息层次：重点突出核心观点
-- 重点突出策略：使用数据和案例支撑
-- 互动设计：鼓励用户分享经验和问题
-
-## 6. 预期效果评估
-- 目标用户反响：积极正面，有实用价值
-- 传播效果：稳定增长，目标群体精准
-- 潜在风险：注意信息的准确性和时效性
-
-**注意**: 这是一个备用分析报告，建议根据实际情况进行调整和优化。
-"""
-
-    def get_big_idea(self, topic: str) -> Optional[str]:
-        """获取核心Big Idea"""
-        cached_result = self.load_flexible_cache(topic)
-        if not cached_result:
-            return None
+    def get_insight_summary(self, topic: str) -> Dict[str, Any]:
+        """获取洞察摘要信息"""
+        cached_output = self.load_cache(topic)
+        if not cached_output:
+            return {"error": "未找到洞察分析"}
         
-        content = cached_result.get("content", "")
-        if content:
-            # 从报告中提取Big Idea
-            lines = content.split('\n')
-            for i, line in enumerate(lines):
-                if 'Big Idea' in line or '核心理念' in line:
-                    # 返回该行和下一行的内容
-                    if i + 1 < len(lines):
-                        return f"{line.strip()} {lines[i+1].strip()}"
-                    return line.strip()
+        structured_data = cached_output.structured_data or {}
+        content = cached_output.content
         
-        return None 
+        summary = {
+            "topic": topic,
+            "analysis_quality": structured_data.get("analysis_quality", "unknown"),
+            "completeness_score": structured_data.get("completeness_score", 0),
+            "insight_depth": structured_data.get("insight_depth", "unknown"),
+            "actionability_score": structured_data.get("actionability_score", 0),
+            "key_insights_count": len(structured_data.get("key_insights", [])),
+            "pain_points_count": len(structured_data.get("pain_points", [])),
+            "user_needs_count": len(structured_data.get("user_needs", [])),
+            "actionable_suggestions_count": len(structured_data.get("actionable_suggestions", [])),
+            "content_preview": content[:300] + "..." if len(content) > 300 else content
+        }
+        
+        # 添加洞察亮点
+        if structured_data.get("key_insights"):
+            summary["top_insights"] = structured_data["key_insights"][:3]
+        
+        if structured_data.get("pain_points"):
+            summary["main_pain_points"] = structured_data["pain_points"][:3]
+        
+        return summary
+    
+    def get_actionable_recommendations(self, topic: str) -> List[str]:
+        """获取可执行建议列表"""
+        summary = self.get_insight_summary(topic)
+        if "error" in summary:
+            return []
+        
+        cached_output = self.load_cache(topic)
+        structured_data = cached_output.structured_data or {}
+        
+        return structured_data.get("actionable_suggestions", [])
+
+# 向后兼容
+InsightDistillerEngine = InsightDistillerEngineV2 
