@@ -313,6 +313,10 @@ class GitAutomation:
         self.commit_config.update(kwargs)
         self.logger.info(f"Git自动提交配置已更新: {kwargs}")
     
+    def get_status(self) -> Dict[str, Any]:
+        """获取Git状态（check_git_status的别名）"""
+        return self.check_git_status()
+    
     def manual_commit(self, message: str) -> Dict[str, Any]:
         """手动提交"""
         status = self.check_git_status()

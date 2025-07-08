@@ -278,10 +278,11 @@ class SystemConfig:
             if key not in self.config_data or self.config_data[key].value is None:
                 errors.append(f"必需的配置项缺失: {key}")
         
-        # 检查API密钥
-        api_key = os.environ.get("GOOGLE_API_KEY")
-        if not api_key:
-            errors.append("缺少 GOOGLE_API_KEY 环境变量")
+        # 检查API密钥（测试模式下跳过）
+        if not os.environ.get("REDCUBE_TEST_MODE"):
+            api_key = os.environ.get("GOOGLE_API_KEY")
+            if not api_key:
+                errors.append("缺少 GOOGLE_API_KEY 环境变量")
         
         # 检查目录是否存在
         paths_to_check = ["paths.cache_dir", "paths.output_dir", "paths.logs_dir"]
@@ -312,6 +313,10 @@ class SystemConfig:
             "config_file": self.config_file,
             "file_exists": Path(self.config_file).exists()
         }
+    
+    def get_all_config(self) -> Dict[str, Any]:
+        """获取所有配置项"""
+        return {key: item.value for key, item in self.config_data.items()}
     
     def export_config(self, output_file: str):
         """导出配置到文件"""
@@ -352,4 +357,17 @@ def get_config_value(key: str, default: Any = None) -> Any:
 
 def set_config_value(key: str, value: Any):
     """设置配置值的便捷函数"""
-    get_config().set(key, value) 
+    get_config().set(key, value)
+
+def initialize_config(config_file: Optional[str] = None) -> SystemConfig:
+    """初始化配置系统的便捷函数"""
+    global _system_config
+    _system_config = SystemConfig(config_file)
+    return _system_config
+
+def get_all_config() -> Dict[str, Any]:
+    """获取所有配置项的便捷函数"""
+    config = get_config()
+    return {key: item.value for key, item in config.config_data.items()}
+
+# SystemConfig类的get_all_config方法通过实例方法提供 

@@ -286,6 +286,42 @@ class DependencyContainer:
             }
         }
 
+    def cleanup(self):
+        """清理容器"""
+        for service_name, config in self.services.items():
+            if config.get("cleanup_method"):
+                instance = self.scoped_instances.get(service_name)
+                if instance:
+                    try:
+                        cleanup_method = getattr(instance, config["cleanup_method"])
+                        cleanup_method()
+                    except Exception as e:
+                        print(f"清理服务 {service_name} 失败: {e}")
+        
+        self.scoped_instances.clear()
+        print("依赖注入容器已清理")
+    
+    def get_container_info(self) -> Dict[str, Any]:
+        """获取容器信息"""
+        return {
+            "total_services": len(self.services),
+            "active_instances": len(self.scoped_instances),
+            "registered_services": list(self.services.keys()),
+            "dependency_graph": self._get_dependency_graph(),
+            "lifecycle_status": {
+                service: "active" if service in self.scoped_instances else "registered"
+                for service in self.services.keys()
+            }
+        }
+    
+    def _get_dependency_graph(self) -> Dict[str, List[str]]:
+        """获取依赖关系图"""
+        graph = {}
+        for service_name, config in self.services.items():
+            dependencies = config.dependencies
+            graph[service_name] = dependencies
+        return graph
+
 class EngineContainer(DependencyContainer):
     """引擎专用依赖容器"""
     
